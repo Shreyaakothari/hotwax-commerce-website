@@ -82,6 +82,7 @@
 {% include './_blog.hubl.css' %}
 {% include './_system.hubl.css' %}
 {% include './_custom_typography.hubl.css' %}
+{% include './_devices.hubl.css' %}
 
 /*tablet first section design*/
 @media (min-width: 481px) and (max-width: 1023px) {

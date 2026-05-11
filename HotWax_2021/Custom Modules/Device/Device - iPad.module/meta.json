@@ -5,10 +5,6 @@
   "module_id" : 94598741622,
   "css_assets" : [ {
     "autoload" : true,
-    "path" : "../../../Code Files/Device Styles.css",
-    "name" : "Device Styles.css"
-  }, {
-    "autoload" : true,
     "path" : "../../../Code Files/Hotwax_Stylesheet_2021.css",
     "name" : "Hotwax_Stylesheet_2021.css"
   } ],
