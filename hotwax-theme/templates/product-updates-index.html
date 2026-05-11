@@ -13,6 +13,8 @@
       {% set path_parts = request.path|split('/') %}
       {% set active_year = archive_year %}
       {% set active_month = archive_month %}
+      {% set month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
+      {% set archive_posts = blog_recent_posts(group.id, 200) %}
       
       {# Fallback to URL path parsing if archive_year is null #}
       {% if not active_year and path_parts|length >= 4 %}
@@ -31,60 +33,64 @@
         {% set active_month = first_post.publish_date.month %}
       {% endif %}
 
+      {% if active_month and active_year %}
+        {% set prev_month = active_month - 1 %}
+        {% set prev_year = active_year %}
+        {% if prev_month == 0 %}
+          {% set prev_month = 12 %}
+          {% set prev_year = active_year - 1 %}
+        {% endif %}
+        
+        {% set prev_month_post = none %}
+        {% for p_post in blog_recent_posts(group.id, 200) %}
+          {% set p_y = p_post.publish_date|datetimeformat("%Y")|int %}
+          {% set p_m = p_post.publish_date|datetimeformat("%n")|int %}
+          {% if p_y == prev_year and p_m == prev_month %}
+            {% if not prev_month_post %}{% set prev_month_post = p_post %}{% endif %}
+            {% set is_rn_match = false %}
+            {% if p_post.name|lower is containing "release note" %}{% set is_rn_match = true %}{% endif %}
+            {% for t in p_post.topic_list %}
+              {% if t.name|lower is containing "release note" %}{% set is_rn_match = true %}{% endif %}
+            {% endfor %}
+            {% if is_rn_match %}{% set prev_month_post = p_post %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
 
-      <div class="blog-header mb-4">
+      <div class="blog-header">
         <h1 class="active-month-heading">
           {% if active_month %}
-            {% set month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
             {{ month_names[active_month - 1] }} {{ active_year }}
           {% else %}
             Product Updates
           {% endif %}
         </h1>
-      </div>
 
-      <div class="blog-index__filters d-flex flex-wrap gap-3 mb-4">
-        {# Type Filter (Topic-based) #}
-        <div class="blog-index__topic blog-tag-filter">
-          <div class="blog-tag-filter__select-wrapper">
-            <select name="type-select" id="type-select" class="blog-tag-filter__select" onchange="window.location.href=this.value">
-              <option value="{{ group.absolute_url }}">Filter by Type</option>
-              {% set update_url = blog_tag_url(group.id, 'product-update') %}
-              {% if update_url %}
-                <option {% if update_url in request.full_url %}selected{% endif %} value="{{ update_url }}">Update</option>
-              {% endif %}
-              {% set release_url = blog_tag_url(group.id, 'release-notes') %}
-              {% if release_url %}
-                <option {% if release_url in request.full_url %}selected{% endif %} value="{{ release_url }}">Release Notes</option>
-              {% endif %}
-            </select>
+        <div class="blog-index__filters">
+          {# Month Filter (Archive-based) #}
+          <div class="blog-index__topic blog-month-filter">
+            <div class="blog-tag-filter__select-wrapper">
+              <select name="month-select" id="month-select" class="blog-tag-filter__select" onchange="window.location.href=this.value">
+                <option value="{{ group.absolute_url }}">Filter by Month</option>
+                {% set last_month = "" %}
+                {% for post in archive_posts %}
+                  {% set current_year = post.publish_date.year %}
+                  {% set current_month = post.publish_date.month %}
+                  {% set month_key = current_year ~ '/' ~ current_month %}
+                  {% if month_key != last_month %}
+                    {% set month_url = blog_post_archive_url(group.id, current_year, current_month) %}
+                    <option 
+                      {% if month_url in request.full_url or (not archive_year and current_year == active_year and current_month == active_month) %}selected{% endif %} 
+                      value="{{ month_url }}"
+                    >
+                      {{ post.publish_date|datetimeformat('%B %Y') }}
+                    </option>
+                    {% set last_month = month_key %}
+                  {% endif %}
+                {% endfor %}
+              </select>
           </div>
         </div>
-
-        {# Month Filter (Archive-based) #}
-        <div class="blog-index__topic blog-month-filter">
-          {% set archive_posts = blog_recent_posts(group.id, 200) %}
-          <div class="blog-tag-filter__select-wrapper">
-            <select name="month-select" id="month-select" class="blog-tag-filter__select" onchange="window.location.href=this.value">
-              <option value="{{ group.absolute_url }}">Filter by Month</option>
-              {% set last_month = "" %}
-              {% for post in archive_posts %}
-                {% set current_year = post.publish_date.year %}
-                {% set current_month = post.publish_date.month %}
-                {% set month_key = current_year ~ '/' ~ current_month %}
-                {% if month_key != last_month %}
-                  {% set month_url = blog_post_archive_url(group.id, current_year, current_month) %}
-                  <option 
-                    {% if month_url in request.full_url or (not archive_year and current_year == active_year and current_month == active_month) %}selected{% endif %} 
-                    value="{{ month_url }}"
-                  >
-                    {{ post.publish_date|datetimeformat('%B %Y') }}
-                  </option>
-                  {% set last_month = month_key %}
-                {% endif %}
-              {% endfor %}
-            </select>
-          </div>
         </div>
       </div>
 
@@ -112,32 +118,10 @@
               {% set number = finishedPostWords|round %}
               {% if number < 1 %} A super quick read. {% else %} {{ finishedPostWords|round }} min read {% endif %}
             </div>
-            
-            <div class="d-flex flex-wrap blog-post__hero align-items-center mb-4 mx-n3 mx-md-n2">
-              <div class="col-md-6">
-                <div class="blog-bost__post-tags">
-                  {% if content.tag_list %}
-                    {% for tag in content.tag_list %}
-                      <a class="blog-post__tag-link" href="{{ blog_tag_url(group.id, tag.slug) }}">{{ tag.name }}</a>{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                  {% endif %}
-                </div>
-                <hr>
-                <h1 class="blog-post__title mb-4">{{ content.name }}</h1>
-                <div class="blog-post__meta mb-3">
-                  {{ content.publish_date|datetimeformat('%e %b, %Y') }}
-                </div>
-              </div>
-              <div class="col-md-6">
-                {% if content.featured_image %}
-                  <img class="blog-post__featured-image" src="{{ content.featured_image }}" alt="{{ content.featured_image_alt_text }}" loading="lazy" width="900">
-                {% endif %}
-              </div>
-            </div>
 
             <div class="row px-md-3 py-4 py-md-4 justify-content-center">
-              <div class="col-md-10 d-flex flex-column-reverse flex-md-row">
-                <div class="blog-post-body pl-lg-2 mb-4">
+              <div class="d-flex flex-column-reverse flex-md-row">
+                <div class="blog-post pl-lg-2 mb-4">
                   {{ content.post_body }}
                 </div>
               </div>
@@ -209,11 +193,63 @@
             {% endfor %}
           </div>
         {% endif %}
-      </div>
 
-      <div class="pagination">
-        {% module "pagination" path="@hubspot/pagination", label="Pagination" %}
+        {% if active_month and active_year and prev_month %}
+          <a href="{{ blog_post_archive_url(group.id, prev_year, prev_month) }}" class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <h3>View {{ month_names[prev_month - 1] }} {{ prev_year }} updates</h3>
+              </div>
+              {% if prev_month_post %}
+                <div class="card-description">
+                  <p>{{ (prev_month_post.post_summary or prev_month_post.post_list_content)|safe|striptags|truncate(150, True, '...') }}</p>
+                </div>
+              {% endif %}
+              <div class="card-cta">
+                <span class="more-link">View Notes <i class="fas fa-arrow-right"></i></span>
+              </div>
+            </div>
+          </a>
+        {% endif %}
       </div>
-    </div>
+      </div>
   </div>
 {% endblock body %}
+
+{% require_css %}
+  <style>
+
+    .blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .blogs.list-section {
+      padding-block-start: var(--spacer-lg);
+    }
+
+    .product-updates-index h2 {
+      margin-top: var(--spacer-lg);
+    }
+
+    .product-updates-index .blog-post-body h3 {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-body);
+      margin-top: var(--spacer-md);
+      margin-bottom: var(--spacer-sm);
+      letter-spacing: 0.02em;
+    }
+
+    .product-updates-index .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      background-color: var(--color-primary);
+      border-radius: 4px;
+    }
+  </style>
+{% end_require_css %}
