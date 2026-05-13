@@ -2,17 +2,19 @@
    Layout — 12-column CSS Grid system for HubSpot DnD areas
    ==========================================================================
 
-   Previously this file contained Bootstrap's float-based grid (layout) and a
-   separate CustomGrid.css file was loaded as a domain stylesheet to override
-   it with CSS Grid. Those two files have been merged here:
+   This file previously contained only Bootstrap's float-based grid. A
+   CustomGrid.css existed in HotWax_2021/Code Files/ but was never imported
+   anywhere — it was dead code.
 
-   - Bootstrap float rules, percentage widths, and IE hacks (*zoom, *width,
-     *margin-left) are removed — they were overridden by the CSS Grid block
-     anyway and no template depends on floats for column layout.
-   - CSS Grid is now the primary (and only) grid definition.
+   This rewrite replaces the Bootstrap float system with CSS Grid:
+
+   - Bootstrap float rules, percentage column widths, and IE hacks (*zoom,
+     *width, *margin-left) are removed.
+   - CSS Grid is now the primary grid definition for HubSpot DnD areas.
    - Utility and visibility classes are kept unchanged.
 
-   CustomGrid.css is no longer needed once this file is active.
+   NOTE: This is a first-time introduction of CSS Grid for column layout,
+   not a migration. Verify DnD page layouts visually before deploying.
    ========================================================================== */
 
 

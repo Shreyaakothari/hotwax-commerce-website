@@ -2,7 +2,7 @@
    container used by FirstFold and Device modules.
 
    Device-specific tokens live here; --grid-gap stays in _variables.css since
-   it's consumed by non-device code too (PageHeaders, CustomGrid).
+   it's consumed by non-device code too (PageHeaders, layout.css).
 
    Migrated from HotWax_2021/Code Files/Device Styles.css.
 
