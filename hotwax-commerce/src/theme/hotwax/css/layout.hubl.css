@@ -383,3 +383,71 @@
         display: none !important ;
     }
 }
+
+/* CSS Grid override
+   Replaces the Bootstrap float grid above with a 12-column CSS Grid layout
+   for HubSpot DnD areas. The tighter parent selector wins the cascade over
+   the .row-fluid float rules without removing them (legacy templates that
+   don't sit inside .widget-type-cell still get Bootstrap floats).
+   Migrated from HotWax_2021/Code Files/CustomGrid.css. */
+
+.widget-type-cell > .row-fluid-wrapper > .row-fluid {
+    --grid-display: grid;
+    --grid-gap: 25px;
+
+    display: var(--grid-display) !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-gap: var(--grid-gap);
+}
+
+.row-fluid:before,
+.row-fluid:after {
+    content: none !important;
+    display: unset !important;
+}
+
+.hs_cos_wrapper.hs_cos_wrapper_type_module {
+    height: 100%;
+}
+
+.dnd-row,
+.dnd-row .row-fluid,
+.dnd-module {
+    height: 100% !important;
+}
+
+.span1, .span2, .span3, .span4, .span5, .span6,
+.span7, .span8, .span9, .span10, .span11 {
+    width: auto !important;
+    display: unset !important;
+}
+
+.span1  { grid-column: span 1; }
+.span2  { grid-column: span 2; }
+.span3  { grid-column: span 3; }
+.span4  { grid-column: span 4; }
+.span5  { grid-column: span 5; }
+.span6  { grid-column: span 6; }
+.span7  { grid-column: span 7; }
+.span8  { grid-column: span 8; }
+.span9  { grid-column: span 9; }
+.span10 { grid-column: span 10; }
+.span11 { grid-column: span 11; }
+.span12 { grid-column: span 12; }
+
+@media only screen and (max-width: 1070px) {
+    .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8 {
+        grid-column: span 6;
+    }
+
+    .span9, .span10, .span11, .span12 {
+        grid-column: span 12;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .span1, .span2, .span3, .span4, .span5, .span6,
+    .span7, .span8, .span9, .span10, .span11, .span12 {
+        grid-column: span 12;
+    }
+}
