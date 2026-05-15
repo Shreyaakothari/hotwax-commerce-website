@@ -1,312 +1,118 @@
-/* Responsive Grid */
+/* ==========================================================================
+   Layout — 12-column CSS Grid system for HubSpot DnD areas
+   ==========================================================================
+
+   This file previously contained only Bootstrap's float-based grid. A
+   CustomGrid.css existed in HotWax_2021/Code Files/ but was never imported
+   anywhere — it was dead code.
+
+   This rewrite replaces the Bootstrap float system with CSS Grid:
+
+   - Bootstrap float rules, percentage column widths, and IE hacks (*zoom,
+     *width, *margin-left) are removed.
+   - CSS Grid is now the primary grid definition for HubSpot DnD areas.
+   - Utility and visibility classes are kept unchanged.
+
+   NOTE: This is a first-time introduction of CSS Grid for column layout,
+   not a migration. Verify DnD page layouts visually before deploying.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Base row
+   -------------------------------------------------------------------------- */
 
 .row-fluid {
     width: 100%;
-    *zoom: 1;
 }
 
-.row-fluid:before, .row-fluid:after {
-    display: table;
-    content: "";
+
+/* --------------------------------------------------------------------------
+   CSS Grid — 12-column layout for HubSpot DnD areas
+   -------------------------------------------------------------------------- */
+
+.widget-type-cell > .row-fluid-wrapper > .row-fluid {
+    --grid-display: grid;
+    --grid-gap: 25px;
+
+    display: var(--grid-display) !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-gap: var(--grid-gap);
 }
 
+/* Remove Bootstrap clearfix pseudo-elements so they don't interfere with grid */
+.row-fluid:before,
 .row-fluid:after {
-    clear: both;
+    content: none !important;
+    display: unset !important;
 }
 
-.row-fluid [class*="span"] {
-    display: block;
-    float: left;
-    width: 100%;
-    margin-left: 2.127659574%;
-    *margin-left: 2.0744680846382977%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
+/* Ensure modules fill their grid cell height */
+.hs_cos_wrapper.hs_cos_wrapper_type_module {
+    height: 100%;
 }
 
-.row-fluid [class*="span"]:first-child {
-    margin-left: 0;
+.dnd-row,
+.dnd-row .row-fluid,
+.dnd-module {
+    height: 100% !important;
 }
 
-.row-fluid .span12 {
-    width: 99.99999998999999%;
-    *width: 99.94680850063828%;
+/* Override Bootstrap's width/float on span elements */
+.span1, .span2, .span3, .span4, .span5, .span6,
+.span7, .span8, .span9, .span10, .span11 {
+    width: auto !important;
+    display: unset !important;
 }
 
-.row-fluid .span11 {
-    width: 91.489361693%;
-    *width: 91.4361702036383%;
+.span1  { grid-column: span 1; }
+.span2  { grid-column: span 2; }
+.span3  { grid-column: span 3; }
+.span4  { grid-column: span 4; }
+.span5  { grid-column: span 5; }
+.span6  { grid-column: span 6; }
+.span7  { grid-column: span 7; }
+.span8  { grid-column: span 8; }
+.span9  { grid-column: span 9; }
+.span10 { grid-column: span 10; }
+.span11 { grid-column: span 11; }
+.span12 { grid-column: span 12; }
+
+/* Tablet: spans 1–8 collapse to half-width, spans 9–12 go full-width */
+@media only screen and (max-width: 1070px) {
+    .span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8 {
+        grid-column: span 6;
+    }
+
+    .span9, .span10, .span11, .span12 {
+        grid-column: span 12;
+    }
 }
 
-.row-fluid .span10 {
-    width: 82.97872339599999%;
-    *width: 82.92553190663828%;
+/* Mobile: all spans go full-width */
+@media only screen and (max-width: 750px) {
+    .span1, .span2, .span3, .span4, .span5, .span6,
+    .span7, .span8, .span9, .span10, .span11, .span12 {
+        grid-column: span 12;
+    }
 }
 
-.row-fluid .span9 {
-    width: 74.468085099%;
-    *width: 74.4148936096383%;
-}
 
-.row-fluid .span8 {
-    width: 65.95744680199999%;
-    *width: 65.90425531263828%;
-}
-
-.row-fluid .span7 {
-    width: 57.446808505%;
-    *width: 57.3936170156383%;
-}
-
-.row-fluid .span6 {
-    width: 48.93617020799999%;
-    *width: 48.88297871863829%;
-}
-
-.row-fluid .span5 {
-    width: 40.425531911%;
-    *width: 40.3723404216383%;
-}
-
-.row-fluid .span4 {
-    width: 31.914893614%;
-    *width: 31.8617021246383%;
-}
-
-.row-fluid .span3 {
-    width: 23.404255317%;
-    *width: 23.3510638276383%;
-}
-
-.row-fluid .span2 {
-    width: 14.89361702%;
-    *width: 14.8404255306383%;
-}
-
-.row-fluid .span1 {
-    width: 6.382978723%;
-    *width: 6.329787233638298%;
-}
+/* --------------------------------------------------------------------------
+   Container
+   -------------------------------------------------------------------------- */
 
 .container-fluid {
-    *zoom: 1;
+    width: 100%;
 }
 
-.container-fluid:before, .container-fluid:after {
-    display: table;
-    content: "";
-}
 
-.container-fluid:after {
-    clear: both;
-}
+/* --------------------------------------------------------------------------
+   Clearfix utility
+   -------------------------------------------------------------------------- */
 
-@media (max-width: {{ (theme.layout.responsive_breakpoint - 1) }}px) {
-    .row-fluid {
-        width: 100%;
-    }
-
-    .row-fluid [class*="span"] {
-        display: block;
-        float: none;
-        width: auto;
-        margin-left: 0;
-    }
-}
-
-@media (min-width: {{ theme.layout.responsive_breakpoint }}px) and (max-width: 1139px) {
-    .row-fluid {
-        width: 100%;
-        *zoom: 1;
-    }
-
-    .row-fluid:before, .row-fluid:after {
-        display: table;
-        content: "";
-    }
-
-    .row-fluid:after {
-        clear: both;
-    }
-
-    .row-fluid [class*="span"] {
-        display: block;
-        float: left;
-        width: 100%;
-        margin-left: 2.762430939%;
-        *margin-left: 2.709239449638298%;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .row-fluid [class*="span"]:first-child {
-        margin-left: 0;
-    }
-
-    .row-fluid .span12 {
-        width: 99.999999993%;
-        *width: 99.9468085036383%;
-    }
-
-    .row-fluid .span11 {
-        width: 91.436464082%;
-        *width: 91.38327259263829%;
-    }
-
-    .row-fluid .span10 {
-        width: 82.87292817100001%;
-        *width: 82.8197366816383%;
-    }
-
-    .row-fluid .span9 {
-        width: 74.30939226%;
-        *width: 74.25620077063829%;
-    }
-
-    .row-fluid .span8 {
-        width: 65.74585634900001%;
-        *width: 65.6926648596383%;
-    }
-
-    .row-fluid .span7 {
-        width: 57.182320438000005%;
-        *width: 57.129128948638304%;
-    }
-
-    .row-fluid .span6 {
-        width: 48.618784527%;
-        *width: 48.5655930376383%;
-    }
-
-    .row-fluid .span5 {
-        width: 40.055248616%;
-        *width: 40.0020571266383%;
-    }
-
-    .row-fluid .span4 {
-        width: 31.491712705%;
-        *width: 31.4385212156383%;
-    }
-
-    .row-fluid .span3 {
-        width: 22.928176794%;
-        *width: 22.874985304638297%;
-    }
-
-    .row-fluid .span2 {
-        width: 14.364640883%;
-        *width: 14.311449393638298%;
-    }
-
-    .row-fluid .span1 {
-        width: 5.801104972%;
-        *width: 5.747913482638298%;
-    }
-}
-
-@media (min-width: 1280px) {
-    .row-fluid {
-        width: 100%;
-        *zoom: 1;
-    }
-
-    .row-fluid:before, .row-fluid:after {
-        display: table;
-        content: "";
-    }
-
-    .row-fluid:after {
-        clear: both;
-    }
-
-    .row-fluid [class*="span"] {
-        display: block;
-        float: left;
-        width: 100%;
-        margin-left: 2.564102564%;
-        *margin-left: 2.510911074638298%;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .row-fluid [class*="span"]:first-child {
-        margin-left: 0;
-    }
-
-    .row-fluid .span12 {
-        width: 100%;
-        *width: 99.94680851063829%;
-    }
-
-    .row-fluid .span11 {
-        width: 91.45299145300001%;
-        *width: 91.3997999636383%;
-    }
-
-    .row-fluid .span10 {
-        width: 82.905982906%;
-        *width: 82.8527914166383%;
-    }
-
-    .row-fluid .span9 {
-        width: 74.358974359%;
-        *width: 74.30578286963829%;
-    }
-
-    .row-fluid .span8 {
-        width: 65.81196581200001%;
-        *width: 65.7587743226383%;
-    }
-
-    .row-fluid .span7 {
-        width: 57.264957265%;
-        *width: 57.2117657756383%;
-    }
-
-    .row-fluid .span6 {
-        width: 48.717948718%;
-        *width: 48.6647572286383%;
-    }
-
-    .row-fluid .span5 {
-        width: 40.170940171000005%;
-        *width: 40.117748681638304%;
-    }
-
-    .row-fluid .span4 {
-        width: 31.623931624%;
-        *width: 31.5707401346383%;
-    }
-
-    .row-fluid .span3 {
-        width: 23.076923077%;
-        *width: 23.0237315876383%;
-    }
-
-    .row-fluid .span2 {
-        width: 14.529914530000001%;
-        *width: 14.4767230406383%;
-    }
-
-    .row-fluid .span1 {
-        width: 5.982905983%;
-        *width: 5.929714493638298%;
-    }
-}
-
-/* Clearfix */
-
-.clearfix {
-    *zoom: 1;
-}
-
-.clearfix:before, .clearfix:after {
+.clearfix:before,
+.clearfix:after {
     display: table;
     content: "";
 }
@@ -315,71 +121,30 @@
     clear: both;
 }
 
-/* Visibilty Classes */
 
-.hide {
-    display: none;
-}
+/* --------------------------------------------------------------------------
+   Visibility utilities
+   -------------------------------------------------------------------------- */
 
-.show {
-    display: block;
-}
+.hide      { display: none; }
+.show      { display: block; }
+.invisible { visibility: hidden; }
+.hidden    { display: none; visibility: hidden; }
 
-.invisible {
-    visibility: hidden;
-}
-
-.hidden {
-    display: none;
-    visibility: hidden;
-}
-
-/* Responsive Visibilty Classes */
-
-.visible-phone {
-    display: none !important;
-}
-
-.visible-tablet {
-    display: none !important;
-}
-
-.hidden-desktop {
-    display: none !important;
-}
+.visible-phone  { display: none !important; }
+.visible-tablet { display: none !important; }
+.hidden-desktop { display: none !important; }
 
 @media (max-width: 767px) {
-    .visible-phone {
-        display: inherit !important;
-    }
-
-    .hidden-phone {
-        display: none !important;
-    }
-
-    .hidden-desktop {
-        display: inherit !important;
-    }
-
-    .visible-desktop {
-        display: none !important;
-    }
+    .visible-phone  { display: inherit !important; }
+    .hidden-phone   { display: none !important; }
+    .hidden-desktop { display: inherit !important; }
+    .visible-desktop { display: none !important; }
 }
 
 @media (min-width: 768px) and (max-width: 1139px) {
-    .visible-tablet {
-        display: inherit !important;
-    }
-
-    .hidden-tablet {
-        display: none !important;
-    }
-
-    .hidden-desktop {
-        display: inherit !important;
-    }
-
-    .visible-desktop {
-        display: none !important ;
-    }
+    .visible-tablet  { display: inherit !important; }
+    .hidden-tablet   { display: none !important; }
+    .hidden-desktop  { display: inherit !important; }
+    .visible-desktop { display: none !important; }
 }
