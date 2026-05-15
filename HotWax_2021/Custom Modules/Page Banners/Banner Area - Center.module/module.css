@@ -1,5 +1,7 @@
 .hs-banner-wrapper {
   position: relative;
+  overflow: hidden;
+  min-height: var(--sun-visible-height, 20vh);
 }
 
 .hs-banner-content {

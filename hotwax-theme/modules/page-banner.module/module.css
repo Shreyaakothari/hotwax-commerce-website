@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  margin-top: var(--spacer-xl); /* Leverages theme's responsive rem scaling */
+  margin-top: calc(2 * var(--spacer-xl)); /* Leverages theme's responsive rem scaling */
 }
 
 .page-banner__inner {

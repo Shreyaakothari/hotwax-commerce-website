@@ -29,6 +29,19 @@
   "display_width" : null,
   "default" : ""
 }, {
+  "id" : "c21f0b1b-56e2-4c3f-a70d-3f49c54a4b18",
+  "name" : "sun_visible_percent",
+  "label" : "Sun visible (%)",
+  "help_text" : "Controls how much vertical space the animated sun can occupy before it is clipped. 20 keeps only a small slice visible.",
+  "required" : false,
+  "locked" : false,
+  "min" : 0,
+  "max" : 100,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 20
+}, {
   "id" : "6ad97e02-be8d-16c6-6895-d892c0460437",
   "name" : "button_type",
   "label" : "Button Type",

@@ -118,6 +118,11 @@ hr {
   padding: 0px;
 }
 
+.hs-banner-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
 *, *:before, *:after {
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
