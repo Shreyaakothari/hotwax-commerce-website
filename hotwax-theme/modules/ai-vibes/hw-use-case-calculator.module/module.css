@@ -181,7 +181,6 @@
   border-radius: 8px;
   display: grid;
   grid-auto-rows: 1fr;
-  height: 238px;
   overflow: hidden;
 }
 
@@ -195,6 +194,8 @@
   font: inherit;
   gap: 12px;
   grid-template-columns: 34px minmax(0, 1fr) auto;
+  min-height: 60px;
+  padding-block: 10px;
   padding-inline: var(--spacer-md);
   text-align: left;
   transition: background 0.2s ease, color 0.2s ease;
@@ -268,7 +269,7 @@
   display: grid;
   gap: 10px;
   grid-template-rows: auto 1fr;
-  height: 238px;
+  min-height: 238px;
   padding: 20px;
 }
 
@@ -322,7 +323,7 @@
   }
 
   .hw-online-atp-builder__detail {
-    height: 220px;
+    min-height: 220px;
   }
 }
 
@@ -430,6 +431,7 @@
 
   .hw-online-atp-builder__stack {
     height: auto;
+    min-height: 0;
   }
 
   .hw-online-atp-builder__row {
@@ -445,7 +447,7 @@
   }
 
   .hw-online-atp-builder__detail {
-    height: 238px;
+    min-height: 238px;
   }
 
   .hw-online-atp-builder__detail h3,

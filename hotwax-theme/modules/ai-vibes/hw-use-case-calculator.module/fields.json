@@ -48,6 +48,16 @@
   "display_width" : "half_width",
   "default" : "Units available for this SKU"
 }, {
+  "id" : "running_guardrails_copy",
+  "name" : "running_guardrails_copy",
+  "label" : "Running guardrails copy",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width",
+  "default" : "Running guardrails for this SKU"
+}, {
   "id" : "product_stock",
   "name" : "product_stock",
   "label" : "Product stock count",
@@ -66,6 +76,16 @@
   "type" : "text",
   "display_width" : "half_width",
   "default" : "Build Online ATP for this SKU"
+}, {
+  "id" : "product_availability_label",
+  "name" : "product_availability_label",
+  "label" : "Product availability label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width",
+  "default" : "Product availability"
 }, {
   "id" : "result_label",
   "name" : "result_label",

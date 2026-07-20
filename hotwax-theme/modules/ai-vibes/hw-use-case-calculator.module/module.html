@@ -1,6 +1,13 @@
-{% set first_guardrail = module.guardrails[0] %}
+{% set first_guardrail = module.guardrails|first %}
 {% set product_stock = module.product_stock|default(84) %}
-{% set first_amount = first_guardrail.amount|default(0) %}
+{% set first_amount = 0 %}
+{% if first_guardrail %}
+  {% set first_amount = first_guardrail.amount|default(0)|abs %}
+{% endif %}
+{% set first_available = product_stock - first_amount %}
+{% if first_available < 0 %}
+  {% set first_available = 0 %}
+{% endif %}
 
 <section class="hw-online-atp-builder" data-hw-atp-builder data-stock="{{ product_stock|escape_attr }}">
   {% if module.heading or module.description %}
@@ -17,6 +24,7 @@
     </div>
   {% endif %}
 
+  {% if first_guardrail %}
   <div class="hw-online-atp-builder__calculator">
     {% if module.calculation_title %}
       <div class="hw-online-atp-builder__bar">
@@ -45,7 +53,7 @@
       <div class="hw-online-atp-builder__metric hw-online-atp-builder__metric--deduct">
         <span class="hw-online-atp-builder__label">
           <small data-hw-atp-running-label>{{ first_guardrail.running_label|default("Safety stock applied")|escape_html }}</small>
-          <strong>Running guardrails for this SKU</strong>
+          <strong>{{ module.running_guardrails_copy|default("Running guardrails for this SKU")|escape_html }}</strong>
         </span>
         <span class="hw-online-atp-builder__value" data-hw-atp-running-value>{{ first_amount }}</span>
       </div>
@@ -57,7 +65,7 @@
           <small data-hw-atp-result-label>{{ module.result_label|default("Available after this rule")|escape_html }}</small>
           <strong>{{ module.result_copy|default("Sellable quantity after selected guardrails")|escape_html }}</strong>
         </span>
-        <span class="hw-online-atp-builder__value" data-hw-atp-result-value>{{ product_stock - first_amount }}</span>
+        <span class="hw-online-atp-builder__value" data-hw-atp-result-value>{{ first_available }}</span>
       </div>
     </div>
 
@@ -70,7 +78,7 @@
           </svg>
         </div>
         <div>
-          <small>Product availability</small>
+          <small>{{ module.product_availability_label|default("Product availability")|escape_html }}</small>
           <strong>{{ module.mobile_title|default("Build Online ATP for this SKU")|escape_html }}</strong>
         </div>
       </div>
@@ -86,7 +94,7 @@
         </div>
         <div class="hw-online-atp-builder__receipt-line hw-online-atp-builder__receipt-line--result">
           <span data-hw-atp-mobile-result-label>{{ module.result_label|default("Available after this rule")|escape_html }}</span>
-          <b data-hw-atp-mobile-result-value>{{ product_stock - first_amount }}</b>
+          <b data-hw-atp-mobile-result-value>{{ first_available }}</b>
         </div>
       </div>
     </div>
@@ -98,7 +106,7 @@
             class="hw-online-atp-builder__row{% if loop.first %} is-active is-applied{% endif %}"
             type="button"
             data-hw-atp-row
-            data-amount="{{ item.amount|default(0)|escape_attr }}"
+            data-amount="{{ item.amount|default(0)|abs|escape_attr }}"
             data-running-label="{{ item.running_label|default(item.label)|escape_attr }}"
             data-chip="{{ item.chip|default(item.label)|escape_attr }}"
             data-title="{{ item.detail_title|escape_attr }}"
@@ -114,7 +122,7 @@
               <small>{{ item.label|escape_html }}</small>
               <strong>{{ item.row_copy|escape_html }}</strong>
             </span>
-            <span class="hw-online-atp-builder__row-value">-{{ item.amount|default(0) }}</span>
+            <span class="hw-online-atp-builder__row-value">-{{ item.amount|default(0)|abs }}</span>
           </button>
         {% endfor %}
       </div>
@@ -128,4 +136,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </section>

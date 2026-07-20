@@ -1,4 +1,6 @@
 (function () {
+  "use strict";
+
   const modules = document.querySelectorAll("[data-hw-atp-builder]");
 
   modules.forEach((moduleElement) => {
@@ -31,7 +33,7 @@
     const activateRow = (activeIndex) => {
       const activeRow = rows[activeIndex];
       const runningAmount = getRunningAmount(activeIndex);
-      const resultAmount = stock - runningAmount;
+      const resultAmount = Math.max(0, stock - runningAmount);
 
       rows.forEach((row, index) => {
         const isActive = index === activeIndex;
