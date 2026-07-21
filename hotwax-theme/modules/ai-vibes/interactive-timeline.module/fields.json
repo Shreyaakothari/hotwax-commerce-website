@@ -1,0 +1,229 @@
+[ {
+  "id" : "timeline_label",
+  "name" : "timeline_label",
+  "label" : "Timeline accessibility label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Interactive timeline"
+}, {
+  "id" : "steps",
+  "name" : "steps",
+  "label" : "Timeline Steps",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 2,
+    "max" : 8,
+    "sorting_label_field" : "step_title",
+    "default" : 5
+  },
+  "children" : [ {
+    "id" : "step_title",
+    "name" : "step_title",
+    "label" : "Step title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Check inventory depth"
+  }, {
+    "id" : "step_description",
+    "name" : "step_description",
+    "label" : "Step description",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Check whether the location has enough sellable stock to complete the order before assigning demand."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "step_title" : "Check inventory depth",
+    "step_description" : "Confirm the location has enough sellable stock to complete the order before assigning demand."
+  }, {
+    "step_title" : "Check fulfillment capacity",
+    "step_description" : "Skip locations that are already overloaded, temporarily offline, or unable to accept more fulfillment work."
+  }, {
+    "step_title" : "Check product eligibility",
+    "step_description" : "Make sure the location is approved for the product, category, channel, and service requirement."
+  }, {
+    "step_title" : "Check cutoff time",
+    "step_description" : "Route orders before the location's fulfillment cutoff so the delivery promise can still be met."
+  }, {
+    "step_title" : "Assign the order",
+    "step_description" : "Send the order to the location most likely to pick, pack, and complete the sale."
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "background",
+    "name" : "background",
+    "label" : "Background",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "background_image",
+      "name" : "background_image",
+      "label" : "Background image",
+      "required" : false,
+      "locked" : false,
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : false,
+      "type" : "backgroundimage",
+      "display_width" : null,
+      "default" : {
+        "src" : "",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      }
+    }, {
+      "id" : "background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "required" : false,
+      "locked" : false,
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : null
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_image" : {
+        "src" : "",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_color" : {
+        "color" : "#ffffff",
+        "opacity" : 0
+      },
+      "background_gradient" : {
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : null
+        }
+      }
+    }
+  }, {
+    "id" : "horizontal_alignment",
+    "name" : "horizontal_alignment",
+    "label" : "Horizontal Alignment",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "desktop",
+      "name" : "desktop",
+      "label" : "Desktop",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "interactive-timeline--desktop-left", "Left" ], [ "interactive-timeline--desktop-center", "Center" ], [ "interactive-timeline--desktop-right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "interactive-timeline--desktop-center"
+    }, {
+      "id" : "tablet",
+      "name" : "tablet",
+      "label" : "Tablet",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "interactive-timeline--tablet-left", "Left" ], [ "interactive-timeline--tablet-center", "Center" ], [ "interactive-timeline--tablet-right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "interactive-timeline--tablet-center"
+    }, {
+      "id" : "mobile",
+      "name" : "mobile",
+      "label" : "Mobile",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "interactive-timeline--mobile-left", "Left" ], [ "interactive-timeline--mobile-center", "Center" ], [ "interactive-timeline--mobile-right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "interactive-timeline--mobile-center"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "desktop" : "interactive-timeline--desktop-center",
+      "tablet" : "interactive-timeline--tablet-center",
+      "mobile" : "interactive-timeline--mobile-center"
+    }
+  }, {
+    "id" : "vertical_alignment",
+    "name" : "vertical_alignment",
+    "label" : "Vertical Alignment",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "interactive-timeline--valign-top", "Top" ], [ "interactive-timeline--valign-center", "Center" ], [ "interactive-timeline--valign-bottom", "Bottom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "interactive-timeline--valign-top"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "horizontal_alignment" : {
+      "desktop" : "interactive-timeline--desktop-center",
+      "tablet" : "interactive-timeline--tablet-center",
+      "mobile" : "interactive-timeline--mobile-center"
+    },
+    "vertical_alignment" : "interactive-timeline--valign-top"
+  }
+} ]

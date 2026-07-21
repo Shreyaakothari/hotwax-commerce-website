@@ -1,0 +1,62 @@
+{% set timeline_steps = module.steps|default([]) %}
+{% set desktop_alignment = module.styles.horizontal_alignment.desktop|default("interactive-timeline--desktop-center", true) %}
+{% set tablet_alignment = module.styles.horizontal_alignment.tablet|default("interactive-timeline--tablet-center", true) %}
+{% set mobile_alignment = module.styles.horizontal_alignment.mobile|default("interactive-timeline--mobile-center", true) %}
+{% set vertical_alignment = module.styles.vertical_alignment|default("interactive-timeline--valign-top", true) %}
+
+{% require_css %}
+<style>
+  {% scope_css %}
+    {% if module.styles.background.background_color.color %}
+      .interactive-timeline {
+        background-color: rgba({{ module.styles.background.background_color.color|convert_rgb }}, {{ module.styles.background.background_color.opacity * 0.01 }});
+      }
+    {% endif %}
+    {% if module.styles.background.background_gradient.css %}
+      .interactive-timeline {
+        background-image: {{ module.styles.background.background_gradient.css }};
+      }
+    {% endif %}
+    {% if module.styles.background.background_image.src %}
+      .interactive-timeline {
+        background-image: url({{ module.styles.background.background_image.src|escape_url }});
+        background-position: {{ module.styles.background.background_image.background_position|lower|replace("_", " ") }};
+        background-size: {{ module.styles.background.background_image.background_size }};
+        background-repeat: no-repeat;
+      }
+    {% endif %}
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+{% if timeline_steps|length %}
+<section
+  class="interactive-timeline {{ desktop_alignment|escape_attr }} {{ tablet_alignment|escape_attr }} {{ mobile_alignment|escape_attr }} {{ vertical_alignment|escape_attr }}"
+  data-interactive-timeline
+>
+  <ol class="interactive-timeline__list" aria-label="{{ module.timeline_label|default("Interactive timeline", true)|escape_attr }}">
+    {% for item in timeline_steps %}
+      <li class="interactive-timeline__item">
+        <button
+          class="interactive-timeline__step{% if loop.first %} is-active{% endif %}"
+          type="button"
+          aria-expanded="{% if loop.first %}true{% else %}false{% endif %}"
+          data-interactive-timeline-step
+        >
+          <span class="interactive-timeline__dot" aria-hidden="true">{{ loop.index }}</span>
+          <span class="interactive-timeline__content">
+            <span class="interactive-timeline__title">{{ item.step_title|default("Timeline step", true)|escape_html }}</span>
+            <span
+              class="interactive-timeline__description"
+              {% if not loop.first %}aria-hidden="true"{% endif %}
+              data-interactive-timeline-description
+            >
+              {{ item.step_description|default("", true)|escape_html }}
+            </span>
+          </span>
+        </button>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
