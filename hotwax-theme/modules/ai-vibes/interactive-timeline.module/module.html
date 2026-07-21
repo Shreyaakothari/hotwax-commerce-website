@@ -1,0 +1,34 @@
+{% set timeline_steps = module.steps %}
+{% set background_style = module.background_style|default("transparent") %}
+{% set horizontal_alignment = module.styles.horizontal_alignment|default("left") %}
+{% set vertical_alignment = module.styles.vertical_alignment|default("top") %}
+
+{% if timeline_steps|length %}
+<section class="interactive-timeline interactive-timeline--{{ background_style|escape_attr }} interactive-timeline--align-{{ horizontal_alignment|escape_attr }} interactive-timeline--valign-{{ vertical_alignment|escape_attr }}" data-interactive-timeline>
+  <ol class="interactive-timeline__list" aria-label="Interactive timeline">
+    {% for item in timeline_steps %}
+      <li class="interactive-timeline__item">
+        <div
+          class="interactive-timeline__step{% if loop.first %} is-active{% endif %}"
+          role="button"
+          tabindex="0"
+          aria-expanded="{% if loop.first %}true{% else %}false{% endif %}"
+          data-interactive-timeline-step
+        >
+          <span class="interactive-timeline__dot" aria-hidden="true">{{ loop.index }}</span>
+          <span class="interactive-timeline__content">
+            <span class="interactive-timeline__title">{{ item.step_title|escape_html }}</span>
+            <span
+              class="interactive-timeline__description"
+              {% if not loop.first %}aria-hidden="true"{% endif %}
+              data-interactive-timeline-description
+            >
+              {{ item.step_description|escape_html }}
+            </span>
+          </span>
+        </div>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}

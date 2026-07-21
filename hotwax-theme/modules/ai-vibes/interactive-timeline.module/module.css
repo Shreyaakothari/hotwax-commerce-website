@@ -1,0 +1,192 @@
+.interactive-timeline {
+  --interactive-timeline-detail-min: 42px;
+  color: var(--color-text-body);
+  display: grid;
+  font-family: var(--font-family-body, "Open Sans", sans-serif);
+  margin-inline: auto;
+  max-width: var(--page-max-width);
+  min-height: 100%;
+  width: 100%;
+}
+
+.interactive-timeline,
+.interactive-timeline *,
+.interactive-timeline *::before,
+.interactive-timeline *::after {
+  box-sizing: border-box;
+}
+
+.interactive-timeline--soft_panel {
+  background: color-mix(in srgb, var(--color-text-body) 3%, #fff);
+  border: 1px solid color-mix(in srgb, var(--color-text-body) 18%, transparent);
+  border-radius: 8px;
+  padding: var(--spacer-lg);
+}
+
+.interactive-timeline--align-left {
+  justify-items: start;
+}
+
+.interactive-timeline--align-center {
+  justify-items: center;
+}
+
+.interactive-timeline--align-right {
+  justify-items: end;
+}
+
+.interactive-timeline--valign-top {
+  align-items: start;
+}
+
+.interactive-timeline--valign-center {
+  align-items: center;
+}
+
+.interactive-timeline--valign-bottom {
+  align-items: end;
+}
+
+.interactive-timeline__list {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  max-width: 860px;
+  padding: 0;
+  width: 100%;
+}
+
+.interactive-timeline__item {
+  margin: 0;
+  padding: 0;
+}
+
+.interactive-timeline__step {
+  align-items: start;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 54px minmax(0, 1fr);
+  min-height: calc(54px + var(--interactive-timeline-detail-min) + 36px);
+  padding: 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.interactive-timeline__step::after {
+  background: color-mix(in srgb, var(--color-text-body) 18%, transparent);
+  content: "";
+  height: calc(100% - 54px);
+  left: 26px;
+  position: absolute;
+  top: 54px;
+  width: 2px;
+}
+
+.interactive-timeline__item:last-child .interactive-timeline__step::after {
+  display: none;
+}
+
+.interactive-timeline__dot {
+  align-items: center;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--color-text-body) 18%, transparent);
+  border-radius: 50%;
+  color: color-mix(in srgb, var(--color-text-body) 78%, #fff);
+  display: inline-flex;
+  font-family: var(--font-family-special, Montserrat, sans-serif);
+  font-size: 1rem;
+  font-weight: var(--font-weight-extrabold);
+  height: 54px;
+  justify-content: center;
+  position: relative;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  width: 54px;
+  z-index: 1;
+}
+
+.interactive-timeline__content {
+  display: block;
+  padding-block: 9px 28px;
+}
+
+.interactive-timeline__title {
+  color: #202124;
+  display: block;
+  font-family: var(--font-family-special, var(--font-family-body, sans-serif));
+  font-size: 1.28rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: 1.22;
+}
+
+.interactive-timeline__description {
+  color: var(--color-text-body);
+  display: block;
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1.5;
+  margin-top: 12px;
+  max-width: 560px;
+  min-height: var(--interactive-timeline-detail-min);
+  opacity: 0;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+  visibility: hidden;
+}
+
+.interactive-timeline__step.is-active .interactive-timeline__dot {
+  background: color-mix(in srgb, var(--color-primary) 16%, #fff);
+  border-color: color-mix(in srgb, var(--color-primary) 24%, #fff);
+  color: var(--color-primary);
+}
+
+.interactive-timeline__step.is-active .interactive-timeline__description {
+  opacity: 1;
+  visibility: visible;
+}
+
+.interactive-timeline__step:focus-visible {
+  border-radius: 8px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .interactive-timeline--soft_panel {
+    padding: var(--spacer-md);
+  }
+
+  .interactive-timeline__step {
+    gap: 14px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    min-height: calc(42px + var(--interactive-timeline-detail-min) + 34px);
+  }
+
+  .interactive-timeline__step::after {
+    height: calc(100% - 42px);
+    left: 20px;
+    top: 42px;
+  }
+
+  .interactive-timeline__dot {
+    font-size: 0.82rem;
+    height: 42px;
+    width: 42px;
+  }
+
+  .interactive-timeline__content {
+    padding-block: 5px 28px;
+  }
+
+  .interactive-timeline__title {
+    font-size: 1.08rem;
+  }
+
+  .interactive-timeline__description {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+}
