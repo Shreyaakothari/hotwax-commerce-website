@@ -1,0 +1,113 @@
+[ {
+  "id" : "background_style",
+  "name" : "background_style",
+  "label" : "Background style",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "transparent", "Transparent" ], [ "soft_panel", "Soft panel" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "transparent"
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Style options",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "horizontal_alignment",
+    "name" : "horizontal_alignment",
+    "label" : "Horizontal alignment",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "left"
+  }, {
+    "id" : "vertical_alignment",
+    "name" : "vertical_alignment",
+    "label" : "Vertical alignment",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "top", "Top" ], [ "center", "Center" ], [ "bottom", "Bottom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "top"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "horizontal_alignment" : "left",
+    "vertical_alignment" : "top"
+  }
+}, {
+  "id" : "steps",
+  "name" : "steps",
+  "label" : "Timeline steps",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 2,
+    "max" : 8,
+    "sorting_label_field" : "step_title",
+    "default" : 5
+  },
+  "children" : [ {
+    "id" : "step_title",
+    "name" : "step_title",
+    "label" : "Step title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Check inventory depth"
+  }, {
+    "id" : "step_description",
+    "name" : "step_description",
+    "label" : "Step description",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Check whether the location has enough sellable stock to complete the order before assigning demand."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "step_title" : "Check inventory depth",
+    "step_description" : "Check whether the location has enough sellable stock to complete the order before assigning demand."
+  }, {
+    "step_title" : "Check fulfillment capacity",
+    "step_description" : "Check order limits and workload before routing new demand to a store or warehouse."
+  }, {
+    "step_title" : "Check product eligibility",
+    "step_description" : "Check whether the location is approved for the product, category, channel, or service requirement."
+  }, {
+    "step_title" : "Check cutoff time",
+    "step_description" : "Check shipping cutoff and carrier pickup windows before the order is assigned."
+  }, {
+    "step_title" : "Assign the order",
+    "step_description" : "Assign the order only after inventory, capacity, eligibility, and cutoff checks are complete."
+  } ]
+} ]
