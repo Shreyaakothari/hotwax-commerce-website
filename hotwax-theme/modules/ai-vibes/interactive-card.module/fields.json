@@ -9,6 +9,26 @@
   "display_width" : null,
   "default" : "Online availability calculation"
 }, {
+  "id" : "calculation_accessibility_label",
+  "name" : "calculation_accessibility_label",
+  "label" : "Calculation accessibility label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Online ATP calculation"
+}, {
+  "id" : "guardrails_accessibility_label",
+  "name" : "guardrails_accessibility_label",
+  "label" : "Guardrails accessibility label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Availability guardrails"
+}, {
   "id" : "product_label",
   "name" : "product_label",
   "label" : "Product label",

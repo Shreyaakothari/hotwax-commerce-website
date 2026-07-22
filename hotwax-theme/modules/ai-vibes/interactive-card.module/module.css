@@ -1,6 +1,8 @@
 .interactive-card {
   --interactive-card-success: var(--ion-color-success, #2dd36f);
   color: var(--color-text-body);
+  container-name: interactive-card;
+  container-type: inline-size;
   font-family: var(--font-family-body, "Open Sans", sans-serif);
   margin-inline: auto;
   max-width: var(--page-max-width);
@@ -17,9 +19,8 @@
 .interactive-card__calculator {
   background: #fff;
   border: 1px solid color-mix(in srgb, var(--color-text-body) 18%, transparent);
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: var(--m-shadow);
-  min-height: 532px;
   overflow: hidden;
 }
 
@@ -275,10 +276,25 @@
   border: 1px solid color-mix(in srgb, var(--color-text-body) 18%, transparent);
   border-radius: 8px;
   display: grid;
-  gap: 10px;
-  grid-template-rows: auto 1fr;
   min-height: 238px;
   padding: 20px;
+}
+
+.interactive-card__detail-panel {
+  display: grid;
+  gap: 10px;
+  grid-area: 1 / 1;
+  grid-template-rows: auto 1fr;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  visibility: hidden;
+}
+
+.interactive-card__detail-panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .interactive-card__chip {
@@ -309,7 +325,6 @@
   letter-spacing: 0;
   line-height: 1.22;
   margin-block: 0 8px;
-  min-height: 44px;
 }
 
 .interactive-card__detail p {
@@ -317,10 +332,9 @@
   font-size: 0.9rem;
   line-height: 1.5;
   margin: 0;
-  min-height: 78px;
 }
 
-@media (max-width: 991px) {
+@container interactive-card (max-width: 991px) {
   .interactive-card__body {
     grid-template-columns: 1fr;
   }
@@ -330,11 +344,7 @@
   }
 }
 
-@media (max-width: 700px) {
-  .interactive-card__calculator {
-    min-height: 972px;
-  }
-
+@container interactive-card (max-width: 700px) {
   .interactive-card__bar {
     min-height: 52px;
   }
@@ -462,10 +472,6 @@
     min-height: 238px;
   }
 
-  .interactive-card__detail h3,
-  .interactive-card__detail p {
-    min-height: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

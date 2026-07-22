@@ -1,4 +1,5 @@
-{% set first_guardrail = module.guardrails|first %}
+{% set guardrails = module.guardrails|default([]) %}
+{% set first_guardrail = guardrails|first %}
 {% set product_stock = module.product_stock|default(84, true) %}
 {% set first_amount = 0 %}
 {% if first_guardrail %}
@@ -18,7 +19,7 @@
       </div>
     {% endif %}
 
-    <div class="interactive-card__equation" aria-label="Online ATP calculation">
+    <div class="interactive-card__equation" aria-label="{{ module.calculation_accessibility_label|default("Online ATP calculation", true)|escape_attr }}">
       <div class="interactive-card__product-icon" aria-hidden="true">
         <svg class="interactive-card__shirt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" focusable="false">
           <path d="M314.56 48s-22.78 8-58.56 8-58.56-8-58.56-8a31.94 31.94 0 00-10.57 1.8L32 104l16.63 88 48.88 5.52a24 24 0 0121.29 24.58L112 464h288l-6.8-241.9a24 24 0 0121.29-24.58l48.88-5.52L480 104 325.13 49.8a31.94 31.94 0 00-10.57-1.8zM333.31 52.66a80 80 0 01-154.62 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
@@ -54,7 +55,7 @@
       </div>
     </div>
 
-    <div class="interactive-card__receipt" aria-label="Mobile Online ATP calculation">
+    <div class="interactive-card__receipt" aria-label="{{ module.calculation_accessibility_label|default("Online ATP calculation", true)|escape_attr }}">
       <div class="interactive-card__receipt-top">
         <div class="interactive-card__product-icon" aria-hidden="true">
           <svg class="interactive-card__shirt-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" focusable="false">
@@ -84,17 +85,16 @@
     </div>
 
     <div class="interactive-card__body">
-      <div class="interactive-card__stack" role="group" aria-label="Availability guardrails">
-        {% for item in module.guardrails %}
+      <div class="interactive-card__stack" role="group" aria-label="{{ module.guardrails_accessibility_label|default("Availability guardrails", true)|escape_attr }}">
+        {% for item in guardrails %}
+          {% set detail_id = name ~ "-interactive-card-detail-" ~ loop.index %}
           <button
             class="interactive-card__row{% if loop.first %} is-active{% endif %}"
             type="button"
             data-interactive-card-row
             data-amount="{{ item.amount|default(0, true)|abs|escape_attr }}"
             data-running-label="{{ item.running_label|default(item.guardrail_label, true)|escape_attr }}"
-            data-chip="{{ item.chip|default(item.guardrail_label, true)|escape_attr }}"
-            data-title="{{ item.detail_title|escape_attr }}"
-            data-copy="{{ item.detail_copy|escape_attr }}"
+            aria-controls="{{ detail_id|escape_attr }}"
             aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
           >
             <span class="interactive-card__check" aria-hidden="true">
@@ -114,12 +114,22 @@
         {% endfor %}
       </div>
 
-      <div class="interactive-card__detail" aria-live="polite">
-        <span class="interactive-card__chip" data-interactive-card-chip>{{ first_guardrail.chip|default(first_guardrail.guardrail_label, true)|escape_html }}</span>
-        <div>
-          <h3 data-interactive-card-title>{{ first_guardrail.detail_title|escape_html }}</h3>
-          <p data-interactive-card-copy>{{ first_guardrail.detail_copy|escape_html }}</p>
-        </div>
+      <div class="interactive-card__detail" aria-atomic="true" aria-live="polite">
+        {% for item in guardrails %}
+          {% set detail_id = name ~ "-interactive-card-detail-" ~ loop.index %}
+          <div
+            id="{{ detail_id|escape_attr }}"
+            class="interactive-card__detail-panel{% if loop.first %} is-active{% endif %}"
+            aria-hidden="{% if loop.first %}false{% else %}true{% endif %}"
+            data-interactive-card-detail
+          >
+            <span class="interactive-card__chip">{{ item.chip|default(item.guardrail_label, true)|escape_html }}</span>
+            <div>
+              <h3>{{ item.detail_title|escape_html }}</h3>
+              <p>{{ item.detail_copy|escape_html }}</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>

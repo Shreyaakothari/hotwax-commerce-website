@@ -17,9 +17,7 @@
     const mobileRunningLabel = moduleElement.querySelector("[data-interactive-card-mobile-running-label]");
     const mobileRunningValue = moduleElement.querySelector("[data-interactive-card-mobile-running-value]");
     const mobileResultValue = moduleElement.querySelector("[data-interactive-card-mobile-result-value]");
-    const chip = moduleElement.querySelector("[data-interactive-card-chip]");
-    const title = moduleElement.querySelector("[data-interactive-card-title]");
-    const copy = moduleElement.querySelector("[data-interactive-card-copy]");
+    const details = Array.from(moduleElement.querySelectorAll("[data-interactive-card-detail]"));
 
     const getAmount = (row) => Math.abs(Number(row.dataset.amount) || 0);
     const getRunningAmount = (index) => rows.slice(0, index + 1).reduce((sum, row) => sum + getAmount(row), 0);
@@ -44,15 +42,19 @@
         row.setAttribute("aria-pressed", isApplied ? "true" : "false");
       });
 
+      details.forEach((detail, index) => {
+        const isActive = index === activeIndex;
+
+        detail.classList.toggle("is-active", isActive);
+        detail.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+
       setText(runningLabel, activeRow.dataset.runningLabel || "");
       setText(runningValue, runningAmount);
       setText(resultValue, resultAmount);
       setText(mobileRunningLabel, activeRow.dataset.runningLabel || "");
       setText(mobileRunningValue, runningAmount);
       setText(mobileResultValue, resultAmount);
-      setText(chip, activeRow.dataset.chip || "");
-      setText(title, activeRow.dataset.title || "");
-      setText(copy, activeRow.dataset.copy || "");
     };
 
     rows.forEach((row, index) => {
