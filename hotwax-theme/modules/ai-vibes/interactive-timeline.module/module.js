@@ -4,43 +4,83 @@
   var timelines = document.querySelectorAll("[data-interactive-timeline]");
 
   timelines.forEach(function (timeline) {
-    var steps = timeline.querySelectorAll("[data-interactive-timeline-step]");
-    var descriptions = timeline.querySelectorAll("[data-interactive-timeline-description]");
+    var items = Array.prototype.slice.call(
+      timeline.querySelectorAll("[data-interactive-timeline-item]")
+    );
 
-    function setDescriptionHeight() {
-      var maxHeight = 0;
-
-      descriptions.forEach(function (description) {
-        maxHeight = Math.max(maxHeight, description.scrollHeight);
-      });
-
-      if (maxHeight) {
-        timeline.style.setProperty("--interactive-timeline-detail-min", maxHeight + "px");
-      }
+    if (!items.length) {
+      return;
     }
 
-    function activateStep(activeStep) {
-      steps.forEach(function (step) {
-        var isActive = step === activeStep;
-        var description = step.querySelector("[data-interactive-timeline-description]");
+    function activateItem(activeItem) {
+      items.forEach(function (item) {
+        var isActive = item === activeItem;
+        var trigger = item.querySelector("[data-interactive-timeline-step]");
 
-        step.classList.toggle("is-active", isActive);
-        step.setAttribute("aria-expanded", isActive ? "true" : "false");
+        item.classList.toggle("is-active", isActive);
 
-        if (description) {
-          description.setAttribute("aria-hidden", isActive ? "false" : "true");
+        if (trigger) {
+          trigger.setAttribute("aria-pressed", isActive ? "true" : "false");
         }
       });
     }
 
-    steps.forEach(function (step) {
-      step.addEventListener("click", function () {
-        activateStep(step);
-      });
+    items.forEach(function (item) {
+      var trigger = item.querySelector("[data-interactive-timeline-step]");
 
+      if (!trigger) {
+        return;
+      }
+
+      trigger.addEventListener("click", function () {
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        activateItem(item);
+        item.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "center"
+        });
+      });
     });
 
-    setDescriptionHeight();
-    window.addEventListener("resize", setDescriptionHeight);
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+
+    var visibleItems = [];
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var itemIndex = visibleItems.indexOf(entry.target);
+
+        if (entry.isIntersecting && itemIndex === -1) {
+          visibleItems.push(entry.target);
+        } else if (!entry.isIntersecting && itemIndex !== -1) {
+          visibleItems.splice(itemIndex, 1);
+        }
+      });
+
+      if (!visibleItems.length) {
+        return;
+      }
+
+      var activationPoint = window.innerHeight * 0.45;
+      var closestItem = visibleItems.reduce(function (closest, item) {
+        var itemRect = item.getBoundingClientRect();
+        var closestRect = closest.getBoundingClientRect();
+        var itemDistance = Math.abs(itemRect.top + itemRect.height / 2 - activationPoint);
+        var closestDistance = Math.abs(closestRect.top + closestRect.height / 2 - activationPoint);
+
+        return itemDistance < closestDistance ? item : closest;
+      });
+
+      activateItem(closestItem);
+    }, {
+      rootMargin: "-35% 0px -45% 0px",
+      threshold: 0
+    });
+
+    items.forEach(function (item) {
+      observer.observe(item);
+    });
   });
 })();
