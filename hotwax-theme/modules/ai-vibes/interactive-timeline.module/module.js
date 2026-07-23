@@ -2,6 +2,49 @@
   "use strict";
 
   var timelines = document.querySelectorAll("[data-interactive-timeline]");
+  var timelineStates = [];
+  var progressFrame = null;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateTimelineProgress(state) {
+    var activationPoint = window.innerHeight * 0.45;
+
+    state.items.forEach(function (item, index) {
+      if (index === state.items.length - 1) {
+        return;
+      }
+
+      var dot = item.querySelector(".interactive-timeline__dot");
+      if (!dot) {
+        return;
+      }
+
+      var itemRect = item.getBoundingClientRect();
+      var lineStart = dot.getBoundingClientRect().bottom;
+      var lineLength = itemRect.bottom - lineStart;
+      var progress = lineLength > 0
+        ? clamp((activationPoint - lineStart) / lineLength, 0, 1)
+        : 0;
+
+      item.style.setProperty("--timeline-progress", progress.toFixed(3));
+    });
+  }
+
+  function updateAllTimelineProgress() {
+    timelineStates.forEach(updateTimelineProgress);
+    progressFrame = null;
+  }
+
+  function requestProgressUpdate() {
+    if (progressFrame !== null) {
+      return;
+    }
+
+    progressFrame = window.requestAnimationFrame(updateAllTimelineProgress);
+  }
 
   timelines.forEach(function (timeline) {
     var items = Array.prototype.slice.call(
@@ -11,6 +54,8 @@
     if (!items.length) {
       return;
     }
+
+    timelineStates.push({ items: items });
 
     function activateItem(activeItem) {
       items.forEach(function (item) {
@@ -40,6 +85,7 @@
           behavior: reduceMotion ? "auto" : "smooth",
           block: "center"
         });
+        requestProgressUpdate();
       });
     });
 
@@ -74,6 +120,7 @@
       });
 
       activateItem(closestItem);
+      requestProgressUpdate();
     }, {
       rootMargin: "-35% 0px -45% 0px",
       threshold: 0
@@ -83,4 +130,10 @@
       observer.observe(item);
     });
   });
+
+  if (timelineStates.length) {
+    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
+    window.addEventListener("resize", requestProgressUpdate);
+    requestProgressUpdate();
+  }
 })();

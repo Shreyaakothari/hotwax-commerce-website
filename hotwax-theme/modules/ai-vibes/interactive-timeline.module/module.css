@@ -47,6 +47,19 @@
   width: 2px;
 }
 
+.interactive-timeline__item:not(:last-child)::after {
+  background: var(--color-primary);
+  bottom: 0;
+  content: "";
+  left: 24px;
+  position: absolute;
+  top: 50px;
+  transform: scaleY(var(--timeline-progress, 0));
+  transform-origin: top;
+  transition: transform 0.16s linear;
+  width: 2px;
+}
+
 .interactive-timeline__step {
   align-items: center;
   appearance: none;
@@ -132,9 +145,6 @@
 
 .interactive-timeline__description {
   color: var(--color-text-body);
-  font-size: 0.9rem;
-  font-weight: var(--font-weight-regular, 400);
-  line-height: 1.55;
   margin: 0;
   max-width: 640px;
 }
@@ -156,9 +166,9 @@
 }
 
 .interactive-timeline__item.is-active .interactive-timeline__dot {
-  background: color-mix(in srgb, var(--color-primary) 12%, #fff);
-  border-color: color-mix(in srgb, var(--color-primary) 24%, #fff);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
 }
 
 .interactive-timeline__item.is-active .interactive-timeline__title,
@@ -171,7 +181,8 @@
   .interactive-timeline__dot,
   .interactive-timeline__title,
   .interactive-timeline__content,
-  .interactive-timeline__media {
+  .interactive-timeline__media,
+  .interactive-timeline__item:not(:last-child)::after {
     transition: none;
   }
 }

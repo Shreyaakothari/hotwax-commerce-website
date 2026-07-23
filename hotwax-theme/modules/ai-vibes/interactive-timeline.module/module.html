@@ -41,6 +41,11 @@
         top: 42px;
       }
 
+      .interactive-timeline__item:not(:last-child)::after {
+        left: 20px;
+        top: 42px;
+      }
+
       .interactive-timeline__step {
         gap: 14px;
         grid-template-columns: 42px minmax(0, 1fr);
@@ -73,7 +78,6 @@
       }
 
       .interactive-timeline__description {
-        font-size: 0.9rem;
         max-width: 100%;
       }
     }
