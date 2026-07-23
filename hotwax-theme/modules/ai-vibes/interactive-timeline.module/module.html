@@ -33,27 +33,28 @@
       }
 
       .interactive-timeline__list {
+        --timeline-rail-left: 20px;
         {{ module.frame_style.timeline.mobile.body_spacing.css }}
       }
 
-      .interactive-timeline__item:not(:last-child)::before {
-        left: 20px;
-        top: 42px;
-      }
-
-      .interactive-timeline__item:not(:last-child)::after {
-        left: 20px;
-        top: 42px;
-      }
-
       .interactive-timeline__step {
+        display: grid;
         gap: 14px;
         grid-template-columns: 42px minmax(0, 1fr);
+        position: relative;
+      }
+
+      .interactive-timeline__copy {
+        display: block;
       }
 
       .interactive-timeline__dot {
-        font-size: 0.8rem;
-        height: 42px;
+        font-size: 0.875rem;
+        height: 48px;
+        left: auto;
+        position: relative;
+        top: auto;
+        transform: none;
         width: 42px;
       }
 
@@ -75,6 +76,7 @@
 
       .interactive-timeline__title {
         font-size: 1.08rem;
+        margin-left: 0;
       }
 
       .interactive-timeline__description {
@@ -120,7 +122,9 @@
             aria-pressed="{% if loop.first %}true{% else %}false{% endif %}"
             data-interactive-timeline-step
           >
-            <span class="interactive-timeline__dot" aria-hidden="true">{{ loop.index }}</span>
+            <span class="interactive-timeline__dot" aria-hidden="true">
+              <span class="interactive-timeline__dot-number">{{ loop.index }}</span>
+            </span>
             <span class="interactive-timeline__title">{{ item.step_title|default("Timeline step", true)|escape_html }}</span>
           </button>
 
