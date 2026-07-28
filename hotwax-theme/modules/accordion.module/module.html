@@ -64,7 +64,7 @@
 {% end_require_css %}
 
 {% set title_tag = module.settings.accordion_title_tag %}
-<div id="{{ module.con_settings.code.section_id }}" class="accordion {% if module.con_settings.visibility.vis_phone %}show-mobile{% else %}hide-mobile{% endif %} {% if module.con_settings.visibility.vis_tablet %}show-tablet{% else %}hide-tablet{% endif %} {% if module.con_settings.visibility.vis_desktop %}show-desktop{% else %}hide-desktop{% endif %}" >  
+<div id="{{ module.con_settings.code.section_id }}" class="accordion {% if module.con_settings.visibility.vis_phone %}show-mobile{% else %}hide-mobile{% endif %} {% if module.con_settings.visibility.vis_tablet %}show-tablet{% else %}hide-tablet{% endif %} {% if module.con_settings.visibility.vis_desktop %}show-desktop{% else %}hide-desktop{% endif %}"{% if module.faq_schema %} data-faq-schema="true"{% endif %} >
   <div class="row">
     <div class="col-12">
       <div class="rich-text-in">
