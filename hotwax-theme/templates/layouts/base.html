@@ -19,7 +19,11 @@
     
     {{ standard_header_includes }}
     
-    {{ required_head_tags }}
+    {# PM-357: do not add required_head_tags here. It emits the same required head payload as
+       standard_header_includes above, so having both rendered the canonical tag, the Open Graph and
+       Twitter tags, the domain level head HTML, the page level head HTML (including JSON-LD), and the
+       inlined stylesheet twice in the head of every page built on this layout. standard_header_includes
+       is the documented variable and already covers all of it. #}
     {{ require_css(get_asset_url("/HotWax_2021/Code Files/Hotwax_Stylesheet_2021.css")) }}
     {{ user_head_overrides }}
   </head>
