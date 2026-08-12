@@ -1,159 +1,184 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: sanity.spec.ts >> HotWax.co Sanity Test >> Check page: https://www.hotwax.co/netsuite-shopify-integration
+- Location: tests/sanity.spec.ts:50:9
+
+# Error details
+
+```
+Error: Page https://www.hotwax.co/netsuite-shopify-integration returned status 404
+
+expect(received).not.toBe(expected) // Object.is equality
+
+Expected: not 404
+```
+
 # Page snapshot
 
 ```yaml
-- generic [active] [ref=e1]:
-  - generic [ref=e15]:
+- generic [ref=e1]:
+  - dialog "Cookie banner" [active] [ref=e2]:
+    - generic [ref=e3]:
+      - button "Dismiss cookie banner" [ref=e5] [cursor=pointer]
+      - paragraph [ref=e10]:
+        - text: By clicking “Accept”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. Learn more about
+        - link "Cookie Policy" [ref=e11] [cursor=pointer]:
+          - /url: https://www.hotwax.co/privacy-policy
+        - text: .
+      - generic [ref=e14]:
+        - button "Accept" [ref=e15] [cursor=pointer]
+        - button "Decline" [ref=e16] [cursor=pointer]
+  - banner [ref=e17]:
     - generic [ref=e18]:
-      - link "HotWax Commerce" [ref=e19] [cursor=pointer]:
+      - link [ref=e22] [cursor=pointer]:
         - /url: https://www.hotwax.co/
-        - img "HotWax Commerce" [ref=e20]
-      - link "HotWax Commerce" [ref=e21] [cursor=pointer]:
-        - /url: https://www.hotwax.co/
-        - img "HotWax Commerce" [ref=e22]
-    - generic [ref=e30]:
-      - link "Product " [ref=e33] [cursor=pointer]:
-        - /url: ""
-      - link "Solutions " [ref=e36] [cursor=pointer]:
-        - /url: ""
-      - link "Resources " [ref=e39] [cursor=pointer]:
-        - /url: ""
-      - link "Company " [ref=e42] [cursor=pointer]:
-        - /url: ""
-      - link "Connect" [ref=e45] [cursor=pointer]:
-        - /url: https://www.hotwax.co/connect/
-  - generic [ref=e53]:
-    - generic [ref=e59]:
-      - heading "Oops! Sorry, This page could not be found!" [level=1] [ref=e61]
-      - paragraph [ref=e63]:
-        - text: To find what you're looking for you can return to the
-        - link "homepage" [ref=e64] [cursor=pointer]:
-          - /url: https://www.hotwax.co/
-        - text: or
-        - link "contact us" [ref=e65] [cursor=pointer]:
-          - /url: https://www.hotwax.co/connect/
-        - text: ", or check out some content our customers can’t get enough of:"
-    - heading "Latest Updates" [level=2] [ref=e71]
-    - generic [ref=e75]:
-      - heading "Blogs" [level=3] [ref=e77]
-      - generic [ref=e78]:
-        - generic [ref=e80]:
-          - 'heading "Same-Day Fulfillment Checklist: What It Really Takes to Deliver on the Promise" [level=3] [ref=e81]':
-            - 'link "Same-Day Fulfillment Checklist: What It Really Takes to Deliver on the Promise" [ref=e82] [cursor=pointer]':
-              - /url: https://www.hotwax.co/blog/same-day-fulfillment-checklist-what-it-really-takes-to-deliver-on-the-promise
-          - paragraph [ref=e83]: Blogs | Published Dec 17, 2025
-          - link [ref=e86] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/same-day-fulfillment-checklist-what-it-really-takes-to-deliver-on-the-promise
-          - link "READ MORE" [ref=e87] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/same-day-fulfillment-checklist-what-it-really-takes-to-deliver-on-the-promise
-        - generic [ref=e89]:
-          - heading "Role of OMS in the Holiday Season for Customer Service Reps (CSRs)" [level=3] [ref=e90]:
-            - link "Role of OMS in the Holiday Season for Customer Service Reps (CSRs)" [ref=e91] [cursor=pointer]:
-              - /url: https://www.hotwax.co/blog/role-of-oms-in-the-holiday-season-for-customer-service-reps-csrs
-          - paragraph [ref=e92]: Blogs | Published Nov 12, 2025
-          - link "Customer service representative viewing the sales order page to see all customer orders and make edits or updates based on customer-requested changes." [ref=e95] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/role-of-oms-in-the-holiday-season-for-customer-service-reps-csrs
-            - img "Customer service representative viewing the sales order page to see all customer orders and make edits or updates based on customer-requested changes." [ref=e96]
-          - link "READ MORE" [ref=e97] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/role-of-oms-in-the-holiday-season-for-customer-service-reps-csrs
-        - generic [ref=e99]:
-          - heading "Fulfilling Linked and Complementary Products Without Breaking the Experience" [level=3] [ref=e100]:
-            - link "Fulfilling Linked and Complementary Products Without Breaking the Experience" [ref=e101] [cursor=pointer]:
-              - /url: https://www.hotwax.co/blog/fulfilling-linked-and-complementary-products-without-breaking-the-experience
-          - paragraph [ref=e102]: Blogs | Published Oct 17, 2025
-          - link "Fulfilling Linked and Complementary Products Without Breaking the Experience" [ref=e105] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/fulfilling-linked-and-complementary-products-without-breaking-the-experience
-            - img "Fulfilling Linked and Complementary Products Without Breaking the Experience" [ref=e106]
-          - link "READ MORE" [ref=e107] [cursor=pointer]:
-            - /url: https://www.hotwax.co/blog/fulfilling-linked-and-complementary-products-without-breaking-the-experience
-    - generic [ref=e111]:
-      - heading "Podcast Episodes" [level=3] [ref=e113]
-      - generic [ref=e114]:
-        - generic [ref=e116]:
-          - heading "Custom Orthotics & Performance Footwear Brand's Approach to Customer Experience" [level=3] [ref=e117]:
-            - link "Custom Orthotics & Performance Footwear Brand's Approach to Customer Experience" [ref=e118] [cursor=pointer]:
-              - /url: https://www.hotwax.co/podcast/custom-orthotics-performance-footwear-brands-approach-to-customer-experience
-          - paragraph [ref=e119]: Podcast Episodes | Published October 31, 2025
-          - link "Custom Orthotics & Performance Footwear Brand's Approach to Customer Experience" [ref=e122] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/custom-orthotics-performance-footwear-brands-approach-to-customer-experience
-            - img "Custom Orthotics & Performance Footwear Brand's Approach to Customer Experience" [ref=e123]
-          - link "READ MORE" [ref=e124] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/custom-orthotics-performance-footwear-brands-approach-to-customer-experience
-        - generic [ref=e126]:
-          - heading "The AI Playbook for Retail Leaders with Sid Arigapudi" [level=3] [ref=e127]:
-            - link "The AI Playbook for Retail Leaders with Sid Arigapudi" [ref=e128] [cursor=pointer]:
-              - /url: https://www.hotwax.co/podcast/the-ai-playbook-for-retail-leaders-with-sid-arigapudi
-          - paragraph [ref=e129]: Podcast Episodes | Published October 8, 2025
-          - link "The AI Playbook for Retail Leaders with Sid Arigapudi" [ref=e132] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/the-ai-playbook-for-retail-leaders-with-sid-arigapudi
-            - img "The AI Playbook for Retail Leaders with Sid Arigapudi" [ref=e133]
-          - link "READ MORE" [ref=e134] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/the-ai-playbook-for-retail-leaders-with-sid-arigapudi
-        - generic [ref=e136]:
-          - heading "Evolving a 70-Year-Old Brand Without Losing Its Essence with Geraldo Jose" [level=3] [ref=e137]:
-            - link "Evolving a 70-Year-Old Brand Without Losing Its Essence with Geraldo Jose" [ref=e138] [cursor=pointer]:
-              - /url: https://www.hotwax.co/podcast/evolving-a-70-year-old-brand-without-losing-its-essence-with-geraldo-jose
-          - paragraph [ref=e139]: Podcast Episodes | Published February 4, 2025
-          - link "Evolving a 70-Year-Old Brand Without Losing Its Essence with Geraldo Jose" [ref=e142] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/evolving-a-70-year-old-brand-without-losing-its-essence-with-geraldo-jose
-            - img "Evolving a 70-Year-Old Brand Without Losing Its Essence with Geraldo Jose" [ref=e143]
-          - link "READ MORE" [ref=e144] [cursor=pointer]:
-            - /url: https://www.hotwax.co/podcast/evolving-a-70-year-old-brand-without-losing-its-essence-with-geraldo-jose
-  - generic [ref=e158]:
-    - generic [ref=e159]:
-      - img "Hotwax" [ref=e165]
-      - generic [ref=e169]: Stay With Us
-      - generic [ref=e174]:
-        - link "linkedin hotwax" [ref=e178] [cursor=pointer]:
-          - /url: https://www.linkedin.com/company/hotwaxcommerce-omnichannel-order-management-solution
-          - img "linkedin hotwax" [ref=e179]
-        - link "twitter hotwax" [ref=e183] [cursor=pointer]:
-          - /url: https://twitter.com/HotWaxCommerce
-          - img "twitter hotwax" [ref=e184]
-      - generic [ref=e189]:
-        - heading "Get in Touch" [level=3] [ref=e190]
-        - generic [ref=e192]:
-          - generic [ref=e194]:
-            - generic [ref=e195]: Email*
-            - textbox "Email*" [ref=e197]:
-              - /placeholder: ""
-          - button "Submit" [ref=e200]
-    - generic [ref=e201]:
-      - generic [ref=e206]:
-        - heading "HOTWAX COMMERCE HEADQUARTERS" [level=3] [ref=e207]
-        - paragraph [ref=e208]:
-          - text: 175 S Main St Suite 1310,
-          - text: Salt Lake City, UT 84111
-        - heading "CONTACT SALES" [level=3] [ref=e209]
-        - paragraph [ref=e210]: +1-732-724-0104 (US)
-      - navigation "Navigation Menu" [ref=e216]:
-        - menu [ref=e217]:
-          - menuitem "More about HotWax Commerce" [ref=e218] [cursor=pointer]
-          - menu [ref=e219]:
-            - menuitem "Our Story" [ref=e220] [cursor=pointer]
-            - menuitem "Partners" [ref=e221] [cursor=pointer]
-            - menuitem "Security" [ref=e222] [cursor=pointer]
-            - menuitem "Press Room" [ref=e223] [cursor=pointer]
-            - menuitem "Privacy Policy" [ref=e224] [cursor=pointer]
-    - navigation "Navigation Menu" [ref=e228]:
-      - menu [ref=e229]:
-        - menuitem "Product" [ref=e230] [cursor=pointer]
-        - menu [ref=e231]:
-          - menuitem "Omnichannel Order Management" [ref=e232] [cursor=pointer]
-          - menuitem "FAQ" [ref=e233] [cursor=pointer]
-          - menuitem "Product Updates" [ref=e234] [cursor=pointer]
-          - menuitem "Documentation" [ref=e235] [cursor=pointer]
-        - menuitem "Use cases" [ref=e236] [cursor=pointer]
-        - menu [ref=e237]:
-          - menuitem "Buy Online Pick-Up In Store" [ref=e238] [cursor=pointer]
-          - menuitem "Configurable Order Routing" [ref=e239] [cursor=pointer]
-          - menuitem "Ship From Store" [ref=e240] [cursor=pointer]
-          - menuitem "Unified Inventory" [ref=e241] [cursor=pointer]
-          - menuitem "Pre-Orders" [ref=e242] [cursor=pointer]
-          - menuitem "Buy Online Return In Store" [ref=e243] [cursor=pointer]
-          - menuitem "Store Inventory Management" [ref=e244] [cursor=pointer]
-        - menuitem "Solutions" [ref=e245] [cursor=pointer]
-        - menu [ref=e246]:
-          - menuitem "Omnichannel OMS for Shopify" [ref=e247] [cursor=pointer]
-          - menuitem "Omnichannel Retail Sales Audit" [ref=e248] [cursor=pointer]
-          - menuitem "BI Reports & Analytics" [ref=e249] [cursor=pointer]
+        - img "HotWax Commerce" [ref=e23]
+      - navigation [ref=e24]:
+        - navigation "Navigation Menu" [ref=e26]:
+          - menu [ref=e27]:
+            - checkbox "Product" [ref=e28]
+            - menuitem "Product" [ref=e29] [cursor=pointer]
+            - menu
+            - checkbox "Solutions" [ref=e30]
+            - menuitem "Solutions" [ref=e31] [cursor=pointer]
+            - menu
+            - checkbox "Resources" [ref=e32]
+            - menuitem "Resources" [ref=e33] [cursor=pointer]
+            - menu
+            - checkbox "Company" [ref=e34]
+            - menuitem "Company" [ref=e35] [cursor=pointer]
+            - menu
+        - link "Contact Us" [ref=e38] [cursor=pointer]:
+          - /url: https://cta-na2.hubspot.com/web-interactives/public/v1/track/click?encryptedPayload=AVxigLJxGbl31QB5SKeh8SVY7WwdgNpR%2BGudXPjcOmsDM1%2FbW6ahcjFN%2Fd6WPCeb3vL%2FSJ215CbR3X6MwUYvigAdjOA%2BK7CEcSVY1uMvfo4dcyAhkfJeXORdE8X5RcK8GmRbBbT0rk%2FhIOb%2FJdlnbJoIvS3WA%2FZbZ3yaZv5VA5vAKG0n&portalId=6357099&webInteractiveContentId=235571043036&webInteractiveId=519727613663&containerType=EMBEDDED&pageUrl=https%3A%2F%2Fwww.hotwax.co%2Fnetsuite-shopify-integration&pageTitle=&referrer=&userAgent=Mozilla%2F5.0+%28Windows+NT+10.0%3B+Win64%3B+x64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F151.0.7922.34+Safari%2F537.36&hutk=&hssc=&hstc=&pageId=null
+  - generic [ref=e39]:
+    - main [ref=e40]:
+      - generic [ref=e42]:
+        - generic [ref=e43]: "404"
+        - heading "Page not found." [level=1] [ref=e44]
+        - link "Go Home" [ref=e45] [cursor=pointer]:
+          - /url: /
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - link [ref=e52] [cursor=pointer]:
+            - /url: https://www.hotwax.co/
+            - img "HotWax Commerce" [ref=e53]
+          - generic [ref=e54]:
+            - heading "Connect" [level=3] [ref=e55]
+            - generic [ref=e57]:
+              - generic [ref=e59]:
+                - generic [ref=e60]: Email*
+                - textbox "Email*" [ref=e62]:
+                  - /placeholder: ""
+              - button "Submit" [ref=e65] [cursor=pointer]
+          - generic [ref=e66]:
+            - heading "Headquarters" [level=3] [ref=e67]
+            - paragraph [ref=e68]: 175 S Main St Suite 1310, Salt Lake City, UT 84111
+        - navigation "Navigation Menu" [ref=e71]:
+          - menu [ref=e72]:
+            - menuitem "Product" [ref=e73] [cursor=pointer]
+            - menu [ref=e74]:
+              - menuitem "Omnichannel Order Management" [ref=e75] [cursor=pointer]
+              - menuitem "FAQ" [ref=e76] [cursor=pointer]
+              - menuitem "Product Updates" [ref=e77] [cursor=pointer]
+              - menuitem "Documentation" [ref=e78] [cursor=pointer]
+            - menuitem "Use cases" [ref=e79] [cursor=pointer]
+            - menu [ref=e80]:
+              - menuitem "Buy Online Pick-Up In Store" [ref=e81] [cursor=pointer]
+              - menuitem "Configurable Order Routing" [ref=e82] [cursor=pointer]
+              - menuitem "Ship From Store" [ref=e83] [cursor=pointer]
+              - menuitem "Unified Inventory" [ref=e84] [cursor=pointer]
+              - menuitem "Pre-Orders" [ref=e85] [cursor=pointer]
+              - menuitem "Buy Online Return In Store" [ref=e86] [cursor=pointer]
+              - menuitem "Store Inventory Management" [ref=e87] [cursor=pointer]
+            - menuitem "Solutions" [ref=e88] [cursor=pointer]
+            - menu [ref=e89]:
+              - menuitem "Omnichannel OMS for Shopify" [ref=e90] [cursor=pointer]
+              - menuitem "Omnichannel Retail Sales Audit" [ref=e91] [cursor=pointer]
+      - generic [ref=e92]: © 2026 HotWax Commerce
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '@playwright/test';
+  2  | import axios from 'axios';
+  3  | import { XMLParser } from 'fast-xml-parser';
+  4  | 
+  5  | /**
+  6  |  * Sanity test to check for 404 errors on hotwax.co
+  7  |  */
+  8  | test.describe('HotWax.co Sanity Test', () => {
+  9  |   let urls: string[] = [
+  10 |     '/',
+  11 |     '/blog',
+  12 |     '/podcast',
+  13 |     '/whitepaper',
+  14 |     '/product-updates',
+  15 |     '/omnichannel-order-management-system',
+  16 |     '/netsuite-shopify-integration',
+  17 |   ];
+  18 | 
+  19 |   test.beforeAll(async () => {
+  20 |     try {
+  21 |       console.log('Fetching sitemap for comprehensive testing...');
+  22 |       const response = await axios.get('https://www.hotwax.co/sitemap.xml');
+  23 |       const parser = new XMLParser();
+  24 |       const jsonObj = parser.parse(response.data);
+  25 |       
+  26 |       if (jsonObj.urlset && jsonObj.urlset.url) {
+  27 |         const sitemapUrls = jsonObj.urlset.url
+  28 |           .map((u: any) => u.loc)
+  29 |           .filter((url: string) => url && url.startsWith('http'));
+  30 |         
+  31 |         // Add a sample of URLs from the sitemap to avoid running thousands of tests
+  32 |         // but still getting broad coverage
+  33 |         const sampleSize = 20;
+  34 |         const sampledUrls = sitemapUrls
+  35 |           .sort(() => 0.5 - Math.random())
+  36 |           .slice(0, sampleSize);
+  37 |         
+  38 |         urls = Array.from(new Set([...urls, ...sampledUrls]));
+  39 |         console.log(`Added ${sampledUrls.length} URLs from sitemap. Total URLs to test: ${urls.length}`);
+  40 |       }
+  41 |     } catch (error) {
+  42 |       console.error('Failed to fetch or parse sitemap, falling back to core URLs:', error.message);
+  43 |     }
+  44 |   });
+  45 | 
+  46 |   // Dynamically create tests for each URL
+  47 |   for (const url of urls) {
+  48 |     const formattedUrl = url.startsWith('http') ? url : `https://www.hotwax.co${url}`;
+  49 |     
+  50 |     test(`Check page: ${formattedUrl}`, async ({ page }) => {
+  51 |       console.log(`Testing: ${formattedUrl}`);
+  52 |       
+  53 |       const response = await page.goto(formattedUrl, { waitUntil: 'domcontentloaded' });
+  54 |       
+  55 |       // Check status code (should not be 404)
+  56 |       if (response) {
+> 57 |         expect(response.status(), `Page ${formattedUrl} returned status ${response.status()}`).not.toBe(404);
+     |                                                                                                    ^ Error: Page https://www.hotwax.co/netsuite-shopify-integration returned status 404
+  58 |       }
+  59 |       
+  60 |       // Check for 404 text on the page (additional safety)
+  61 |       const content = await page.content();
+  62 |       const is404Page = content.includes('404') && 
+  63 |                        (content.toLowerCase().includes('page not found') || 
+  64 |                         content.toLowerCase().includes('not found'));
+  65 |       
+  66 |       expect(is404Page, `Page ${formattedUrl} appears to be a 404 error page based on content`).toBe(false);
+  67 |       
+  68 |       // Ensure the body is visible
+  69 |       await expect(page.locator('body')).toBeVisible();
+  70 |     });
+  71 |   }
+  72 | });
+  73 | 
 ```
