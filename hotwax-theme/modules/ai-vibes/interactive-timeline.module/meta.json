@@ -3,7 +3,7 @@
   "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
   "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
   "module_id" : 371590742753,
-  "icon" : "../../images/module-icons/choice.svg",
   "label" : "Interactive Timeline",
+  "icon" : "../../images/module-icons/choice.svg",
   "is_available_for_new_content" : true
 }
