@@ -13,14 +13,24 @@
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  padding: 4px;
+  padding: 4px 4px 8px;
   scroll-padding-inline: 4px;
-  scrollbar-width: none;
+  scrollbar-color: rgba(32, 33, 36, 0.24) transparent;
+  scrollbar-width: thin;
   width: max-content;
 }
 
 .interactive-tabs__selectors::-webkit-scrollbar {
-  display: none;
+  height: 3px;
+}
+
+.interactive-tabs__selectors::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.interactive-tabs__selectors::-webkit-scrollbar-thumb {
+  background: rgba(32, 33, 36, 0.24);
+  border-radius: 999px;
 }
 
 .interactive-tabs--scroll-enabled .interactive-tabs__sticky {

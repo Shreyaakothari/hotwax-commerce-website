@@ -279,10 +279,9 @@
 
     tabs.forEach(function (tab, index) {
       tab.addEventListener("click", function () {
-        if (!scrollToItem(index)) {
-          activateItem(index, false);
-          keepTabInView(index);
-        }
+        activateItem(index, false);
+        keepTabInView(index);
+        scrollToItem(index);
       });
 
       tab.addEventListener("keydown", function (event) {
@@ -302,13 +301,9 @@
 
         event.preventDefault();
 
-        if (scrollToItem(nextIndex)) {
-          tabs[nextIndex].focus();
-          keepTabInView(nextIndex);
-        } else {
-          activateItem(nextIndex, true);
-          keepTabInView(nextIndex);
-        }
+        activateItem(nextIndex, true);
+        keepTabInView(nextIndex);
+        scrollToItem(nextIndex);
       });
     });
 
