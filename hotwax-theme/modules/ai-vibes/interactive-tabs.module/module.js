@@ -7,6 +7,8 @@
     var tabs = Array.from(tabModule.querySelectorAll("[data-tabs-tab]"));
     var panels = Array.from(tabModule.querySelectorAll("[data-tabs-panel]"));
     var responsive = tabModule.querySelector(".interactive-tabs__responsive");
+    var selectorWrap = tabModule.querySelector("[data-tabs-selector-wrap]");
+    var selectorList = tabModule.querySelector("[data-tabs-selector-list]");
     var sticky = tabModule.querySelector(".interactive-tabs__sticky");
     var scrollSpacer = tabModule.querySelector(
       ".interactive-tabs__scroll-spacer"
@@ -83,15 +85,41 @@
     }
 
     function keepTabInView(index) {
-      if (!tabs[index]) {
+      var tab = tabs[index];
+
+      if (!tab || !selectorList) {
         return;
       }
 
-      tabs[index].scrollIntoView({
+      var tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
+      var targetLeft = Math.max(0, tabCenter - selectorList.clientWidth / 2);
+
+      selectorList.scrollTo({
+        left: targetLeft,
         behavior: reduceMotion.matches ? "auto" : "smooth",
-        block: "nearest",
-        inline: "center",
       });
+    }
+
+    function updateSelectorOverflow() {
+      if (!selectorWrap || !selectorList) {
+        return;
+      }
+
+      var maxScrollLeft = Math.max(
+        0,
+        selectorList.scrollWidth - selectorList.clientWidth
+      );
+      var scrollLeft = selectorList.scrollLeft;
+      var threshold = 2;
+
+      selectorWrap.classList.toggle(
+        "has-overflow-start",
+        scrollLeft > threshold
+      );
+      selectorWrap.classList.toggle(
+        "has-overflow-end",
+        scrollLeft < maxScrollLeft - threshold
+      );
     }
 
     function clearScrollVisuals() {
@@ -264,6 +292,8 @@
     }
 
     function requestScrollUpdate() {
+      updateSelectorOverflow();
+
       if (isNearViewport && scrollFrame === null) {
         scrollFrame = window.requestAnimationFrame(updateFromScroll);
       }
@@ -312,6 +342,13 @@
     });
 
     activateItem(initialIndex >= 0 ? initialIndex : 0, false);
+    updateSelectorOverflow();
+
+    if (selectorList) {
+      selectorList.addEventListener("scroll", updateSelectorOverflow, {
+        passive: true,
+      });
+    }
 
     if (scrollEnabled && sticky) {
       window.addEventListener("scroll", handleScroll, { passive: true });

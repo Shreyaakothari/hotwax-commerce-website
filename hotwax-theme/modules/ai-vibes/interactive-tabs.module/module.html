@@ -13,38 +13,41 @@
 >
   <div class="interactive-tabs__responsive">
     <div class="interactive-tabs__sticky">
-      <div
-        class="interactive-tabs__selectors"
-        role="tablist"
-        aria-label="{{ tabs_label|escape_attr }}"
-      >
-        {% for item in tab_items %}
-          {% set selector_label = item.selector_label|default("Tab item " ~ loop.index, true) %}
-          {% set icon_type = item.icon_type|default("uploaded", true) %}
-          <button
-            id="interactive-tabs-{{ name|escape_attr }}-tab-{{ loop.index }}"
-            class="interactive-tabs__selector{% if loop.first %} is-active{% endif %}"
-            type="button"
-            role="tab"
-            aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
-            aria-controls="interactive-tabs-{{ name|escape_attr }}-panel-{{ loop.index }}"
-            tabindex="{% if loop.first %}0{% else %}-1{% endif %}"
-            data-tabs-tab="{{ loop.index0 }}"
-          >
-            {% if icon_type == "uploaded" and item.uploaded_icon.src %}
-              <span class="interactive-tabs__selector-icon interactive-tabs__selector-icon--uploaded" aria-hidden="true">
-                <img
-                  src="{{ item.uploaded_icon.src|escape_url }}"
-                  alt=""
-                  width="18"
-                  height="18"
-                  decoding="async"
-                >
-              </span>
-            {% endif %}
-            <span>{{ selector_label|escape_html }}</span>
-          </button>
-        {% endfor %}
+      <div class="interactive-tabs__selector-wrap" data-tabs-selector-wrap>
+        <div
+          class="interactive-tabs__selectors"
+          role="tablist"
+          aria-label="{{ tabs_label|escape_attr }}"
+          data-tabs-selector-list
+        >
+          {% for item in tab_items %}
+            {% set selector_label = item.selector_label|default("Tab item " ~ loop.index, true) %}
+            {% set icon_type = item.icon_type|default("uploaded", true) %}
+            <button
+              id="interactive-tabs-{{ name|escape_attr }}-tab-{{ loop.index }}"
+              class="interactive-tabs__selector{% if loop.first %} is-active{% endif %}"
+              type="button"
+              role="tab"
+              aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+              aria-controls="interactive-tabs-{{ name|escape_attr }}-panel-{{ loop.index }}"
+              tabindex="{% if loop.first %}0{% else %}-1{% endif %}"
+              data-tabs-tab="{{ loop.index0 }}"
+            >
+              {% if icon_type == "uploaded" and item.uploaded_icon.src %}
+                <span class="interactive-tabs__selector-icon interactive-tabs__selector-icon--uploaded" aria-hidden="true">
+                  <img
+                    src="{{ item.uploaded_icon.src|escape_url }}"
+                    alt=""
+                    width="18"
+                    height="18"
+                    decoding="async"
+                  >
+                </span>
+              {% endif %}
+              <span>{{ selector_label|escape_html }}</span>
+            </button>
+          {% endfor %}
+        </div>
       </div>
 
       <div class="interactive-tabs__frame">
@@ -146,7 +149,7 @@
         container-type: inline-size;
       }
 
-      .interactive-tabs__selectors {
+      .interactive-tabs__selector-wrap {
         {% if module.layout.selector_alignment == "flex-start" %}
           margin-inline-end: auto;
         {% elif module.layout.selector_alignment == "flex-end" %}

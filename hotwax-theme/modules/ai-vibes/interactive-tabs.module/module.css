@@ -3,34 +3,58 @@
   box-sizing: border-box;
 }
 
+.interactive-tabs__selector-wrap {
+  margin-block-end: var(--spacer-md);
+  max-width: 100%;
+  position: relative;
+  width: max-content;
+}
+
+.interactive-tabs__selector-wrap::before,
+.interactive-tabs__selector-wrap::after {
+  border-radius: 999px;
+  content: "";
+  inset-block: 2px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 160ms ease;
+  width: 36px;
+  z-index: 2;
+}
+
+.interactive-tabs__selector-wrap::before {
+  background: linear-gradient(90deg, #fff 20%, rgba(255, 255, 255, 0));
+  inset-inline-start: 1px;
+}
+
+.interactive-tabs__selector-wrap::after {
+  background: linear-gradient(270deg, #fff 20%, rgba(255, 255, 255, 0));
+  inset-inline-end: 1px;
+}
+
+.interactive-tabs__selector-wrap.has-overflow-end::after,
+.interactive-tabs__selector-wrap.has-overflow-start::before {
+  opacity: 1;
+}
+
 .interactive-tabs__selectors {
   background: #fff;
   border: 1px solid rgba(32, 33, 36, 0.14);
   border-radius: 999px;
   display: flex;
   gap: 2px;
-  margin-block-end: var(--spacer-md);
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  padding: 4px 4px 8px;
+  padding: 4px;
   scroll-padding-inline: 4px;
-  scrollbar-color: rgba(32, 33, 36, 0.24) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   width: max-content;
 }
 
 .interactive-tabs__selectors::-webkit-scrollbar {
-  height: 3px;
-}
-
-.interactive-tabs__selectors::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.interactive-tabs__selectors::-webkit-scrollbar-thumb {
-  background: rgba(32, 33, 36, 0.24);
-  border-radius: 999px;
+  display: none;
 }
 
 .interactive-tabs--scroll-enabled .interactive-tabs__sticky {
