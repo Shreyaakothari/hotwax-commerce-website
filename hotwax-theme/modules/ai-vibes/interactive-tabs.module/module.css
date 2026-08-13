@@ -12,30 +12,31 @@
 
 .interactive-tabs__selector-wrap::before,
 .interactive-tabs__selector-wrap::after {
+  background: var(--color-primary);
   border-radius: 999px;
   content: "";
-  inset-block: 2px;
+  height: 2px;
   opacity: 0;
   pointer-events: none;
   position: absolute;
   transition: opacity 160ms ease;
-  width: 36px;
-  z-index: 2;
+  width: 44px;
+  z-index: 1;
 }
 
 .interactive-tabs__selector-wrap::before {
-  background: linear-gradient(90deg, #fff 20%, rgba(255, 255, 255, 0));
-  inset-inline-start: 1px;
+  inset-block-end: -6px;
+  inset-inline-start: 12px;
 }
 
 .interactive-tabs__selector-wrap::after {
-  background: linear-gradient(270deg, #fff 20%, rgba(255, 255, 255, 0));
-  inset-inline-end: 1px;
+  inset-block-end: -6px;
+  inset-inline-end: 12px;
 }
 
 .interactive-tabs__selector-wrap.has-overflow-end::after,
 .interactive-tabs__selector-wrap.has-overflow-start::before {
-  opacity: 1;
+  opacity: 0.65;
 }
 
 .interactive-tabs__selectors {
