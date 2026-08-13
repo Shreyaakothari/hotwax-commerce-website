@@ -82,6 +82,18 @@
       }
     }
 
+    function keepTabInView(index) {
+      if (!tabs[index]) {
+        return;
+      }
+
+      tabs[index].scrollIntoView({
+        behavior: reduceMotion.matches ? "auto" : "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+
     function clearScrollVisuals() {
       panels.forEach(function (panel) {
         panel.classList.remove("is-scroll-visible");
@@ -269,6 +281,7 @@
       tab.addEventListener("click", function () {
         if (!scrollToItem(index)) {
           activateItem(index, false);
+          keepTabInView(index);
         }
       });
 
@@ -291,8 +304,10 @@
 
         if (scrollToItem(nextIndex)) {
           tabs[nextIndex].focus();
+          keepTabInView(nextIndex);
         } else {
           activateItem(nextIndex, true);
+          keepTabInView(nextIndex);
         }
       });
     });

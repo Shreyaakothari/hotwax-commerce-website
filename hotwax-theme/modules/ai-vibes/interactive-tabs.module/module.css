@@ -11,9 +11,16 @@
   gap: 2px;
   margin-block-end: var(--spacer-md);
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
   padding: 4px;
+  scroll-padding-inline: 4px;
+  scrollbar-width: none;
   width: max-content;
+}
+
+.interactive-tabs__selectors::-webkit-scrollbar {
+  display: none;
 }
 
 .interactive-tabs--scroll-enabled .interactive-tabs__sticky {
@@ -225,8 +232,6 @@
 
   .interactive-tabs__selectors {
     flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
     width: max-content;
   }
 
