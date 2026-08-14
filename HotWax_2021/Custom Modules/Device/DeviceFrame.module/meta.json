@@ -9,5 +9,8 @@
   "host_template_types" : [ "PAGE" ],
   "module_id" : 115826539898,
   "label" : "Device",
-  "is_available_for_new_content" : true
+  "is_available_for_new_content" : true,
+  "css_render_options" : {
+    "async" : true
+  }
 }
