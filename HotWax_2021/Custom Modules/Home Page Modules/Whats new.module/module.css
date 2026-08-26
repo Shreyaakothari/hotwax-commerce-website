@@ -32,6 +32,24 @@
     object-fit: cover;
 }
 
+/* Reserve the thumbnail box before the lazy loaded featured image arrives, so a card cannot push the
+   rest of the column down while the reader is scrolling.
+
+   Scoped to whats-new-cards, a class added to this module's own section, and not to
+   .card-list-columns. That wrapper class is emitted by three modules in this theme (Whats new,
+   Recent blog posts, and Card List Columns), so a .card-list-columns rule would leak into a sibling
+   module if one ever landed on the same page. The home page renders only one of them today, so this
+   is about keeping the rule correct rather than fixing a live bug.
+
+   19 / 10 matches the images. The six featured images measure between 1.904 and 1.929 wide to tall,
+   so object-fit: cover, which was already set, has almost nothing to crop and the framing stays
+   centered. The 200px grid column makes that a 200 by 105 box, the same shape the theme's other
+   200px thumbnails already request. */
+.whats-new-cards .card > img {
+    width: 100%;
+    aspect-ratio: 19 / 10;
+}
+
 .card > p {
     margin: 0;
 }

@@ -1,4 +1,4 @@
-<section class="card-list-columns">    
+<section class="card-list-columns whats-new-cards">
 {% for item in module.column %}
       <div class="card-list-column">
         <h3 class="column-title">{{ item.column_title }}</h3>
@@ -6,7 +6,32 @@
         {% set recent_posts = blog_recent_posts(item.blog_field, 3) %}
         {% for post in recent_posts %}
             <a class="card" href="{{ post.absolute_url }}">
-                <img src="{{ post.post_list_summary_featured_image }}" alt="{{ post.featured_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {# These cards sit far below the fold. The thumbnail renders in a 200px grid column
+                   on desktop and full width, about 330px, on a phone.
+
+                   The old markup printed loadingAttr and sizeAttrs. Neither variable is ever set in
+                   this module, so both rendered empty, no width attribute reached the browser, and
+                   every card downloaded its full upload, up to 3,712 KiB each.
+
+                   Adding a width attribute is what makes HubSpot serve a resized WebP and generate a
+                   srcset plus sizes. That is the same pattern templates/blog-index.html already uses
+                   on these exact files, so it is proven on this content rather than assumed.
+
+                   300 is used rather than blog-index's 600. HubSpot derives sizes from this number,
+                   and the widest real slot is the phone card at about 330px, so 300 describes the
+                   layout far better than 600 does. A 600 declaration also makes a 2x desktop pick
+                   the 1200w candidate, which upscales the smallest of these six images and comes
+                   back bigger than the file it was meant to replace.
+
+                   The alt text read post.featured_image.alt, which is not a property of a blog post
+                   object, so every thumbnail shipped alt="". The correct property is
+                   featured_image_alt_text, escaped the way the rest of the theme escapes it.
+
+                   The box is reserved in module.css, because a blog post object does not expose the
+                   featured image's height, so a height attribute cannot be emitted correctly here. #}
+                {% if post.post_list_summary_featured_image %}
+                  <img src="{{ post.post_list_summary_featured_image }}" width="300" alt="{{ post.featured_image_alt_text | escape }}" loading="lazy" decoding="async">
+                {% endif %}
                 {{ post.name }}
             </a>
         {% endfor %}

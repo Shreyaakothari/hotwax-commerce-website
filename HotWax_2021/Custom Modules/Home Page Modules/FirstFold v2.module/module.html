@@ -12,14 +12,36 @@
     </div>
     {% if module.hero_image.src %}
       <div class="hero-image">
-        {% set sizeAttrs = 'width="{{ module.hero_image.width }}" height="{{ module.hero_image.height }}"' %}
-        {% if module.hero_image.size_type == 'auto' %}
-          {% set sizeAttrs = 'width="{{ module.hero_image.width }}" height="{{ module.hero_image.height }}" style="max-width: 100%; height: auto;"' %}
-        {% elif module.hero_image.size_type == 'auto_custom_max' %}
-          {% set sizeAttrs = 'width="{{ module.hero_image.max_width }}" height="{{ module.hero_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+        {# The measured desktop LCP element. Three separate problems, all live today.
+
+           1. It carried loading="lazy". Lazy loading the LCP element delays the request for the one
+              element that decides the score, which is the opposite of Google's guidance, so it is
+              now eager with a high fetch priority.
+           2. It was served at full size, 3,658 KiB. HubSpot does not automatically resize an image
+              larger than 4096px in either dimension, and this upload is 5721 x 2674, so the width
+              attribute below cannot be relied on to shrink it. The documented remedy for an image
+              over that limit is to resize it explicitly, which is what resize_image_url does here.
+           3. Nothing reserved its box, so PageSpeed flagged unsized-images. Width and height now
+              come from the image field. For size_type auto_custom_max that is max_width and
+              max_height, which on the live home page are 600 by 280. Those give a 2.143 ratio
+              against the file's own 2.1395, so the box is reserved without moving the layout.
+
+           No inline style is set here on purpose. The dead sizeAttrs string this replaces carried
+           height: auto, and module.css sets height: 100% on this img inside the 991px query, so
+           printing that style would have changed the hero's rendered size.
+
+           This img is display:none below 991px (module.css), so it is a desktop only element. #}
+        {% if module.hero_image.size_type == 'auto_custom_max' %}
+          {% set heroWidth = module.hero_image.max_width %}
+          {% set heroHeight = module.hero_image.max_height %}
+        {% else %}
+          {% set heroWidth = module.hero_image.width %}
+          {% set heroHeight = module.hero_image.height %}
         {% endif %}
-        {% set loadingAttr = module.hero_image.loading != 'disabled' ? 'loading="{{ module.hero_image.loading }}"' : '' %}
-        <img src="{{ module.hero_image.src }}" alt="{{ module.hero_image.alt }}" {{ loadingAttr }}>
+        <img src="{{ resize_image_url(module.hero_image.src, 1600) }}"
+             alt="{{ module.hero_image.alt | escape }}"
+             {% if heroWidth and heroHeight %}width="{{ heroWidth | round | int }}" height="{{ heroHeight | round | int }}"{% endif %}
+             fetchpriority="high">
       </div>
     {% endif %}
   
