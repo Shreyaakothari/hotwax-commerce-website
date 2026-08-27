@@ -27,9 +27,16 @@
                    The value is a bare integer, not "300px". The HTML standard requires width to be a
                    valid non-negative integer, so the px form is non-conforming even though HubSpot
                    normalizes it away, which is visible above: blog-index.html writes width="600px"
-                   and the rendered page carries width="600". Counted across every HTML file in this
-                   repo today, 6 width attributes use the px suffix and 27 do not. Both forms fire the
-                   resizer, so the conforming one is used.
+                   and the rendered page carries width="600". Both forms exist in this repo and both
+                   fire the resizer, so the conforming one is used here.
+
+                   On the census, because earlier revisions of this comment got it wrong three times
+                   and the basis is what makes it checkable. Counting width attributes on img elements
+                   only, on the main branch, with HubL comments stripped and the committed
+                   playwright-report and test-results build artifacts excluded: 5 use the px suffix
+                   and 10 are bare. Widen any of those three conditions and the number moves, which is
+                   how the earlier figures went wrong: they swept in svg, iframe and logo tag widths,
+                   and they counted the example values written inside this very comment.
 
                    300 is used rather than blog-index's 600. HubSpot derives sizes from this number,
                    so it should describe the real slot, and the widest real slot is the phone card at
