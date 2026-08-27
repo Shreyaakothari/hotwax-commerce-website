@@ -41,10 +41,13 @@
    module if one ever landed on the same page. The home page renders only one of them today, so this
    is about keeping the rule correct rather than fixing a live bug.
 
-   19 / 10 matches the images. The six featured images measure between 1.904 and 1.929 wide to tall,
-   so object-fit: cover, which was already set, has almost nothing to crop and the framing stays
-   centered. The 200px grid column makes that a 200 by 105 box, the same shape the theme's other
-   200px thumbnails already request. */
+   19 / 10 is 1.900, which sits inside the range these images actually use. The six the page serves
+   on 27 August 2026 measure 1.904, 1.904, 1.904, 1.792, 1.928 and 1.929 wide to tall, read from the
+   returned image headers. This module pulls from blog_recent_posts, so the set rotates and no fixed
+   ratio can match every future upload exactly. That is why the ratio only needs to be close:
+   object-fit: cover was already set on this image, so anything off ratio is cropped rather than
+   distorted, and the framing stays centered. The 200px grid column makes this a 200 by 105 box,
+   which is the size measured in the browser. */
 .whats-new-cards .card > img {
     width: 100%;
     aspect-ratio: 19 / 10;

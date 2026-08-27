@@ -18,22 +18,53 @@
            Two defects live today. The img carried loading="lazy", which delays the request for the one
            element that decides the score, and it was served at full size, 3,746,124 bytes or 3,658 KiB.
 
-           Why resize_image_url rather than a width attribute. HubSpot does not automatically resize an
-           image over 4096px in either dimension, and this upload is 5721 x 2674, so a width attribute
-           could not shrink it. A width attribute is also what makes HubSpot inject a srcset after
-           render, and srcset beats src, so an attribute would take the resize decision away from this
-           line. The documented remedy for an image over the limit is to resize it explicitly.
+           Why the URL is rewritten here rather than left to a width attribute. HubSpot does not
+           automatically resize an image over 4096px in either dimension, and this upload is 5721 x 2674
+           read from the returned PNG header, so a width attribute could not shrink it. A width
+           attribute is also what makes HubSpot inject a srcset after render, and srcset beats src, so
+           an attribute would take the resize decision away from this line.
+
+           Why a replace filter and NOT resize_image_url. This reverses an earlier attempt on this
+           branch, and the reason is measured rather than stylistic. HubSpot's HubL function reference
+           documents the output of resize_image_url as the same path with a query string appended:
+
+             resize_image_url("http://your.hubspot.site/hubfs/img.jpg", 0, 0, 300)
+               -> http://your.hubspot.site/hubfs/img.jpg?length=300&name=img.jpg
+
+           On this portal that documented shape does not resize. Measured 27 August 2026 with a Chrome
+           user agent and a browser Accept header, no redirects followed:
+
+             /hubfs/<file>                        200  3,746,124 bytes  image/png   5721x2674
+             /hubfs/<file>?width=2100             200  3,746,124 bytes  image/png   5721x2674
+             /hubfs/<file>?width=2100&name=<file> 200  3,746,124 bytes  image/png   5721x2674
+             /hs-fs/hubfs/<file>?width=2100       200    165,072 bytes  image/webp  2100x981
+
+           Only the /hs-fs/ path resizes. The /hubfs/ path returns the full file and ignores the
+           parameter. The function's emitted URL cannot be observed without rendering HubL, and its
+           documented form is the one that does nothing, so using it here risked shipping an EAGER
+           3.7 MB hero that looks perfect and is worse than today's lazy 3.7 MB. The replace below
+           emits a URL that was measured directly, so nothing about the delivered bytes is assumed.
+
+           The replace is pinned to the full connected-domain prefix on purpose. A bare '/hubfs/'
+           replace would also rewrite the stored fs1.hubspotusercontent-na1.net form of this URL, and
+           that host returns 404 for /hs-fs/ paths, which inside a picture source would leave the hero
+           blank with no fallback. Pinned this way, any src that is not the expected host falls through
+           unchanged and serves the unresized image: heavier, never broken. The live rendered value of
+           module.hero_image.src is the www.hotwax.co form, confirmed in the served HTML.
 
            Why no width or height attribute, which reverses two earlier attempts on this branch. This
            module renders two different hero sizes, because module.js sniffs the user agent to add a
-           "safari" class and module.css then sets width: -webkit-max-content on the wrapper for it:
+           "safari" class and module.css then sets width: -webkit-max-content on the wrapper for it.
+           Measured today by toggling that class on the live page:
 
-             normal browser:  690 by 400 CSS px, clamped by the theme global img max-width: 100%
-             Safari:         1433 by 670 CSS px, sized off max-height: 62vh with the clamp not binding
+             normal browser:  690 by 400 CSS px at both 1440x900 and 1920x1080, clamped by the theme
+                              global img max-width: 100%
+             Safari:          1194 by 558 at 1440x900, and 1433 by 670 at 1920x1080, sized off
+                              max-height: 62vh with the clamp not binding, so it tracks viewport HEIGHT
 
            A width attribute is a presentational hint and no author CSS overrides it here, so any value
-           collapses whichever layout is larger. width="600", which the live field's max_width produced,
-           measured 600 by 400 in both, down from 1433 by 670 on Safari. No single value avoids that.
+           collapses whichever layout is larger. No single value avoids that, because the Safari size is
+           not a constant.
 
            Why the picture element. The wrapper is display:none below 991px, and display:none does NOT
            stop an img fetch, so making this eager would download the full image on every phone for an
@@ -43,15 +74,19 @@
            high priority fetch that the LCP fix needs. Measured at 430px: not fetched, 0 bytes. The 991px
            breakpoint here must stay in step with the display:none breakpoint in module.css.
 
-           Why 2100 and not more. Safari renders 1433 CSS px wide but 483 of them are off-screen and
-           unreachable, since body is overflow-x: clip and documentScrollWidth stays at the viewport
-           width, so the visible hero is about 950 CSS px. 2100 covers that at DPR 2 and covers the
-           normal 690 box out to DPR 3, at 165,072 bytes against 3,746,124 today. Sizing for the full
-           1433 would cost 280,018 bytes to render pixels nobody can see.
+           Why 2100 and not more. At 1920x1080, the largest case, Safari renders 1432.6 CSS px wide but
+           482.6 of them are off-screen and unreachable, since body is overflow-x: clip and
+           documentElement.scrollWidth stays at 1920. Measured visible width is 950 CSS px, which needs
+           1900 device px at DPR 2. 2100 covers that and covers the normal 690 box out to DPR 3, at
+           165,072 bytes against 3,746,124 today. Sizing for the full 1433 would cost 280,018 bytes to
+           carry pixels nobody can reach.
 
-           Nothing reserves the box here on purpose. Measured with the image unloaded, .hero-image is
-           already 690 by 400 while the img reports 0 by 400, so the grid reserves it and nothing
-           shifts. An aspect-ratio would fight height: 100%, max-height: 62vh and the Safari rule.
+           Nothing reserves the box here on purpose. Measured on the live page today: with the image
+           unloaded .hero-image is 690 by 400.4 and the img reports 0 by 400.4, and after forcing the
+           image to load both are 690 by 400.4. The next section's top stayed at 630.4 px across the
+           load, so the grid already reserves this box and the hero contributes no shift. Adding
+           width and height or an aspect-ratio would fight height: 100%, max-height: 62vh and the
+           Safari max-content rule rather than help them.
 
            No inline style either. The dead sizeAttrs string this replaces carried height: auto, and
            module.css sets height: 100% on this img inside the 991px query, so printing that style
@@ -60,7 +95,7 @@
            Note for reuse: fields.json ships a different default image at 5899 x 4529, ratio 1.30
            rather than 2.14. The 2100 above is sized for the hero the home page actually uses. #}
         <picture>
-          <source media="(min-width: 991px)" srcset="{{ resize_image_url(module.hero_image.src, 2100) }}">
+          <source media="(min-width: 991px)" srcset="{{ module.hero_image.src|replace('https://www.hotwax.co/hubfs/', 'https://www.hotwax.co/hs-fs/hubfs/') }}?width=2100">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
                alt="{{ module.hero_image.alt | escape }}"
                loading="eager"

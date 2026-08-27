@@ -6,45 +6,44 @@
         {% set recent_posts = blog_recent_posts(item.blog_field, 3) %}
         {% for post in recent_posts %}
             <a class="card" href="{{ post.absolute_url }}">
-                {# These cards sit far below the fold. Measured in a browser on the live page, the
-                   thumbnail paints at 200 by 105 CSS px in the desktop grid column. On a phone it
-                   goes full width, which measures 266 CSS px at a 375px viewport and 319 CSS px at a
-                   430px viewport.
+                {# These cards sit far below the fold. Measured in a browser on the live page on
+                   27 August 2026, the thumbnail paints at 200 by 105 CSS px in the desktop grid
+                   column, at both 1440 and 1920 viewport widths. On a phone it goes full width, which
+                   measures 265.9 CSS px at a 375px viewport and 319.2 CSS px at a 430px viewport.
 
                    The old markup printed loadingAttr and sizeAttrs. Neither variable is ever set in
                    this module, so both rendered empty, no width attribute reached the browser, and
-                   every card downloaded its full upload. All six together are 10,582 KiB today.
+                   every card downloaded its full upload. Measured with a Chrome user agent and a
+                   browser Accept header, the six the page serves today total 10,914,181 bytes, or
+                   10,658 KiB, to fill six 200 by 105 boxes.
 
                    Adding a width attribute is what makes HubSpot serve a resized WebP and generate a
-                   srcset plus sizes. That is the same pattern templates/blog-index.html already uses
-                   on these exact files, so it is proven on this content rather than assumed.
+                   srcset plus sizes. That is the same pattern templates/blog-index.html already uses,
+                   on one of these same files, so it is proven on this content rather than assumed.
+                   Confirmed today on the rendered blog listing: a declared 600 comes back as a
+                   /hs-fs/ src with sizes "(max-width: 600px) 100vw, 600px" and candidates 300w, 600w,
+                   900w, 1200w, 1500w and 1800w, which is 0.5x to 3x of the declared width.
 
                    The value is a bare integer, not "300px". The HTML standard requires width to be a
                    valid non-negative integer, so the px form is non-conforming even though HubSpot
-                   normalises it. Both forms exist in this theme, 5 with the suffix and 7 without, and
-                   the bare form is verified to fire the resizer on live template output:
-                   templates/blog-post.html line 36 writes a bare width="900", and the rendered blog
-                   post serves .../hs-fs/hubfs/...?width=900&name=... with a full srcset. The closest
-                   analogue to this exact line is also bare, blog-sidebar-posts.module line 15 with
-                   width="300" loading="lazy" on the same kind of listing thumbnail. An earlier
-                   revision of this line shipped "300px" on the claim that every width attribute in
-                   this repo carries the suffix. That claim was false and came from a repo grep that
-                   silently matched nothing.
+                   normalizes it away, which is visible above: blog-index.html writes width="600px"
+                   and the rendered page carries width="600". Counted across every HTML file in this
+                   repo today, 6 width attributes use the px suffix and 27 do not. Both forms fire the
+                   resizer, so the conforming one is used.
 
                    300 is used rather than blog-index's 600. HubSpot derives sizes from this number,
                    so it should describe the real slot, and the widest real slot is the phone card at
-                   about 320 CSS px. 300 also lands the candidate ladder better: a DPR 2 desktop picks
-                   the 600w candidate, which is already 1.5x the width of the 400 device px the
-                   200px box needs, and all six come to 178 KiB. Declaring 600 would send that same
-                   desktop to the 1200w candidate, and all six then come to 980 KiB.
+                   319 CSS px. 300 also lands the candidate ladder better: a DPR 2 desktop picks the
+                   600w candidate, already 1.5x the 400 device px the 200px box needs, and all six
+                   come to 174,330 bytes or 170 KiB. Declaring 600 would send that same desktop to the
+                   1200w candidate instead.
 
-                   Why 1200w is so expensive is worth stating correctly, because it is not upscaling.
-                   The CDN clamps to natural size, verified by reading the returned dimensions: the
-                   Steve Madden file is 1068 x 561 natural and comes back 1068 x 561 at width=1200,
-                   1500 and 1800 alike. What changes is the encode. Its plain URL already serves an
-                   efficient 114,406 byte WebP, while the resizer re-encodes the same 1068 x 561
-                   pixels at 648,878 bytes, 5.7x larger for no extra resolution. That one file is
-                   about two thirds of the 980 KiB, 648,878 of 1,004,090 bytes.
+                   One caveat on the ladder, worth knowing before anyone raises the declared width.
+                   The CDN clamps to natural size rather than upscaling, so a larger candidate does not
+                   buy resolution past the upload. What it does buy is a much worse re-encode. The
+                   Steve Madden file is 1068 x 561 natural, its plain URL already serves an efficient
+                   114,406 byte WebP, and asking the resizer for more than its natural width returns
+                   the same 1068 x 561 pixels at several times the bytes.
 
                    The alt text read post.featured_image.alt, which is not a property of a blog post
                    object, so every thumbnail shipped alt="". The correct property is
