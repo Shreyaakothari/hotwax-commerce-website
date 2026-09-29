@@ -29,20 +29,26 @@
         // sorted as the browser reads it, before it is drawn, so nothing jumps.
         (function () {
           var list = [];
+          // A photo background is its own band; colours are rounded so greys
+          // that look the same (245,245,245 and 245,245,247) count as one band
           function band(s) {
             var cs = getComputedStyle(s);
+            var url = cs.backgroundImage.match(/url\([^)]+\)/);
+            if (url) return url[0];
             var m = (cs.backgroundImage.match(/rgba?\([^)]+\)/) || [cs.backgroundColor])[0];
             var n = (m.match(/[\d.]+/g) || []).map(Number);
-            if (n.length === 4 && n[3] === 0) return '255,255,255';
-            return n.slice(0, 3).join(',');
+            if (n.length === 4 && n[3] === 0) n = [255, 255, 255];
+            return n.slice(0, 3).map(function (v) { return Math.round(v / 8); }).join(',');
           }
           function isHeading(s) {
             return s.querySelectorAll('.dnd-module').length === 1 && !!s.querySelector('.widget-type-header');
           }
-          // Empty = no module that is showing (e.g. only modules hidden in the editor)
+          // Empty = no module that is showing (e.g. only modules hidden in the editor,
+          // or only the floating back-to-top arrow)
           function isEmpty(s) {
             return !Array.prototype.some.call(s.querySelectorAll('.dnd-module'), function (m) {
-              return getComputedStyle(m).display !== 'none';
+              return getComputedStyle(m).display !== 'none' &&
+                !(m.querySelector('.scroll-top') && !m.textContent.trim());
             });
           }
           // A section holding only the end-of-page CTA module
