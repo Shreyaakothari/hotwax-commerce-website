@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Text selection
+   Selected text shows in brand red with white text instead of the browser's
+   default blue. On red buttons the selection turns white with dark text so
+   it stays visible.
+   ========================================================================== */
+
+::selection {
+  background-color: #EC2227;
+  color: #ffffff;
+}
+
+:is(.button, .hs-button, .cta_button, .btn, button, input[type="submit"]) ::selection,
+:is(.button, .hs-button, .cta_button, .btn, button, input[type="submit"])::selection {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
