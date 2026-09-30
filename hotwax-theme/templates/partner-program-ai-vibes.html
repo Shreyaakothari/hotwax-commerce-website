@@ -229,6 +229,17 @@
               <p><strong>Rewards are cumulative across every tier:</strong> partners earn the listed payment at each completed deal stage. The closed-won percentage is a separate reward and is paid in addition to the accepted-introduction and qualified-opportunity payments.</p>
             {% end_module_attribute %}
           {% end_module_block %}
+          <script>
+            // Phones show each tier as a card: label every value with its column name
+            document.querySelectorAll('.ai-vibes-partner-program__table-scroll table').forEach(function (t) {
+              var heads = Array.prototype.map.call(t.querySelectorAll('thead th'), function (th) { return th.textContent.trim(); });
+              t.querySelectorAll('tbody tr').forEach(function (tr) {
+                Array.prototype.forEach.call(tr.children, function (cell, i) {
+                  if (cell.tagName === 'TD' && heads[i]) cell.setAttribute('data-label', heads[i]);
+                });
+              });
+            });
+          </script>
         </div>
       </div>
       <div class="row-fluid ai-vibes-partner-program__supporting-row ai-vibes-partner-program__two-column">
@@ -1085,6 +1096,72 @@
 
 .ai-vibes-partner-program__table-scroll strong {
   color: #ffffff;
+}
+
+/* Phones: each tier becomes a card, values labelled with their column name */
+@media (max-width: 640px) {
+  .ai-vibes-partner-program__table-scroll {
+    border: 0;
+    overflow: visible;
+  }
+
+  .ai-vibes-partner-program__table-scroll table {
+    min-width: 0;
+  }
+
+  .ai-vibes-partner-program__table-scroll thead {
+    display: none;
+  }
+
+  /* !important beats the fixed widths and heights the page editor writes
+     onto each cell */
+  .ai-vibes-partner-program__table-scroll table,
+  .ai-vibes-partner-program__table-scroll tbody,
+  .ai-vibes-partner-program__table-scroll tr,
+  .ai-vibes-partner-program__table-scroll tbody th,
+  .ai-vibes-partner-program__table-scroll td {
+    display: block;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .ai-vibes-partner-program__table-scroll tbody tr {
+    border: 1px solid #505050;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .ai-vibes-partner-program__table-scroll tbody th {
+    background: #242424;
+    border-bottom: 1px solid #505050;
+    font-size: 1rem;
+    padding: 16px 18px;
+  }
+
+  .ai-vibes-partner-program__table-scroll td {
+    display: flex !important;
+    gap: 16px;
+    justify-content: space-between;
+    padding: 12px 18px;
+    text-align: right;
+  }
+
+  .ai-vibes-partner-program__table-scroll td::before {
+    color: #bdbdbd;
+    content: attr(data-label);
+    font-weight: 400;
+    text-align: left;
+  }
+
+  .ai-vibes-partner-program__table-scroll tbody tr:last-child th,
+  .ai-vibes-partner-program__table-scroll tbody tr:last-child td {
+    border-bottom: 1px solid #505050;
+  }
+
+  .ai-vibes-partner-program__table-scroll tbody tr td:last-child {
+    border-bottom: 0;
+  }
 }
 
 .ai-vibes-partner-program__rewards .ai-vibes-partner-program__supporting-row {
