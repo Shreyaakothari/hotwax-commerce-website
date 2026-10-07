@@ -3,11 +3,6 @@
   "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
   "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
   "module_id" : 94645271332,
-  "css_assets" : [ {
-    "resource_id" : 100000220542,
-    "autoload" : true,
-    "path" : "../../../Code Files/Device Styles.css",
-    "name" : "Device Styles.css"
-  } ],
+  "css_assets" : [  ],
   "is_available_for_new_content" : true
 }
