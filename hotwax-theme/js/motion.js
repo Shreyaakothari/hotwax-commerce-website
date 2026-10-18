@@ -36,9 +36,30 @@
     });
   }
 
+  var copies = 0;
+
+  /* If the same graphic appears twice on a page, give this copy its own ids */
+  function ownIds(svg) {
+    var first = svg.querySelector('[id]');
+    if (!first || document.querySelectorAll('[id="' + first.id + '"]').length < 2) return;
+    var suffix = '-c' + (++copies);
+    svg.querySelectorAll('[id]').forEach(function (el) { el.id += suffix; });
+    svg.querySelectorAll('use').forEach(function (el) {
+      var ref = el.getAttribute('href');
+      if (ref && ref.charAt(0) === '#') el.setAttribute('href', ref + suffix);
+    });
+    svg.querySelectorAll('[filter], [fill], [stroke]').forEach(function (el) {
+      ['filter', 'fill', 'stroke'].forEach(function (attr) {
+        var v = el.getAttribute(attr);
+        if (v && v.indexOf('url(#') === 0) el.setAttribute(attr, v.replace(/\)$/, suffix + ')'));
+      });
+    });
+  }
+
   function setUp(svg) {
     if (svg._hwm) return;
     svg._hwm = true;
+    ownIds(svg);
     var clock = svg.querySelector('.clock');
     if (clock) {
       clock.addEventListener('animationend', function () { svg._done = true; });
