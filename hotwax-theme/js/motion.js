@@ -4,9 +4,26 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(onView, { threshold: [0, 0.35] }) : null;
   var copies = 0;
+  var LABELS = { pause: 'Pause animation', play: 'Play animation', replay: 'Replay animation' };
 
   function shown(svg) {
     return svg.getClientRects().length > 0;
+  }
+
+  function shownIn(wrap) {
+    return Array.prototype.filter.call(wrap.querySelectorAll('svg[data-hwm]'), shown)[0];
+  }
+
+  /* The pause / play / replay button below a graphic follows the version on screen */
+  function sync(svg) {
+    var wrap = svg.closest('[data-hwm-wrap]');
+    var button = wrap && wrap.querySelector('[data-hwm-ctrl]');
+    if (!button || shownIn(wrap) !== svg) return;
+    var state = svg._done ? 'replay' : (svg._userPaused ? 'play' : 'pause');
+    if (button.getAttribute('data-state') === state) return;
+    button.setAttribute('data-state', state);
+    button.setAttribute('aria-label', LABELS[state]);
+    button.title = LABELS[state];
   }
 
   function waiting(svg) {
@@ -20,12 +37,14 @@
     svg.classList.remove('is-live', 'is-paused');
     void svg.getBoundingClientRect();
     svg.classList.add('is-live');
+    sync(svg);
   }
 
   function onView(entries) {
     entries.forEach(function (entry) {
       var svg = entry.target;
       svg._inView = entry.intersectionRatio >= 0.35;
+      if (svg._userPaused) return;
       if (svg._inView) {
         if (!svg._started && !waiting(svg)) {
           play(svg);
@@ -63,9 +82,14 @@
     ownIds(svg);
     var clock = svg.querySelector('.hwm-clock');
     if (clock) {
-      clock.addEventListener('animationend', function () { svg._done = true; });
+      clock.addEventListener('animationend', function () { svg._done = true; sync(svg); });
     }
-    if (reduce.matches || !io) return;
+    if (reduce.matches) return;
+    if (!io) {
+      svg._done = true;
+      sync(svg);
+      return;
+    }
     svg.classList.add('is-live', 'is-paused');
     io.observe(svg);
   }
@@ -80,11 +104,35 @@
       root.querySelectorAll('svg[data-hwm]').forEach(function (svg) {
         setUp(svg);
         if (!shown(svg)) return;
+        svg._userPaused = false;
         play(svg);
         if (io && !svg._inView) svg.classList.add('is-paused');
       });
     }
   };
+
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest && event.target.closest('[data-hwm-ctrl]');
+    if (!button || reduce.matches) return;
+    var svg = shownIn(button.closest('[data-hwm-wrap]'));
+    if (!svg) return;
+    setUp(svg);
+    if (svg._done) {
+      svg._userPaused = false;
+      play(svg);
+    } else if (svg._userPaused) {
+      svg._userPaused = false;
+      if (svg._started) {
+        svg.classList.remove('is-paused');
+      } else {
+        play(svg);
+      }
+    } else {
+      svg._userPaused = true;
+      svg.classList.add('is-paused');
+    }
+    sync(svg);
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { init(); });
