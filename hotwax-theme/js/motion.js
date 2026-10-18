@@ -84,7 +84,10 @@
     if (clock) {
       clock.addEventListener('animationend', function () { svg._done = true; sync(svg); });
     }
+    var wrap = svg.closest('[data-hwm-wrap]');
+    if (wrap) wrap.setAttribute('data-hwm-ready', '');
     if (reduce.matches) return;
+    sync(svg);
     if (!io) {
       svg._done = true;
       sync(svg);
