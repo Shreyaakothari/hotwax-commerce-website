@@ -108,10 +108,6 @@
   transform: none;
 }
 
-.hw-ia .hw-ia__btn {
-  scroll-margin-top: 100px;
-}
-
 .hw-ia .hw-ia__btn:focus-visible {
   outline: 2px solid var(--ia-red);
   outline-offset: -2px;

@@ -2,7 +2,8 @@
   if (window.hwMotion) return;
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var io = 'IntersectionObserver' in window ? new IntersectionObserver(onView, { threshold: 0.35 }) : null;
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(onView, { threshold: [0, 0.35] }) : null;
+  var copies = 0;
 
   function shown(svg) {
     return svg.getClientRects().length > 0;
@@ -24,7 +25,8 @@
   function onView(entries) {
     entries.forEach(function (entry) {
       var svg = entry.target;
-      if (entry.isIntersecting) {
+      svg._inView = entry.intersectionRatio >= 0.35;
+      if (svg._inView) {
         if (!svg._started && !waiting(svg)) {
           play(svg);
         } else if (svg._started) {
@@ -36,22 +38,21 @@
     });
   }
 
-  var copies = 0;
-
-  /* If the same graphic appears twice on a page, give this copy its own ids */
+  /* If the same graphic appears twice on a page, give this copy its own ids (kept inside the prefix) */
   function ownIds(svg) {
     var first = svg.querySelector('[id]');
     if (!first || document.querySelectorAll('[id="' + first.id + '"]').length < 2) return;
-    var suffix = '-c' + (++copies);
-    svg.querySelectorAll('[id]').forEach(function (el) { el.id += suffix; });
+    var mark = 'c' + (++copies) + '-';
+    var rename = function (id) { return id.replace(/^(hwm-[a-z]+-[dm]-)/, '$1' + mark); };
+    svg.querySelectorAll('[id]').forEach(function (el) { el.id = rename(el.id); });
     svg.querySelectorAll('use').forEach(function (el) {
       var ref = el.getAttribute('href');
-      if (ref && ref.charAt(0) === '#') el.setAttribute('href', ref + suffix);
+      if (ref && ref.charAt(0) === '#') el.setAttribute('href', '#' + rename(ref.slice(1)));
     });
     svg.querySelectorAll('[filter], [fill], [stroke]').forEach(function (el) {
       ['filter', 'fill', 'stroke'].forEach(function (attr) {
-        var v = el.getAttribute(attr);
-        if (v && v.indexOf('url(#') === 0) el.setAttribute(attr, v.replace(/\)$/, suffix + ')'));
+        var value = el.getAttribute(attr);
+        if (value && value.indexOf('url(#') === 0) el.setAttribute(attr, 'url(#' + rename(value.slice(5, -1)) + ')');
       });
     });
   }
@@ -60,7 +61,7 @@
     if (svg._hwm) return;
     svg._hwm = true;
     ownIds(svg);
-    var clock = svg.querySelector('.clock');
+    var clock = svg.querySelector('.hwm-clock');
     if (clock) {
       clock.addEventListener('animationend', function () { svg._done = true; });
     }
@@ -78,7 +79,9 @@
     playIn: function (root) {
       root.querySelectorAll('svg[data-hwm]').forEach(function (svg) {
         setUp(svg);
-        if (shown(svg)) play(svg);
+        if (!shown(svg)) return;
+        play(svg);
+        if (io && !svg._inView) svg.classList.add('is-paused');
       });
     }
   };

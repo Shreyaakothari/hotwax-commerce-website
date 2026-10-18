@@ -22,24 +22,35 @@
 
     var narrow = window.matchMedia('(max-width: 1068px)');
 
-    function holdStill(button) {
+    var holding = 0;
+
+    function stopHolding() {
+      if (holding) cancelAnimationFrame(holding);
+      holding = 0;
+    }
+
+    function holdStill(button, top) {
+      stopHolding();
       if (!narrow.matches) return;
-      var top = button.getBoundingClientRect().top;
       var start = performance.now();
       (function step() {
         var drift = button.getBoundingClientRect().top - top;
-        if (Math.abs(drift) >= 1) window.scrollBy(0, drift);
-        if (performance.now() - start < 500) requestAnimationFrame(step);
+        if (Math.abs(drift) >= 1) window.scrollBy({ top: drift, behavior: 'instant' });
+        holding = performance.now() - start < 500 ? requestAnimationFrame(step) : 0;
       })();
     }
+
+    window.addEventListener('wheel', stopHolding, { passive: true });
+    window.addEventListener('touchstart', stopHolding, { passive: true });
 
     items.forEach(function (item, i) {
       var button = item.querySelector('.hw-ia__btn');
       if (!button) return;
       button.addEventListener('click', function () {
         var target = item.classList.contains('is-open') ? (i + 1) % items.length : i;
+        var top = button.getBoundingClientRect().top;
         show(target);
-        holdStill(button);
+        holdStill(button, top);
         if (window.hwMotion) window.hwMotion.playIn(items[target]);
       });
     });
