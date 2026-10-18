@@ -21,16 +21,16 @@
     }
 
     var narrow = window.matchMedia('(max-width: 1068px)');
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    function keepInView(index) {
+    function holdStill(button) {
       if (!narrow.matches) return;
-      setTimeout(function () {
-        var button = items[index].querySelector('.hw-ia__btn');
-        if (button && button.getBoundingClientRect().top < 90) {
-          button.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
-        }
-      }, reduce.matches ? 0 : 420);
+      var top = button.getBoundingClientRect().top;
+      var start = performance.now();
+      (function step() {
+        var drift = button.getBoundingClientRect().top - top;
+        if (Math.abs(drift) >= 1) window.scrollBy(0, drift);
+        if (performance.now() - start < 500) requestAnimationFrame(step);
+      })();
     }
 
     items.forEach(function (item, i) {
@@ -39,7 +39,8 @@
       button.addEventListener('click', function () {
         var target = item.classList.contains('is-open') ? (i + 1) % items.length : i;
         show(target);
-        keepInView(target);
+        holdStill(button);
+        if (window.hwMotion) window.hwMotion.playIn(items[target]);
       });
     });
 

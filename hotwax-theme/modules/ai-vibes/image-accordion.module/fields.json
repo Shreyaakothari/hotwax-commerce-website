@@ -169,6 +169,21 @@
       "alt" : "",
       "loading" : "lazy"
     }
+  }, {
+    "id" : "ia_item_graphic",
+    "name" : "graphic",
+    "label" : "Animated graphic",
+    "help_text" : "Shows an animated graphic instead of the image. Pick the one that matches this item; leave it on No animation to use the image.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "none", "No animation (use image)" ], [ "unified", "Unified inventory" ], [ "routing", "Order routing" ], [ "sfs", "Ship from store" ], [ "bopis", "Buy online pick up in store" ], [ "sim", "Store inventory" ], [ "ret", "Returns in store" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "none"
   } ],
   "tab" : "CONTENT",
   "expanded" : false,

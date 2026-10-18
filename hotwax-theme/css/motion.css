@@ -1,0 +1,157 @@
+/* Motion graphics for the Image Accordion (and any module that includes the motion partials).
+   Finished frame is the base style; .is-live runs the motion; .is-paused holds it. */
+.hwm {
+  --amber: var(--ion-warning-shade);
+  --ease: cubic-bezier(.45, 0, .25, 1);
+  --ease-back: cubic-bezier(.16, 1, .3, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --font-body: var(--font-family-body, "Open Sans", "Helvetica Neue", Arial, sans-serif);
+  --font-display: var(--font-family-special, "Montserrat", "Helvetica Neue", Arial, sans-serif);
+  --green: var(--ion-success-shade);
+  --green-tint: var(--ion-success-tint);
+  --icon: #6e6e73;
+  --icon-off: #aeaeb2;
+  --ink: #333333;
+  --ion-danger: #c5000f;
+  --ion-danger-chip: rgba(197, 0, 15, .08);
+  --ion-primary: #0054e9;
+  --ion-primary-chip: rgba(0, 84, 233, .08);
+  --ion-primary-shade: #004acd;
+  --ion-primary-track: rgba(0, 84, 233, .3);
+  --ion-success: #2dd55b;
+  --ion-success-shade: #28bb50;
+  --ion-success-tint: rgba(45, 213, 91, .08);
+  --ion-warning: #ffc409;
+  --ion-warning-shade: #e0ac08;
+  --ion-warning-tint: rgba(255, 196, 9, .08);
+  --line: #d7d8da;
+  --muted: #6e6e73;
+  --red: #ec2227;
+  --text: #555a5f;
+}
+@property --d { syntax: "<time>"; inherits: false; initial-value: 0s; }
+@property --d2 { syntax: "<time>"; inherits: false; initial-value: 1s; }
+@property --w { syntax: "<time>"; inherits: false; initial-value: 1s; }
+@property --w2 { syntax: "<time>"; inherits: false; initial-value: 1s; }
+.hwm { overflow: visible; font-family: var(--font-body); }
+.hwm text { fill: var(--ink); font-family: var(--font-body); }
+.hwm .lbl { font: 600 14px var(--font-body); fill: var(--ink); }
+.hwm .lbl-s { font: 400 13.5px var(--font-body); fill: var(--muted); }
+.hwm .f-h { font: 600 16px var(--font-body); fill: var(--ink); }
+.hwm .f-b { font: 600 14px var(--font-body); fill: var(--ink); }
+.hwm .f-r { font: 400 12.5px var(--font-body); fill: var(--ink); }
+.hwm .f-s { font: 400 12.5px var(--font-body); fill: var(--muted); }
+.hwm .f-btn { font: 600 12px var(--font-body); letter-spacing: .06em; }
+.hwm.hwm--sim-m .f-btn, .hwm.hwm--ret-m .f-btn, .hwm.hwm--bopis-m .f-btn { font-size: 11.5px; }
+.hwm * { transform-box: fill-box; }
+.hwm { --ionicon-stroke-width: 40px; }
+.hwm use[href$="-i-check"], .hwm use[href$="-i-dcheck"] { --ionicon-stroke-width: 56px; }
+.hwm use[href$="-i-store"] { --ionicon-stroke-width: 26px; }
+.rp svg { --ionicon-stroke-width: 48px; }
+.hwm .o, .hwm .a-pop, .hwm .a-press, .hwm .a-tap, .hwm .a-pulse { transform-origin: center; }
+.hwm .a-grow-x { transform-origin: left center; }
+.hwm .clock { opacity: 0; }
+.hwm .a-gone, .hwm .a-swap, .hwm .a-tap, .hwm .a-pulse, .hwm .a-leg, .hwm .a-winop { opacity: 0; }
+.hwm .a-draw, .hwm .a-draw-lin { stroke-dasharray: 1 2; stroke-dashoffset: 0; }
+/* The finished frame is the base style. Motion only runs while .is-live is set. */
+.hwm.is-live .clock { animation: k-clk var(--T) linear both; }
+.hwm.is-live .a-fade { animation: k-show var(--dur, .5s) ease var(--d, 0s) both; }
+.hwm.is-live .a-up { animation: k-up var(--dur, .65s) var(--ease-out) var(--d, 0s) both; }
+.hwm.is-live .a-down { animation: k-down var(--dur, .65s) var(--ease-out) var(--d, 0s) both; }
+.hwm.is-live .a-left { animation: k-left var(--dur, .65s) var(--ease-out) var(--d, 0s) both; }
+.hwm.is-live .a-pop { animation: k-pop var(--dur, .55s) var(--ease-back) var(--d, 0s) both; }
+.hwm.is-live .a-gone { animation: k-hide var(--dur, .3s) ease var(--d, 0s) both; }
+.hwm.is-live .a-swap { animation: k-show .35s ease calc(var(--d, 0s) + .12s) both, k-hide .25s ease var(--d2, 1s) forwards; }
+.hwm.is-live .a-draw { animation: k-draw var(--dur, .8s) var(--ease) var(--d, 0s) both; }
+.hwm.is-live .a-draw-lin { animation: k-draw var(--dur, .6s) linear var(--d, 0s) both; }
+.hwm.is-live .a-grow-x { animation: k-grow-x var(--dur, .5s) var(--ease-out) var(--d, 0s) both; }
+.hwm.is-live .a-col { animation: k-col var(--dur, .3s) ease var(--d, 0s) both; }
+.hwm.is-live .a-fill { animation: k-fill var(--dur, .3s) ease var(--d, 0s) both; }
+.hwm.is-live .a-press { animation: k-press .45s var(--ease) var(--d, 0s) both; }
+.hwm.is-live .a-tap { animation: k-tap .8s var(--ease-out) var(--d, 0s); }
+.hwm.is-live .a-pulse { animation: k-pulse 1.1s var(--ease-out) var(--d, 0s); }
+.hwm.is-live .a-win { animation: k-win var(--w, 1s) linear var(--d, 0s); }
+.hwm.is-live .a-winop { animation: k-winop var(--w, 1s) linear var(--d, 0s); }
+.hwm.is-live .a-type { animation: k-type var(--dur, .8s) steps(var(--n, 12), end) var(--d, 0s) both; }
+.hwm.is-live .a-leg { animation: k-leg var(--dur, .7s) linear var(--d, 0s); }
+.hwm .a-trace { opacity: 0; stroke-dasharray: 1 2; }
+.hwm.is-live .a-trace { animation: k-draw var(--dur, .4s) linear var(--d, 0s) both, k-winop calc(var(--dur, .4s) + .15s) linear var(--d, 0s); }
+.hwm.is-live .a-right { animation: k-right var(--dur, .6s) var(--ease-out) var(--d, 0s) both; }
+.hwm.is-live .a-twinkle { animation: k-twinkle .9s var(--ease-out) var(--d, 0s) both; }
+@keyframes k-right { from { opacity: 0; transform: translateX(-8px) } }
+@keyframes k-twinkle { from { opacity: 0; transform: rotate(-20deg) scale(.75) } }
+.hwm .a-wire { stroke-dasharray: 1 2; stroke-dashoffset: 0; }
+.hwm.is-live .a-wire { animation: k-draw var(--dur, .8s) cubic-bezier(.45, 0, .55, 1) var(--d, 0s) both; }
+.hwm.hwm--unified .orbit, .hwm.hwm--unified-m .orbit { transform-box: view-box; transform-origin: 370px 300px; }
+.hwm.hwm--unified-m .orbit { transform-origin: 172px 172px; }
+.hwm.hwm--unified .sat, .hwm.hwm--unified-m .sat { transform-box: view-box; }
+.hwm.hwm--unified.is-live .orbit, .hwm.hwm--unified-m.is-live .orbit { animation: un-orbit 3.71s cubic-bezier(.5, 0, .5, 1) .15s both; }
+.hwm.hwm--unified.is-live .sat, .hwm.hwm--unified-m.is-live .sat { animation: un-counter 3.71s cubic-bezier(.5, 0, .5, 1) .15s both; }
+@keyframes un-orbit { from { transform: rotate(-360deg) } }
+@keyframes un-counter { from { transform: rotate(360deg) } }
+.hwm .sf-plane, .hwm .sf-bell { transform-origin: center; }
+.hwm .sf-bell { transform-origin: 50% 10%; }
+.hwm.is-live .sf-bell { animation: sf-ring .9s var(--ease) var(--d) both; }
+@keyframes sf-ring { 0%, 100% { transform: rotate(0) } 15% { transform: rotate(12deg) } 35% { transform: rotate(-10deg) } 55% { transform: rotate(6deg) } 75% { transform: rotate(-3deg) } }
+.hwm .a-act { opacity: 0; }
+.hwm.is-live .a-act { animation: k-act .75s ease var(--d, 0s); }
+@keyframes k-act { 0% { opacity: 0 } 25% { opacity: .16 } 100% { opacity: 0 } }
+.hwm .a-out { opacity: 0; }
+.hwm.is-live .a-out { animation: k-winop var(--w) linear 0s, k-out .55s var(--ease) var(--w) forwards; }
+@keyframes k-out { from { opacity: 1; transform: translateY(0) } to { opacity: 0; transform: translateY(-8px) } }
+.hwm .a-hold { opacity: 0; }
+.hwm.is-live .a-hold { animation: k-show .4s ease var(--d) both, k-hide .3s ease calc(var(--d) + var(--w)) forwards; }
+.hwm.is-live .un-lift { animation: un-lift .6s var(--ease) var(--d) both; }
+@keyframes un-lift { from { transform: translateY(28px) } }
+.hwm.is-paused * { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { .hwm * { animation: none !important; } }
+@keyframes k-clk { from { opacity: 0 } to { opacity: 0 } }
+@keyframes k-show { from { opacity: 0 } to { opacity: 1 } }
+@keyframes k-hide { from { opacity: 1 } to { opacity: 0 } }
+@keyframes k-up { from { opacity: 0; transform: translateY(6px) } }
+@keyframes k-down { from { opacity: 0; transform: translateY(-8px) } }
+@keyframes k-left { from { opacity: 0; transform: translateX(-8px) } }
+@keyframes k-pop { from { opacity: 0; transform: scale(.85) } }
+@keyframes k-draw { from { stroke-dashoffset: 1.01 } }
+@keyframes k-grow-x { from { transform: scaleX(0) } }
+@keyframes k-col { from { color: var(--from) } }
+@keyframes k-fill { from { fill: var(--from) } }
+@keyframes k-press { 50% { transform: scale(.92) } }
+@keyframes k-tap { 0% { opacity: 0; transform: scale(.5) } 30% { opacity: .45; transform: scale(.85) } 100% { opacity: 0; transform: scale(1.35) } }
+@keyframes k-pulse { 0% { opacity: .3; transform: scale(1) } 100% { opacity: 0; transform: scale(1.6) } }
+@keyframes k-win { from, to { fill: var(--on) } }
+@keyframes k-winop { from, to { opacity: 1 } }
+@keyframes k-type { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+@keyframes k-leg { 0% { opacity: 0; transform: translate(0, 0) } 8% { opacity: 1; transform: translate(0, 0) } 50% { transform: translate(var(--x1), var(--y1)) } 92% { opacity: 1; transform: translate(var(--x2), var(--y2)) } 100% { opacity: 0; transform: translate(var(--x2), var(--y2)) } }
+.hwm--bopis .token { opacity: 0; }
+.hwm--bopis.is-live .token { animation: bp-token .6s var(--ease) .7s; }
+@keyframes bp-token { 0% { opacity: 0; transform: translate(0, 0) } 15% { opacity: 1 } 85% { opacity: 1; transform: translate(170px, -157px) } 100% { opacity: 0; transform: translate(170px, -157px) } }
+.hwm--bopis .ul { transform: translateX(220px); }
+.hwm--bopis.is-live .ul { animation: bp-ul1 .55s var(--ease) 2.8s both, bp-ul2 .55s var(--ease) 3.9s forwards; }
+@keyframes bp-ul1 { from { transform: translateX(0) } to { transform: translateX(110px) } }
+@keyframes bp-ul2 { from { transform: translateX(110px) } to { transform: translateX(220px) } }
+.hwm--bopis .oldcard { opacity: 0; }
+.hwm--bopis.is-live .oldcard { animation: k-winop 2.8s linear 0s, k-hide .25s linear 2.8s forwards, bp-old .45s var(--ease-out) 1.7s both; }
+@keyframes bp-old { from { transform: translateY(-152px) } }
+.hwm--bopis-m .ul { transform: translateX(196px); }
+.hwm--bopis-m.is-live .ul { animation: bpm-ul1 .55s var(--ease) 2.5s both, bpm-ul2 .55s var(--ease) 3.55s forwards; }
+@keyframes bpm-ul1 { from { transform: translateX(0) } to { transform: translateX(98px) } }
+@keyframes bpm-ul2 { from { transform: translateX(98px) } to { transform: translateX(196px) } }
+.hwm .dot-cur { transform: scale(1.4); }
+.hwm.is-live .a-step { animation: k-wait var(--w) linear 0s, k-cur var(--w2) linear var(--w); }
+.hwm.is-live .a-wait { animation: k-wait var(--w) linear 0s; }
+@keyframes k-wait { from, to { fill: #d7d8da; transform: scale(1) } }
+@keyframes k-cur { from, to { fill: var(--red); transform: scale(1.4) } }
+.hwm--sfs .parcel, .hwm--sfs-m .parcel { transform: translate(188px, -298px); }
+.hwm--sfs-m .parcel { transform: translate(228px, -53px); }
+.hwm--sfs.is-live .parcel { animation: sf-trip 1.4s linear 2.9s both; }
+.hwm--sfs-m.is-live .parcel { animation: sfm-trip 1.4s linear 2.5s both; }
+@keyframes sf-trip { 0.0% { transform: translate(0.0px,0.0px) } 10.7% { transform: translate(10.8px,-36.6px) } 19.6% { transform: translate(28.4px,-63.1px) } 28.0% { transform: translate(50.1px,-84.0px) } 36.5% { transform: translate(73.3px,-103.6px) } 45.2% { transform: translate(95.1px,-126.1px) } 55.0% { transform: translate(113.0px,-156.0px) } 64.7% { transform: translate(127.9px,-187.2px) } 72.8% { transform: translate(142.4px,-212.4px) } 79.9% { transform: translate(156.1px,-233.8px) } 86.4% { transform: translate(168.6px,-253.6px) } 92.9% { transform: translate(179.3px,-274.3px) } 100.0% { transform: translate(188.0px,-298.0px) } }
+@keyframes sfm-trip { 0.0% { transform: translate(0.0px,0.0px) } 11.1% { transform: translate(26.0px,-2.7px) } 21.1% { transform: translate(48.7px,-9.6px) } 30.5% { transform: translate(69.0px,-18.5px) } 39.4% { transform: translate(88.0px,-27.4px) } 47.8% { transform: translate(106.7px,-34.3px) } 56.1% { transform: translate(126.0px,-37.0px) } 64.3% { transform: translate(145.2px,-37.6px) } 71.9% { transform: translate(163.1px,-39.4px) } 79.1% { transform: translate(180.0px,-42.0px) } 86.1% { transform: translate(196.2px,-45.3px) } 93.1% { transform: translate(212.1px,-49.0px) } 100.0% { transform: translate(228.0px,-53.0px) } }
+.hwm .box-in { opacity: 0; transform: scale(.4); transform-origin: center; }
+.hwm.is-live .box-in { animation: sf-box .35s var(--ease-back) var(--d) both, sf-drop .25s ease-in var(--d2) forwards; }
+@keyframes sf-box { from { opacity: 0; transform: scale(.5) } to { opacity: 1; transform: scale(1) } }
+@keyframes sf-drop { from { opacity: 1; transform: scale(1) } to { opacity: 0; transform: scale(.4) } }
+.hwm .scanbar { opacity: 0; }
+.hwm.is-live .scanbar { animation: si-scan 1.4s var(--ease) var(--d, .9s); }
+@keyframes si-scan { 0% { opacity: 0; transform: translateY(0) } 8% { opacity: .85 } 70% { transform: translateY(var(--y)) } 85% { opacity: .85; transform: translateY(var(--y)) } 100% { opacity: 0; transform: translateY(var(--y)) } }

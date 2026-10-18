@@ -32,7 +32,14 @@
               <div class="hw-ia__inner"{% if not is_open %} inert{% endif %}>
                 {% if item.description %}<div class="hw-ia__text">{{ item.description }}</div>{% endif %}
                 {% if item.link_text and item_href %}<a class="hw-more hw-ia__link" href="{{ item_href|escape_attr }}"{% if item.link.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ item.link_text|escape }}</a>{% endif %}
-                {% if item.image.src %}
+                {% set graphic = item.graphic if item.graphic in ['unified', 'routing', 'sfs', 'bopis', 'sim', 'ret'] else '' %}
+                {% if graphic %}
+                  {{ require_css(get_asset_url('/hotwax-theme/css/motion.css')) }}
+                  {{ require_js(get_asset_url('/hotwax-theme/js/motion.js')) }}
+                  <figure class="hw-ia__figure hw-ia__figure--motion">
+                    {% if graphic == 'unified' %}{% include 'hotwax-theme/templates/partials/motion/unified.html' %}{% elif graphic == 'routing' %}{% include 'hotwax-theme/templates/partials/motion/routing.html' %}{% elif graphic == 'sfs' %}{% include 'hotwax-theme/templates/partials/motion/sfs.html' %}{% elif graphic == 'bopis' %}{% include 'hotwax-theme/templates/partials/motion/bopis.html' %}{% elif graphic == 'sim' %}{% include 'hotwax-theme/templates/partials/motion/sim.html' %}{% elif graphic == 'ret' %}{% include 'hotwax-theme/templates/partials/motion/ret.html' %}{% endif %}
+                  </figure>
+                {% elif item.image.src %}
                   <figure class="hw-ia__figure">
                     {{ responsive_img(item.image.src, item.image.width, item.image.height, 800, '(max-width: 734px) 300px, (max-width: 1068px) 680px, (min-width: 1440px) 770px, calc(58vw - 72px)', item.image.alt, false, 'hw-ia__img', false) }}
                   </figure>

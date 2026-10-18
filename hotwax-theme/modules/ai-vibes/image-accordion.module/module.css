@@ -353,6 +353,95 @@
   width: auto;
 }
 
+/* Animated graphics: wide version on laptop and tablet, phone version up to 734px */
+.hw-ia__box {
+  overflow-anchor: none;
+}
+
+.hw-ia .hw-ia__figure--motion .hwm {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.hw-ia .hw-ia__figure--motion .hwm-m {
+  display: none;
+}
+
+@media (min-width: 1069px) {
+  .hw-ia .hw-ia__figure--motion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hw-ia .hw-ia__figure--motion {
+    padding: 48px 32px 48px 8px;
+  }
+
+  .hw-ia .hw-ia__figure--motion .hwm-d {
+    height: 100%;
+    max-width: 740px;
+  }
+}
+
+@media (min-width: 1069px) and (max-width: 1194px) {
+  .hw-ia__box:has(.hw-ia__figure--motion) {
+    grid-template-columns: 320px 1fr;
+  }
+
+  .hw-ia__box:has(.hw-ia__figure--motion) .hw-ia__figure {
+    left: 320px;
+    padding: 40px 8px 40px 0;
+  }
+}
+
+@media (max-width: 1068px) {
+  .hw-ia .hw-ia__figure--motion .hwm-d {
+    max-width: 740px;
+  }
+}
+
+@supports (overflow: clip) {
+  @media (min-width: 735px) and (max-width: 1068px) {
+    .hw-ia__item:has(.hw-ia__figure--motion) .hw-ia__inner {
+      overflow: visible;
+      overflow-y: clip;
+    }
+
+    .hw-ia .hw-ia__figure--motion .hwm-d {
+      width: calc(100% + 112px);
+      margin-left: max(-56px, calc((100% - 740px) / 2));
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 734px) {
+    .hw-ia__item:has(.hw-ia__figure--motion) .hw-ia__inner {
+      overflow: visible;
+      overflow-y: clip;
+    }
+
+    .hw-ia .hw-ia__figure--motion .hwm-m {
+      width: calc(100% + 40px);
+      margin-left: max(-20px, calc((100% - 360px) / 2));
+      margin-right: 0;
+    }
+  }
+}
+
+@media (max-width: 734px) {
+  .hw-ia .hw-ia__figure--motion .hwm-d {
+    display: none;
+  }
+
+  .hw-ia .hw-ia__figure--motion .hwm-m {
+    display: block;
+    max-width: 360px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hw-ia .hw-ia__btn,
   .hw-ia__icon,
