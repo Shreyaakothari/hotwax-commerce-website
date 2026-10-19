@@ -43,7 +43,7 @@
 }
 
 .logo-strip--glide {
-  --logo-strip-speed: 36;
+  --logo-strip-speed: 50;
 }
 
 .logo-strip--glide .logo-strip__track {
@@ -52,12 +52,8 @@
 
 .logo-strip--glide .logo-strip__item {
   grid-area: 1 / 1;
-  animation: logo-strip-loop var(--logo-strip-duration, calc(var(--logo-count, 17) * 5.5s)) linear infinite;
-  animation-delay: calc(var(--logo-strip-duration, calc(var(--logo-count, 17) * 5.5s)) * (var(--i, 0) + 1 - var(--logo-count, 17)) / var(--logo-count, 17));
-}
-
-.logo-strip--glide .logo-strip:hover .logo-strip__item {
-  animation-play-state: paused;
+  animation: logo-strip-loop var(--logo-strip-duration, calc(var(--logo-count, 17) * 4.2s)) linear infinite;
+  animation-delay: calc(var(--logo-strip-duration, calc(var(--logo-count, 17) * 4.2s)) * (var(--i, 0) + 1 - var(--logo-count, 17)) / var(--logo-count, 17));
 }
 
 @keyframes logo-strip-loop {
