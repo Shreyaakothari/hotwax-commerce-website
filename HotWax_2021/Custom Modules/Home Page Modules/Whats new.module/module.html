@@ -1,3 +1,4 @@
+{% from 'hotwax-theme/macros/button.html' import button %}
 {% from 'hotwax-theme/macros/responsive-image.html' import responsive_img %}
 <section class="card-list-columns whats-new-cards">
 {% for item in module.column %}
@@ -14,13 +15,7 @@
                 {{ post.name }}
             </a>
         {% endfor %}
-        {# Set href for the "Read more" button within the outer loop #}
-        <a class="button button--secondary button--small" href="{{ item.column_cta.url.href }}"
-           {% if item.column_cta.open_in_new_tab %}target="_blank"{% endif %}
-           {% if item.column_cta.rel %}rel="{{ item.column_cta.rel }}"{% endif %}
-        >
-          {{ item.column_title }}
-        </a>
+        {{ button(item.column_cta, item.column_title, item.button_style || 'secondary', 'button--small') }}
       </div>
     {% endfor %}
 </section>
