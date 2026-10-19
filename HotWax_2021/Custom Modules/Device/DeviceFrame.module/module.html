@@ -10,7 +10,7 @@
         <!-- check if the user has added a button, if so, display it -->
         {% if module.button %}
             <div class="frame-button">
-            {{ button(module.link, module.cta_label) }}
+            {{ button(module.link, module.cta_label, module.button_style) }}
             </div>
         {% endif %}
     </div>

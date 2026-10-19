@@ -882,5 +882,27 @@
   "allow_new_line" : false,
   "type" : "text",
   "display_width" : null,
-  "default" : "See a live demo"
+  "default" : "Book a demo"
+}, {
+  "id" : "button_style",
+  "name" : "button_style",
+  "label" : "Button style",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "button",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "select",
+  "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "primary"
 } ]
