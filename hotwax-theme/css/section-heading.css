@@ -12,6 +12,10 @@
   text-wrap: balance;
 }
 
+.hw-section-head h1.hw-heading {
+  max-width: none;
+}
+
 .hw-section-head .hw-heading.hw-heading--display {
   font-size: 48px;
   line-height: 1.0834;

@@ -22,7 +22,7 @@
     "required" : false,
     "locked" : false,
     "display" : "select",
-    "choices" : [ [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ] ],
+    "choices" : [ [ "h1", "H1 (main page heading, use once per page)" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ] ],
     "multiple" : false,
     "reordering_enabled" : true,
     "preset" : null,
