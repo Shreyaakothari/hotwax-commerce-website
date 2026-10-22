@@ -20,6 +20,7 @@
     var requestSettleTimer = null;
     var isNearViewport = true;
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var stackedWidth = 900;
 
     if (!tabs.length || tabs.length !== panels.length) {
       return;
@@ -30,6 +31,10 @@
         document.querySelector(".hs-inline-edit") ||
           tabModule.closest(".hs-inline-edit")
       );
+    }
+
+    function isStacked() {
+      return Boolean(responsive && responsive.clientWidth <= stackedWidth);
     }
 
     function updateStickyOffset() {
@@ -72,11 +77,14 @@
         tab.setAttribute("tabindex", isActive ? "0" : "-1");
       });
 
+      var stacked = isStacked();
+
       panels.forEach(function (panel, panelIndex) {
         var isActive = panelIndex === index;
+        var isHidden = !isActive && !stacked;
         panel.classList.toggle("is-active", isActive);
-        panel.setAttribute("aria-hidden", String(!isActive));
-        panel.toggleAttribute("inert", !isActive);
+        panel.setAttribute("aria-hidden", String(isHidden));
+        panel.toggleAttribute("inert", isHidden);
       });
 
       if (moveFocus) {
@@ -233,7 +241,7 @@
         !scrollEnabled ||
         isInlineEditor() ||
         !responsive ||
-        responsive.clientWidth <= 700 ||
+        isStacked() ||
         !sticky
       ) {
         clearScrollVisuals();
@@ -259,7 +267,7 @@
         !scrollEnabled ||
         isInlineEditor() ||
         !responsive ||
-        responsive.clientWidth <= 700 ||
+        isStacked() ||
         !sticky
       ) {
         clearScrollVisuals();
@@ -343,6 +351,17 @@
 
     activateItem(initialIndex >= 0 ? initialIndex : 0, false);
     updateSelectorOverflow();
+
+    if ("ResizeObserver" in window && responsive) {
+      var wasStacked = isStacked();
+      var stackObserver = new ResizeObserver(function () {
+        if (isStacked() !== wasStacked) {
+          wasStacked = isStacked();
+          activateItem(activeIndex, false);
+        }
+      });
+      stackObserver.observe(responsive);
+    }
 
     if (selectorList) {
       selectorList.addEventListener("scroll", updateSelectorOverflow, {

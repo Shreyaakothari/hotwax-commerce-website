@@ -256,15 +256,37 @@
   }
 }
 
-@container interactive-tabs (max-width: 700px) {
+@container interactive-tabs (max-width: 900px) {
   .interactive-tabs--scroll-enabled .interactive-tabs__sticky {
     position: static;
   }
 
-  .interactive-tabs__scroll-spacer {
+  .interactive-tabs__scroll-spacer,
+  .interactive-tabs__selector-wrap {
     display: none;
   }
 
+  .interactive-tabs__panels {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .interactive-tabs__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+    visibility: visible;
+  }
+
+  .interactive-tabs__panel + .interactive-tabs__panel {
+    border-top: 1px solid rgba(32, 33, 36, 0.14);
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+}
+
+@container interactive-tabs (max-width: 700px) {
   .interactive-tabs__selectors {
     flex-wrap: nowrap;
     width: max-content;
