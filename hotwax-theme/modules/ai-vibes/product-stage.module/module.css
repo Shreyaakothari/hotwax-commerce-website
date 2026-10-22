@@ -103,7 +103,7 @@
 
 .hw-ps .hw-ps__label {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   padding: 8px 14px;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -121,6 +121,7 @@
   flex: none;
   width: 7px;
   height: 7px;
+  margin-top: calc((1.24em - 7px) / 2);
   border: 1.5px solid currentColor;
   border-radius: 50%;
 }
