@@ -21,6 +21,8 @@
 }
 
 .hw-ps__stage {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 470px) minmax(0, 356px);
   align-items: center;
@@ -37,6 +39,42 @@
 
 .hw-ps__stage--single {
   grid-template-columns: minmax(0, 470px);
+}
+
+.hw-ps__stage::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow:
+    0 0 60px 6px rgba(255, 255, 255, 0.2),
+    0 0 140px 30px rgba(255, 255, 255, 0.08);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hw-ps__stage.is-glow-armed::after {
+  opacity: 0;
+}
+
+.hw-ps__stage.is-glowing::after {
+  animation: hw-ps-glow 4.8s ease-in-out forwards;
+}
+
+@keyframes hw-ps-glow {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  50% { opacity: 0.35; }
+  75% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-ps__stage.is-glowing::after {
+    animation: none;
+    opacity: 0.5;
+  }
 }
 
 .hw-ps__side {
