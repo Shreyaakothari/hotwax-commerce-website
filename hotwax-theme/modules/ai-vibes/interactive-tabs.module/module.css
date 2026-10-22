@@ -280,9 +280,9 @@
   }
 
   .interactive-tabs__panel + .interactive-tabs__panel {
-    border-top: 1px solid rgba(32, 33, 36, 0.14);
-    margin-top: 32px;
-    padding-top: 32px;
+    border-block-start: 1px solid rgba(32, 33, 36, 0.14);
+    margin-block-start: var(--spacer-lg);
+    padding-block-start: var(--spacer-lg);
   }
 }
 

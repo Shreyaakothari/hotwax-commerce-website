@@ -34,7 +34,10 @@
     }
 
     function isStacked() {
-      return Boolean(responsive && responsive.clientWidth <= stackedWidth);
+      return Boolean(
+        responsive &&
+          responsive.getBoundingClientRect().width <= stackedWidth
+      );
     }
 
     function updateStickyOffset() {
@@ -261,7 +264,6 @@
 
     function updateFromScroll() {
       scrollFrame = null;
-      updateStickyOffset();
 
       if (
         !scrollEnabled ||
@@ -273,6 +275,8 @@
         clearScrollVisuals();
         return;
       }
+
+      updateStickyOffset();
 
       var tabModuleRect = tabModule.getBoundingClientRect();
       var stickyTop = parseFloat(window.getComputedStyle(sticky).top) || 0;
