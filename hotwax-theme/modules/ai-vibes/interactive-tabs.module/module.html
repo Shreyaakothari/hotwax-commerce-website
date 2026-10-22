@@ -184,21 +184,21 @@
       .interactive-tabs__description {
         {{ module.frame_style.text.description_spacing.css }}
       }
-
-      @container interactive-tabs (max-width: 700px) {
-        .interactive-tabs__frame {
-          {{ module.frame_style.mobile_spacing.css }}
-        }
-
-        .interactive-tabs__title {
-          {{ module.frame_style.text.mobile.title_spacing.css }}
-        }
-
-        .interactive-tabs__description {
-          {{ module.frame_style.text.mobile.description_spacing.css }}
-        }
-      }
     {% end_scope_css %}
+
+    @container interactive-tabs (max-width: 700px) {
+      #hs_cos_wrapper_{{ name }} .interactive-tabs__frame {
+        {{ module.frame_style.mobile_spacing.css }}
+      }
+
+      #hs_cos_wrapper_{{ name }} .interactive-tabs__title {
+        {{ module.frame_style.text.mobile.title_spacing.css }}
+      }
+
+      #hs_cos_wrapper_{{ name }} .interactive-tabs__description {
+        {{ module.frame_style.text.mobile.description_spacing.css }}
+      }
+    }
   </style>
 {% end_require_css %}
 {% endif %}
