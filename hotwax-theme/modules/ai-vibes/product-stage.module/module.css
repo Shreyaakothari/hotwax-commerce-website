@@ -59,14 +59,20 @@
 }
 
 .hw-ps__stage.is-glowing::after {
-  animation: hw-ps-glow 4.8s ease-in-out forwards;
+  animation: hw-ps-glow 18s ease-in-out forwards;
 }
 
 @keyframes hw-ps-glow {
   0% { opacity: 0; }
-  25% { opacity: 1; }
-  50% { opacity: 0.35; }
-  75% { opacity: 1; }
+  5.56% { opacity: 1; }
+  16.67% { opacity: 0.25; }
+  27.78% { opacity: 1; }
+  38.89% { opacity: 0.25; }
+  50% { opacity: 1; }
+  61.11% { opacity: 0.25; }
+  72.22% { opacity: 1; }
+  83.33% { opacity: 0.25; }
+  94.44% { opacity: 1; }
   100% { opacity: 0.5; }
 }
 

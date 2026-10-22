@@ -7,11 +7,13 @@
       if (stage.classList.contains('is-glow-armed')) return;
       stage.classList.add('is-glow-armed');
       var io = new IntersectionObserver(function (entries) {
-        if (entries.some(function (entry) { return entry.isIntersecting; })) {
+        var entry = entries[entries.length - 1];
+        if (entry.intersectionRatio >= 0.25) {
           stage.classList.add('is-glowing');
-          io.disconnect();
+        } else if (!entry.isIntersecting) {
+          stage.classList.remove('is-glowing');
         }
-      }, { threshold: 0.25 });
+      }, { threshold: [0, 0.25] });
       io.observe(stage);
     });
   }
