@@ -22,6 +22,10 @@
   max-width: none !important;
 }
 
+.layout-uniform .body-container .dnd-section.dnd-section:has(.hw-ff) + .dnd-section:has(.logo-slider)[class] {
+  padding-top: 0 !important;
+}
+
 @media (max-width: 640px) {
   .hw-ff { --ff-fold: min(calc(100vh - 165px), 735px); }
   @supports (height: 100svh) {
