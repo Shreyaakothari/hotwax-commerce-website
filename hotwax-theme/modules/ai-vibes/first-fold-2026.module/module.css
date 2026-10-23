@@ -14,6 +14,14 @@
   .hw-ff { --ff-fold: clamp(480px, calc(100svh - 165px), 735px); }
 }
 
+.layout-uniform .body-container .dnd-section.dnd-section:has(.hw-ff)[class] {
+  padding: 0 !important;
+}
+
+.layout-uniform .body-container .dnd-section.dnd-section:has(.hw-ff)[class] > .row-fluid {
+  max-width: none !important;
+}
+
 @media (max-width: 640px) {
   .hw-ff { --ff-fold: min(calc(100vh - 165px), 735px); }
   @supports (height: 100svh) {

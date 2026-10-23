@@ -73,7 +73,7 @@
 
     // laptop and up: the title, subtitle and line sit on hex-row centres, only where the gaps stay open
     function snapRows() {
-      [slot, sub, title].forEach(function (el) { if (el) { el.style.translate = ''; el.ffShift = 0; } });
+      [cta, slot, sub, title].forEach(function (el) { if (el) { el.style.translate = ''; el.ffShift = 0; } });
       if (window.innerWidth < 992) return;
       function snap(el, offset, above, below, minAbove, minBelow) {
         if (!el) return;
@@ -89,8 +89,11 @@
           return;
         }
       }
-      snap(slot, 0, sub, btn, 24, 80);
-      snap(sub, 15, title, slot, 32, 24);
+      // the button moves up onto the hex row above, as long as the line keeps its space
+      var cb = box(cta), up = Math.floor((cb[0] + cb[1]) / 2 / hv) * hv - (cb[0] + cb[1]) / 2;
+      if (up > -hv * 0.6 && cb[0] + up - box(slot)[1] >= 80) { cta.style.translate = '0 ' + up.toFixed(1) + 'px'; cta.ffShift = up; }
+      snap(slot, 0, sub, cta, 24, 80);
+      snap(sub, 5, title, slot, 32, 24);
       snap(title, 0, eyebrow, sub, 24, 32);
     }
 
@@ -111,7 +114,7 @@
         for (var col = 0, x = row % 2 ? hw / 2 : 0; x < W + hw; col++, x += hw) cells.push({ x: x, y: y, row: row, col: col, ring: 99 });
       }
       // ripple rings: hex distance of every cell from the cell behind the button
-      var bp = pos(btn), ox = bp.x + bp.w / 2, oy = bp.y + bp.h / 2, origin = cells[0], best = 1e9;
+      var bp = pos(btn), ox = bp.x + bp.w / 2, oy = bp.y + (cta.ffShift || 0) + bp.h / 2, origin = cells[0], best = 1e9;
       cells.forEach(function (c) { var d = Math.hypot(c.x - ox, c.y - oy); if (d < best) { best = d; origin = c; } });
       function axial(c) { return [c.col - (c.row - (c.row & 1)) / 2, c.row]; }
       var oa = axial(origin);
@@ -179,7 +182,7 @@
       var A, C, s0 = null, pressed = false, START = 1500, FLY = 900, FADE = 320, HAND = FLY * 0.75;
       function measure() {
         var b = pos(btn), sp = pos(slot);
-        A = [b.x + b.w / 2, b.y + 6];
+        A = [b.x + b.w / 2, b.y + (cta.ffShift || 0) + 6];
         C = [sp.x + sp.w / 2, sp.y + (slot.ffShift || 0) + sp.h / 2];
       }
       function step(now) {
