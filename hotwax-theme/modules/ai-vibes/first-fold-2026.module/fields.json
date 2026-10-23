@@ -46,7 +46,7 @@
         "id": "ff_subtitle_links",
         "name": "links",
         "label": "Links",
-        "help_text": "A link starting with # scrolls down this page to the section with that Anchor ID.",
+        "help_text": "A link starting with # scrolls down this page: to the section with that Anchor ID, or to the Image Accordion item with that title (#store-inventory opens Store inventory).",
         "required": false,
         "locked": false,
         "occurrence": {
@@ -89,18 +89,6 @@
               "open_in_new_tab": false,
               "no_follow": false
             }
-          },
-          {
-            "id": "ff_subtitle_open_item",
-            "name": "open_item",
-            "label": "Open item",
-            "help_text": "Optional. For a # link to an Image Accordion: the item title to open on arrival, for example Store inventory.",
-            "required": false,
-            "locked": false,
-            "allow_new_line": false,
-            "type": "text",
-            "display_width": null,
-            "default": ""
           }
         ],
         "tab": "CONTENT",
@@ -119,23 +107,22 @@
               },
               "open_in_new_tab": false,
               "no_follow": false
-            },
-            "open_item": ""
+            }
           },
           {
             "link_text": "Store Inventory Management",
             "link": {
               "url": {
                 "type": "EXTERNAL",
-                "href": "#omnichannel",
+                "href": "#store-inventory",
                 "content_id": null
               },
               "open_in_new_tab": false,
               "no_follow": false
-            },
-            "open_item": "Store inventory"
+            }
           }
-        ]
+        ],
+        "sorting_label_field": "subtitle.links.link_text"
       },
       {
         "id": "ff_subtitle_joiner",

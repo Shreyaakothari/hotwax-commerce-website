@@ -26,23 +26,37 @@
     }
 
     initJumps(sec);
-    if (!ctx || !slot || !btn) { showLine(); return; }
+    if (!ctx || !slot || !btn) {
+      fitTitle();
+      window.addEventListener('resize', fitTitle);
+      showLine();
+      return;
+    }
 
     var DUR = 2200, RINGS = 14, RING_STEP = 85, RING_MS = 620;
     var W = 0, H = 0, dpr = 1, hr = 40, hv = 60, horizon = 0, cells = [];
     var t0 = null, rippleAt = -1, raf = 0, started = false;
 
+    // one line from 768px, shrunk to fit but never below 32px; past that, and on phones, it wraps
     function fitTitle() {
       if (!title) return;
+      var phrases = title.querySelectorAll('.hw-ff__phrase');
       title.style.fontSize = '';
-      if (window.innerWidth < 768) return;
-      var avail = title.clientWidth, probe = document.createElement('span');
-      probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font:inherit;letter-spacing:inherit';
-      probe.textContent = title.textContent;
-      title.appendChild(probe);
-      var w = probe.getBoundingClientRect().width;
-      title.removeChild(probe);
-      if (w > avail) title.style.fontSize = (parseFloat(getComputedStyle(title).fontSize) * avail / w) + 'px';
+      title.style.whiteSpace = '';
+      [].forEach.call(phrases, function (p) { p.style.whiteSpace = ''; });
+      var avail = title.clientWidth;
+      if (window.innerWidth >= 768) {
+        var probe = document.createElement('span');
+        probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font:inherit;letter-spacing:inherit';
+        probe.textContent = title.textContent;
+        title.appendChild(probe);
+        var w = probe.getBoundingClientRect().width, size = parseFloat(getComputedStyle(title).fontSize) * avail / w;
+        title.removeChild(probe);
+        if (w <= avail) return;
+        if (size >= 32) { title.style.fontSize = size + 'px'; return; }
+        title.style.whiteSpace = 'normal';
+      }
+      [].forEach.call(phrases, function (p) { if (p.getBoundingClientRect().width > avail) p.style.whiteSpace = 'normal'; });
     }
 
     // layout position inside the section, ignoring the fade-up transform
@@ -53,13 +67,13 @@
     }
 
     function box(el) {
-      var p = pos(el);
-      return [p.y, p.y + p.h];
+      var p = pos(el), d = el.ffShift || 0;
+      return [p.y + d, p.y + p.h + d];
     }
 
     // laptop and up: the title, subtitle and line sit on hex-row centres, only where the gaps stay open
     function snapRows() {
-      [slot, sub, title].forEach(function (el) { if (el) { el.style.position = ''; el.style.top = ''; } });
+      [slot, sub, title].forEach(function (el) { if (el) { el.style.translate = ''; el.ffShift = 0; } });
       if (window.innerWidth < 992) return;
       function snap(el, offset, above, below, minAbove, minBelow) {
         if (!el) return;
@@ -70,8 +84,8 @@
           if (Math.abs(d) > hv * 0.6) continue;
           if (above && b[0] + d - box(above)[1] < minAbove) continue;
           if (below && box(below)[0] - (b[1] + d) < minBelow) continue;
-          el.style.position = 'relative';
-          el.style.top = d.toFixed(1) + 'px';
+          el.style.translate = '0 ' + d.toFixed(1) + 'px';
+          el.ffShift = d;
           return;
         }
       }
@@ -166,7 +180,7 @@
       function measure() {
         var b = pos(btn), sp = pos(slot);
         A = [b.x + b.w / 2, b.y + 6];
-        C = [sp.x + sp.w / 2, sp.y + sp.h / 2];
+        C = [sp.x + sp.w / 2, sp.y + (slot.ffShift || 0) + sp.h / 2];
       }
       function step(now) {
         if (s0 === null) s0 = now;
@@ -236,27 +250,35 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
   }
 
-  // # links scroll to that section; an Open item also opens that Image Accordion item
+  function slug(text) {
+    return text.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  // # links scroll down the page: to the element with that id, or to the Image Accordion item
+  // with that title (#store-inventory opens Store inventory)
   function initJumps(sec) {
     sec.addEventListener('click', function (event) {
       var a = event.target.closest ? event.target.closest('a[data-ff-jump]') : null;
       if (!a || !sec.contains(a) || !a.hash) return;
-      var target = null;
-      try { target = document.getElementById(decodeURIComponent(a.hash.slice(1))); } catch (e) {}
-      if (!target) return;
-      event.preventDefault();
-      var name = (a.getAttribute('data-ff-open') || '').trim().toLowerCase(), to = target, focus = null;
-      if (name) {
-        [].some.call(target.querySelectorAll('.hw-ia__btn'), function (b) {
-          if (b.textContent.trim().toLowerCase() !== name) return false;
-          var item = b.closest('.hw-ia__item');
-          if (item && !item.classList.contains('is-open')) b.click();
-          if (item && window.matchMedia('(max-width: 1068px)').matches) to = item;
-          focus = b;
+      var id = '';
+      try { id = decodeURIComponent(a.hash.slice(1)); } catch (e) { return; }
+      var target = document.getElementById(id), hit = null;
+      if (!target) {
+        [].some.call(document.querySelectorAll('[data-hw-ia] .hw-ia__btn'), function (b) {
+          if (slug(b.textContent) !== id) return false;
+          hit = b;
           return true;
         });
+        if (!hit) return;
+        target = hit.closest('[data-hw-ia]');
       }
-      if (!focus) {
+      event.preventDefault();
+      var to = target, focus = hit;
+      if (hit) {
+        var item = hit.closest('.hw-ia__item');
+        if (item && !item.classList.contains('is-open')) hit.click();
+        if (item && window.matchMedia('(max-width: 1068px)').matches) to = item;
+      } else {
         focus = target.querySelector('h1, h2, h3') || target;
         if (!focus.hasAttribute('tabindex')) focus.setAttribute('tabindex', '-1');
       }
