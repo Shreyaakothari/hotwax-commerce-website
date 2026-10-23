@@ -40,7 +40,7 @@
           {% else %}
             {{ responsive_img(s.image.src, iw, ih, 940 if main else 712, sizes, s.image.alt, false, 'hw-ps__img') }}
           {% endif %}
-          {% if main and chat.prompt %}
+          {% if main and chat.prompt and ih * 100 > iw * 150 and ih * 100 < iw * 155 %}
           <div class="hw-ps__chat" aria-hidden="true">
             <div class="hw-ps__chat-scale">
               <div class="hw-ps__chat-log">
@@ -60,7 +60,7 @@
                           <svg class="hw-ps__chat-icon" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                           <div>
                             {% if card.subtitle %}<p class="hw-ps__chat-over">{{ card.subtitle|escape }}</p>{% endif %}
-                            <p class="hw-ps__chat-title">{{ card.title|escape }}</p>
+                            {% if card.title %}<p class="hw-ps__chat-title">{{ card.title|escape }}</p>{% endif %}
                           </div>
                           <span class="hw-ps__chat-tag">Changed</span>
                         </div>

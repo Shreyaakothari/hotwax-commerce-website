@@ -53,10 +53,14 @@
     chat.classList.add('is-on');
     win.classList.add('has-chat');
     scale();
+    function onResize() {
+      scale();
+      fit();
+    }
     if ('ResizeObserver' in window) {
-      new ResizeObserver(scale).observe(chat);
+      new ResizeObserver(onResize).observe(chat);
     } else {
-      window.addEventListener('resize', scale);
+      window.addEventListener('resize', onResize);
     }
 
     if (reduce) {
@@ -111,11 +115,10 @@
   function init() {
     if (!('IntersectionObserver' in window)) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) document.querySelectorAll('.hw-ps__stage').forEach(initGlow);
     document.querySelectorAll('.hw-ps__chat').forEach(function (chat) {
       initChat(chat, reduce);
     });
-    if (reduce) return;
-    document.querySelectorAll('.hw-ps__stage').forEach(initGlow);
   }
 
   if (document.readyState === 'loading') {

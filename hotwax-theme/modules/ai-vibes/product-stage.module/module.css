@@ -186,6 +186,7 @@
   --chat-h: 2096px;
   display: none;
   position: absolute;
+  z-index: 3;
   left: 0;
   top: 5.415%;
   width: 49.174%;
@@ -212,6 +213,7 @@
 
 .hw-ps__chat :where(p) {
   margin: 0;
+  font-weight: 400;
 }
 
 .hw-ps__chat-log {
@@ -524,7 +526,8 @@
     aspect-ratio: 714 / 1460;
   }
 
-  .hw-ps__window.has-chat picture {
+  .hw-ps__window.has-chat > picture,
+  .hw-ps__window.has-chat > .hw-ps__img {
     position: absolute;
     width: 1px;
     height: 1px;
