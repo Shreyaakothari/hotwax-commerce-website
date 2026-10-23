@@ -164,6 +164,7 @@
 }
 
 @media (min-width: 992px) {
+  .hw-ff__inner { grid-template-rows: minmax(12px, 131fr) auto minmax(8px, 52fr) auto minmax(12px, 70fr) auto minmax(10px, 70fr) auto minmax(16px, 134fr) auto minmax(0px, 56fr); }
   .hw-ff .hw-ff__subtitle { max-width: none; font-size: 24px; }
 }
 

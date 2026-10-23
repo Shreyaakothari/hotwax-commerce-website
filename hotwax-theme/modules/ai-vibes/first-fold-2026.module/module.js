@@ -66,37 +66,6 @@
       return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
     }
 
-    function box(el) {
-      var p = pos(el), d = el.ffShift || 0;
-      return [p.y + d, p.y + p.h + d];
-    }
-
-    // laptop and up: the title, subtitle and line sit on hex-row centres, only where the gaps stay open
-    function snapRows() {
-      [cta, slot, sub, title].forEach(function (el) { if (el) { el.style.translate = ''; el.ffShift = 0; } });
-      if (window.innerWidth < 992) return;
-      function snap(el, offset, above, below, minAbove, minBelow) {
-        if (!el) return;
-        var b = box(el), c = (b[0] + b[1]) / 2 - offset, lo = Math.floor(c / hv) * hv;
-        var picks = c - lo <= hv / 2 ? [lo, lo + hv] : [lo + hv, lo];
-        for (var i = 0; i < 2; i++) {
-          var d = picks[i] - c;
-          if (Math.abs(d) > hv * 0.6) continue;
-          if (above && b[0] + d - box(above)[1] < minAbove) continue;
-          if (below && box(below)[0] - (b[1] + d) < minBelow) continue;
-          el.style.translate = '0 ' + d.toFixed(1) + 'px';
-          el.ffShift = d;
-          return;
-        }
-      }
-      // the button moves up onto the hex row above, as long as the line keeps its space
-      var cb = box(cta), up = Math.floor((cb[0] + cb[1]) / 2 / hv) * hv - (cb[0] + cb[1]) / 2;
-      if (up > -hv * 0.6 && cb[0] + up - box(slot)[1] >= 80) { cta.style.translate = '0 ' + up.toFixed(1) + 'px'; cta.ffShift = up; }
-      snap(slot, 0, sub, cta, 24, 80);
-      snap(sub, 5, title, slot, 32, 24);
-      snap(title, 0, eyebrow, sub, 24, 32);
-    }
-
     function build() {
       fitTitle();
       dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -107,14 +76,15 @@
       hr = W < 640 ? 28 : 40;
       hv = 1.5 * hr;
       var hw = Math.sqrt(3) * hr;
-      snapRows();
-      horizon = cta.offsetTop - (window.innerWidth > 640 ? 10 : 0) - (window.innerWidth <= 640 ? 70 : 94);
+      horizon = cta.offsetTop - (window.innerWidth >= 992 ? 78 : window.innerWidth > 640 ? 104 : 70);
+      // the grid lines up with the line under the subtitle, so the text never moves
+      var sp = pos(slot), off = (sp.y + sp.h / 2) % hv;
       cells = [];
-      for (var row = 0, y = 0; y < H + hr; row++, y += hv) {
-        for (var col = 0, x = row % 2 ? hw / 2 : 0; x < W + hw; col++, x += hw) cells.push({ x: x, y: y, row: row, col: col, ring: 99 });
+      for (var row = -1, y = off - hv; y < H + hr; row++, y += hv) {
+        for (var col = 0, x = row & 1 ? hw / 2 : 0; x < W + hw; col++, x += hw) cells.push({ x: x, y: y, row: row, col: col, ring: 99 });
       }
       // ripple rings: hex distance of every cell from the cell behind the button
-      var bp = pos(btn), ox = bp.x + bp.w / 2, oy = bp.y + (cta.ffShift || 0) + bp.h / 2, origin = cells[0], best = 1e9;
+      var bp = pos(btn), ox = bp.x + bp.w / 2, oy = bp.y + bp.h / 2, origin = cells[0], best = 1e9;
       cells.forEach(function (c) { var d = Math.hypot(c.x - ox, c.y - oy); if (d < best) { best = d; origin = c; } });
       function axial(c) { return [c.col - (c.row - (c.row & 1)) / 2, c.row]; }
       var oa = axial(origin);
@@ -182,8 +152,8 @@
       var A, C, s0 = null, pressed = false, START = 1500, FLY = 900, FADE = 320, HAND = FLY * 0.75;
       function measure() {
         var b = pos(btn), sp = pos(slot);
-        A = [b.x + b.w / 2, b.y + (cta.ffShift || 0) + 6];
-        C = [sp.x + sp.w / 2, sp.y + (slot.ffShift || 0) + sp.h / 2];
+        A = [b.x + b.w / 2, b.y + 6];
+        C = [sp.x + sp.w / 2, sp.y + sp.h / 2];
       }
       function step(now) {
         if (s0 === null) s0 = now;
