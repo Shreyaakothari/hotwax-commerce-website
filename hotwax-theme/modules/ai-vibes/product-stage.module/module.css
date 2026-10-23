@@ -526,6 +526,39 @@
     aspect-ratio: 714 / 1460;
   }
 
+  .hw-ps__chat-bot {
+    margin-top: 32px;
+  }
+
+  .hw-ps__chat-flow {
+    padding-bottom: 24px;
+  }
+
+  .hw-ps__chat-cards {
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .hw-ps__chat-head {
+    padding: 12px 24px;
+  }
+
+  .hw-ps__chat-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 24px;
+  }
+
+  .hw-ps__chat-value {
+    text-align: right;
+  }
+
+  .hw-ps__chat-note {
+    margin-top: 20px;
+  }
+
   .hw-ps__window.has-chat > picture,
   .hw-ps__window.has-chat > .hw-ps__img {
     position: absolute;

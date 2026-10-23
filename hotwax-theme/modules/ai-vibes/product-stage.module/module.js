@@ -32,8 +32,26 @@
     var parts = [user, chat.querySelector('.hw-ps__chat-bot'), chat.querySelector('.hw-ps__chat-lead'), chat.querySelector('.hw-ps__chat-cards')]
       .concat(Array.prototype.slice.call(cards), [chat.querySelector('.hw-ps__chat-note')]);
 
+    var phone = window.matchMedia('(max-width: 734px)');
+    var full = 0;
+
+    function measure() {
+      var hidden = parts.filter(function (el) { return el && !el.classList.contains('is-shown'); });
+      hidden.forEach(function (el) { el.classList.add('is-shown'); });
+      full = flow.scrollHeight;
+      hidden.forEach(function (el) { el.classList.remove('is-shown'); });
+    }
     function scale() {
-      chat.style.setProperty('--chat-k', chat.clientWidth / 714);
+      var k = chat.clientWidth / 714;
+      chat.style.setProperty('--chat-k', k);
+      if (phone.matches) {
+        var h = Math.max(1460, full + 293);
+        chat.style.setProperty('--chat-h', h + 'px');
+        chat.style.height = h * k + 'px';
+      } else {
+        chat.style.removeProperty('--chat-h');
+        chat.style.height = '';
+      }
     }
     function fit() {
       requestAnimationFrame(function () {
@@ -52,6 +70,7 @@
 
     chat.classList.add('is-on');
     win.classList.add('has-chat');
+    measure();
     scale();
     function onResize() {
       scale();
@@ -104,12 +123,12 @@
     }
 
     var io = new IntersectionObserver(function (entries) {
-      if (inView(entries[entries.length - 1], 0.35)) {
+      if (entries[entries.length - 1].intersectionRatio >= 0.6) {
         io.disconnect();
         play();
       }
-    }, { threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35] });
-    io.observe(win);
+    }, { threshold: [0, 0.6] });
+    io.observe(chat.querySelector('.hw-ps__chat-prompt'));
   }
 
   function init() {
