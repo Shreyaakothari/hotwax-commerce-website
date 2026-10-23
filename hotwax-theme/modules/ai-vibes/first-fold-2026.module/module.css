@@ -1,17 +1,17 @@
 .hw-ff {
-  --ff-fold: clamp(480px, calc(100vh - 165px), 735px);
+  --ff-fold: max(480px, calc(100vh - 165px));
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   min-height: var(--ff-fold);
   text-align: center;
 }
 
 @supports (height: 100svh) {
-  .hw-ff { --ff-fold: clamp(480px, calc(100svh - 165px), 735px); }
+  .hw-ff { --ff-fold: max(480px, calc(100svh - 165px)); }
 }
 
 .layout-uniform .body-container .dnd-section.dnd-section:has(.hw-ff)[class] {
@@ -27,9 +27,9 @@
 }
 
 @media (max-width: 640px) {
-  .hw-ff { --ff-fold: min(calc(100vh - 165px), 735px); }
+  .hw-ff { --ff-fold: calc(100vh - 165px); }
   @supports (height: 100svh) {
-    .hw-ff { --ff-fold: min(calc(100svh - 165px), 735px); }
+    .hw-ff { --ff-fold: calc(100svh - 165px); }
   }
 }
 
@@ -51,7 +51,7 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 1000px;
-  min-height: var(--ff-fold);
+  min-height: min(var(--ff-fold), 735px);
   padding: 0 32px;
 }
 
