@@ -81,6 +81,12 @@
     } else {
       window.addEventListener('resize', onResize);
     }
+    if (phone.addEventListener) {
+      phone.addEventListener('change', function () {
+        measure();
+        onResize();
+      });
+    }
 
     if (reduce) {
       parts.forEach(show);
