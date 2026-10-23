@@ -1,17 +1,13 @@
 .hw-ff {
-  --ff-fold: max(480px, calc(100vh - 165px));
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: var(--ff-fold);
+  min-height: max(480px, calc(100vh - 165px));
+  min-height: max(480px, calc(100svh - 165px));
   text-align: center;
-}
-
-@supports (height: 100svh) {
-  .hw-ff { --ff-fold: max(480px, calc(100svh - 165px)); }
 }
 
 .layout-uniform .body-container .dnd-section.dnd-section:has(.hw-ff)[class] {
@@ -26,12 +22,6 @@
   padding-top: 0 !important;
 }
 
-@media (max-width: 640px) {
-  .hw-ff { --ff-fold: calc(100vh - 165px); }
-  @supports (height: 100svh) {
-    .hw-ff { --ff-fold: calc(100svh - 165px); }
-  }
-}
 
 .hw-ff__grid {
   position: absolute;
@@ -51,7 +41,8 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 1000px;
-  min-height: min(var(--ff-fold), 735px);
+  min-height: min(max(480px, calc(100vh - 165px)), 735px);
+  min-height: min(max(480px, calc(100svh - 165px)), 735px);
   padding: 0 32px;
 }
 
@@ -181,7 +172,15 @@
 }
 
 @media (max-width: 640px) {
-  .hw-ff__inner { padding: 0 20px; }
+  .hw-ff {
+    min-height: calc(100vh - 165px);
+    min-height: calc(100svh - 165px);
+  }
+  .hw-ff__inner {
+    min-height: min(calc(100vh - 165px), 735px);
+    min-height: min(calc(100svh - 165px), 735px);
+    padding: 0 20px;
+  }
   .hw-ff .hw-ff__title {
     font-size: clamp(32px, min(11vw, 6.4vh), 56px);
     font-size: clamp(32px, min(11vw, 6.4svh), 56px);
