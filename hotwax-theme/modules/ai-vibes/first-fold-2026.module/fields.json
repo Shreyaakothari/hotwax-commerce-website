@@ -47,7 +47,7 @@
     "occurrence" : {
       "min" : 1,
       "max" : 3,
-      "sorting_label_field" : null,
+      "sorting_label_field" : "subtitle.links.link_text",
       "default" : 2
     },
     "children" : [ {
