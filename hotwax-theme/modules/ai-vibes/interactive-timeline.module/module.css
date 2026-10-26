@@ -16,7 +16,6 @@
 }
 
 .interactive-timeline__list {
-  --timeline-progress-height: 0px;
   --timeline-rail-height: 0px;
   --timeline-rail-left: 24px;
   --timeline-rail-top: 0px;
@@ -40,7 +39,7 @@
 }
 
 .interactive-timeline__list::before {
-  background: #d2d2d7;
+  background: #ccc;
   height: var(--timeline-rail-height);
 }
 

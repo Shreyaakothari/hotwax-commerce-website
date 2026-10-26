@@ -5,6 +5,7 @@
   var timelineStates = [];
   var progressFrame = null;
   var easeFrame = null;
+  var lastFrame = 0;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function clamp(value, min, max) {
@@ -38,22 +39,24 @@
   }
 
   function drawProgress(state) {
-    var left = parseFloat(getComputedStyle(state.list).getPropertyValue("--timeline-rail-left")) || 24;
+    var ratio = state.railHeight ? clamp(state.shown / state.railHeight, 0, 1) : 0;
 
-    state.list.style.setProperty("--timeline-progress", state.railHeight ? (state.shown / state.railHeight).toFixed(4) : 0);
-    state.token.style.transform = "translate(" + (left + 1) + "px, " + (state.railTop + state.shown) + "px)";
+    state.list.style.setProperty("--timeline-progress", ratio.toFixed(4));
+    state.token.style.transform = "translate(" + (state.railLeft + 1) + "px, " + (state.railTop + ratio * state.railHeight) + "px)";
     state.token.classList.toggle("is-on", state.shown > 2 && state.shown < state.railHeight - 2);
   }
 
   // The red line and the hex ease toward the scroll position instead of jumping with each wheel step.
-  function easeAll() {
+  function easeAll(now) {
     var moving = false;
+    var step = 1 - Math.pow(0.88, Math.min((now - (lastFrame || now)) / 16.7, 4) || 1);
 
+    lastFrame = now;
     timelineStates.forEach(function (state) {
       if (reduceMotion.matches) {
         state.shown = state.target;
       } else {
-        state.shown += (state.target - state.shown) * 0.12;
+        state.shown += (state.target - state.shown) * step;
       }
       if (Math.abs(state.target - state.shown) < 0.3) {
         state.shown = state.target;
@@ -64,6 +67,9 @@
       drawProgress(state);
     });
     easeFrame = moving ? window.requestAnimationFrame(easeAll) : null;
+    if (!moving) {
+      lastFrame = 0;
+    }
   }
 
   function renderTimeline(measurement) {
@@ -71,7 +77,7 @@
 
     state.list.style.setProperty("--timeline-rail-top", measurement.railTop + "px");
     state.list.style.setProperty("--timeline-rail-height", measurement.railHeight + "px");
-    state.list.style.setProperty("--timeline-progress-height", measurement.progressHeight + "px");
+    state.railLeft = parseFloat(getComputedStyle(state.list).getPropertyValue("--timeline-rail-left")) || 24;
     state.railTop = measurement.railTop;
     state.railHeight = measurement.railHeight;
     state.target = measurement.progressHeight;
@@ -140,6 +146,7 @@
       items: items,
       list: list,
       railHeight: 0,
+      railLeft: 24,
       railTop: 0,
       resizeObserver: null,
       shown: 0,
