@@ -4,6 +4,8 @@
   var timelines = document.querySelectorAll("[data-interactive-timeline]");
   var timelineStates = [];
   var progressFrame = null;
+  var easeFrame = null;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -35,13 +37,48 @@
     };
   }
 
+  function drawProgress(state) {
+    var left = parseFloat(getComputedStyle(state.list).getPropertyValue("--timeline-rail-left")) || 24;
+
+    state.list.style.setProperty("--timeline-progress", state.railHeight ? (state.shown / state.railHeight).toFixed(4) : 0);
+    state.token.style.transform = "translate(" + (left + 1) + "px, " + (state.railTop + state.shown) + "px)";
+    state.token.classList.toggle("is-on", state.shown > 2 && state.shown < state.railHeight - 2);
+  }
+
+  // The red line and the hex ease toward the scroll position instead of jumping with each wheel step.
+  function easeAll() {
+    var moving = false;
+
+    timelineStates.forEach(function (state) {
+      if (reduceMotion.matches) {
+        state.shown = state.target;
+      } else {
+        state.shown += (state.target - state.shown) * 0.12;
+      }
+      if (Math.abs(state.target - state.shown) < 0.3) {
+        state.shown = state.target;
+      }
+      if (state.shown !== state.target) {
+        moving = true;
+      }
+      drawProgress(state);
+    });
+    easeFrame = moving ? window.requestAnimationFrame(easeAll) : null;
+  }
+
   function renderTimeline(measurement) {
     var state = measurement.state;
 
     state.list.style.setProperty("--timeline-rail-top", measurement.railTop + "px");
     state.list.style.setProperty("--timeline-rail-height", measurement.railHeight + "px");
     state.list.style.setProperty("--timeline-progress-height", measurement.progressHeight + "px");
+    state.railTop = measurement.railTop;
+    state.railHeight = measurement.railHeight;
+    state.target = measurement.progressHeight;
     state.activateItem(state.items[measurement.activeIndex]);
+    if (easeFrame === null) {
+      easeFrame = window.requestAnimationFrame(easeAll);
+    }
   }
 
   function updateAllTimelines() {
@@ -92,12 +129,22 @@
       return;
     }
 
+    var token = document.createElement("li");
+    token.className = "interactive-timeline__token";
+    token.setAttribute("aria-hidden", "true");
+    list.insertBefore(token, list.firstChild);
+
     var state = {
       activateItem: activateItem,
       dots: dots,
       items: items,
       list: list,
-      resizeObserver: null
+      railHeight: 0,
+      railTop: 0,
+      resizeObserver: null,
+      shown: 0,
+      target: 0,
+      token: token
     };
 
     timelineStates.push(state);
@@ -110,13 +157,12 @@
       }
 
       trigger.addEventListener("click", function () {
-        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         var dot = item.querySelector(".interactive-timeline__dot");
         var dotRect = dot.getBoundingClientRect();
         var targetTop = window.scrollY + dotRect.top + dotRect.height / 2 - window.innerHeight * 0.55;
 
         window.scrollTo({
-          behavior: reduceMotion ? "auto" : "smooth",
+          behavior: reduceMotion.matches ? "auto" : "smooth",
           top: Math.max(targetTop, 0)
         });
         requestProgressUpdate();
