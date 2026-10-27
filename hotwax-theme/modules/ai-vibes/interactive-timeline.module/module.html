@@ -2,7 +2,7 @@
 {% set timeline_alignment = module.frame_style.timeline.horizontal_alignment|default("auto", true) %}
 {% set mobile_breakpoint = theme.responsive_breakpoints|selectattr("name", "equalto", "mobile")|first %}
 {% set mobile_query = mobile_breakpoint.mediaQuery|default("@media (max-width: 991px)") %}
-{% set mobile_picture_media = mobile_query|replace("@media ", "") %}
+{% set mobile_picture_media = "(max-width: 640px)" %}
 {% require_css %}
 <style>
   {% scope_css %}
