@@ -79,6 +79,14 @@
   color: var(--color-primary, #ec2227);
 }
 
+.hw-head--center > .hw-intro {
+  text-align: center;
+}
+
+.hw-head--right > .hw-intro {
+  text-align: right;
+}
+
 @media (max-width: 1068px) {
   .hw-section-head .hw-heading.hw-heading--display {
     font-size: 40px;

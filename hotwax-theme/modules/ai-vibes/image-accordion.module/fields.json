@@ -183,7 +183,7 @@
     "id" : "ia_item_mobile_image",
     "name" : "mobile_image",
     "label" : "Mobile image",
-    "help_text" : "Optional. Shown instead of Image on phones (640 px wide and narrower), at its own height. Use a picture laid out for a narrow screen, about 1150 px wide.",
+    "help_text" : "Optional. Shown instead of Image on phones (640 px wide and narrower), at its own height. Use a picture laid out for a narrow screen, about 1150 px wide. Alt text comes from Image.",
     "required" : false,
     "locked" : false,
     "responsive" : true,

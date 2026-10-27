@@ -32,3 +32,11 @@
     {%- if hero %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}
     alt="{{ alt|escape_attr }}">
 {% endmacro %}
+
+{% macro phone_source(src, width, height, media, sizes) %}
+  {% set real_w = width|int %}
+  {% set real_h = height|int %}
+  {% set widths = [] %}
+  {% for w in [480, 720, 960] %}{% if w < real_w %}{% do widths.append(w) %}{% endif %}{% endfor %}
+  <source media="{{ media }}" srcset="{% if widths %}{% for w in widths %}{{ resize_image_url(src, w) }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ src|escape_url }}{% endif %}"{% if widths %} sizes="{{ sizes }}"{% endif %}{% if real_w and real_h %} width="{{ real_w }}" height="{{ real_h }}"{% endif %}>
+{% endmacro %}
