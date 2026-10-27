@@ -4,8 +4,6 @@
   var timelines = document.querySelectorAll("[data-interactive-timeline]");
   var timelineStates = [];
   var progressFrame = null;
-  var easeFrame = null;
-  var lastFrame = 0;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function clamp(value, min, max) {
@@ -18,73 +16,34 @@
   }
 
   function measureTimeline(state) {
-    var activationPoint = window.innerHeight * 0.55;
     var listRect = state.list.getBoundingClientRect();
     var dotCenters = state.dots.map(getDotCenter);
     var firstCenter = dotCenters[0];
     var lastCenter = dotCenters[dotCenters.length - 1];
     var railHeight = Math.max(lastCenter - firstCenter, 0);
-    var progressHeight = clamp(activationPoint - firstCenter, 0, railHeight);
+    var activationPoint = state.railHeight ? state.token.getBoundingClientRect().bottom : window.innerHeight * 0.55;
     var activeIndex = dotCenters.reduce(function (reachedIndex, center, index) {
       return center <= activationPoint + 1 ? index : reachedIndex;
     }, 0);
 
     return {
       activeIndex: activeIndex,
-      progressHeight: progressHeight,
       railHeight: railHeight,
       railTop: firstCenter - listRect.top,
       state: state
     };
   }
 
-  function drawProgress(state) {
-    var ratio = state.railHeight ? clamp(state.shown / state.railHeight, 0, 1) : 0;
-
-    state.list.style.setProperty("--timeline-progress", ratio.toFixed(4));
-    state.token.style.transform = "translate(" + (state.railLeft + 1) + "px, " + (state.railTop + ratio * state.railHeight) + "px)";
-    state.token.classList.toggle("is-on", state.shown > 2 && state.shown < state.railHeight - 2);
-  }
-
-  // The red line and the hex ease toward the scroll position instead of jumping with each wheel step.
-  function easeAll(now) {
-    var moving = false;
-    var step = 1 - Math.pow(0.88, Math.min((now - (lastFrame || now)) / 16.7, 4) || 1);
-
-    lastFrame = now;
-    timelineStates.forEach(function (state) {
-      if (reduceMotion.matches) {
-        state.shown = state.target;
-      } else {
-        state.shown += (state.target - state.shown) * step;
-      }
-      if (Math.abs(state.target - state.shown) < 0.3) {
-        state.shown = state.target;
-      }
-      if (state.shown !== state.target) {
-        moving = true;
-      }
-      drawProgress(state);
-    });
-    easeFrame = moving ? window.requestAnimationFrame(easeAll) : null;
-    if (!moving) {
-      lastFrame = 0;
-    }
-  }
-
   function renderTimeline(measurement) {
     var state = measurement.state;
 
-    state.list.style.setProperty("--timeline-rail-top", measurement.railTop + "px");
-    state.list.style.setProperty("--timeline-rail-height", measurement.railHeight + "px");
-    state.railLeft = parseFloat(getComputedStyle(state.list).getPropertyValue("--timeline-rail-left")) || 24;
-    state.railTop = measurement.railTop;
-    state.railHeight = measurement.railHeight;
-    state.target = measurement.progressHeight;
-    state.activateItem(state.items[measurement.activeIndex]);
-    if (easeFrame === null) {
-      easeFrame = window.requestAnimationFrame(easeAll);
+    if (measurement.railTop !== state.railTop || measurement.railHeight !== state.railHeight) {
+      state.list.style.setProperty("--timeline-rail-top", measurement.railTop + "px");
+      state.list.style.setProperty("--timeline-rail-height", measurement.railHeight + "px");
+      state.railTop = measurement.railTop;
+      state.railHeight = measurement.railHeight;
     }
+    state.activateItem(state.items[clamp(measurement.activeIndex, 0, state.items.length - 1)]);
   }
 
   function updateAllTimelines() {
@@ -135,10 +94,13 @@
       return;
     }
 
-    var token = document.createElement("li");
+    var track = document.createElement("li");
+    var token = document.createElement("span");
+    track.className = "interactive-timeline__track";
+    track.setAttribute("aria-hidden", "true");
     token.className = "interactive-timeline__token";
-    token.setAttribute("aria-hidden", "true");
-    list.insertBefore(token, list.firstChild);
+    track.appendChild(token);
+    list.insertBefore(track, list.firstChild);
 
     var state = {
       activateItem: activateItem,
@@ -146,11 +108,8 @@
       items: items,
       list: list,
       railHeight: 0,
-      railLeft: 24,
       railTop: 0,
       resizeObserver: null,
-      shown: 0,
-      target: 0,
       token: token
     };
 
