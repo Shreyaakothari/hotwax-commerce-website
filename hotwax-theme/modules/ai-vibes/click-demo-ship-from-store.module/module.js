@@ -282,6 +282,7 @@
       };
 
       app.addEventListener('click', function (e) {
+        if (!G.started) return;
         var el = e.target.closest('button');
         if (!el || !app.contains(el)) {
           if (S.popOrder) { closePop(); return; }

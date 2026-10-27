@@ -39,7 +39,8 @@
     m.removeAttribute('aria-live');
     m.removeAttribute('hidden');
     m.className = 'sd-callout sd-note';
-    m.setAttribute('aria-hidden', 'true');
+    m.setAttribute('role', 'status');
+    m.setAttribute('aria-live', 'polite');
     m.innerHTML = '';
     win.insertAdjacentElement('afterend', m);
     function sync() {
@@ -243,6 +244,7 @@
         var y = window.scrollY;
         G.started = true;
         root.classList.add('is-started');
+        app.inert = false;
         app.focus({ preventScroll: true });
         intro.classList.add('is-out');
         requestAnimationFrame(function () { window.scrollTo(0, y); });
@@ -252,17 +254,24 @@
     };
     G.finish = function () {
       done.hidden = false;
-      G.twoFrames(function () { done.classList.add('is-in'); });
+      app.inert = true;
+      G.twoFrames(function () {
+        done.classList.add('is-in');
+        var replay = done.querySelector('[data-replay]');
+        if (G.keyboard && replay) replay.focus({ preventScroll: true });
+      });
     };
     G.onReplay = function (fn) {
       root.querySelector('[data-replay]').addEventListener('click', function () {
         done.classList.remove('is-in');
         done.hidden = true;
+        app.inert = false;
         fn();
       });
     };
 
     app.setAttribute('tabindex', '-1');
+    app.inert = true;
     document.addEventListener('keydown', function (e) { if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') G.keyboard = true; });
     document.addEventListener('pointerdown', function () { G.keyboard = false; });
 
