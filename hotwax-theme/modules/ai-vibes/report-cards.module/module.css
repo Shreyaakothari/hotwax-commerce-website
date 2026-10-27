@@ -29,7 +29,6 @@
   cursor: default;
 }
 
-.hw-rp-tile:hover,
 .hw-rp-tile:focus-within,
 .hw-rp-tile.is-tap {
   --c1: #4c7cf3;
@@ -47,6 +46,26 @@
   --a2b: rgba(245, 194, 64, 0.22);
   --a2t: #8a6400;
   --area: rgba(76, 124, 243, 0.1);
+}
+
+@media (hover: hover) {
+  .hw-rp-tile:hover {
+    --c1: #4c7cf3;
+    --c2: #5bb8f5;
+    --c3: #f5c240;
+    --c4: #5fc46c;
+    --cm: #4c7cf3;
+    --hr: #e0535f;
+    --hy: #f5c240;
+    --hb: #4c7cf3;
+    --wp: #4c7cf3;
+    --wo: #a9d7f8;
+    --a1b: rgba(76, 124, 243, 0.14);
+    --a1t: #2f5fd6;
+    --a2b: rgba(245, 194, 64, 0.22);
+    --a2t: #8a6400;
+    --area: rgba(76, 124, 243, 0.1);
+  }
 }
 
 .hw-rp-app {
