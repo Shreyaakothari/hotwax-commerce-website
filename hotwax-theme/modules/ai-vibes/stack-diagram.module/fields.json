@@ -32,7 +32,7 @@
     "children": [
       {
         "id": "stk_hub_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -78,7 +78,7 @@
     "children": [
       {
         "id": "stk_ecommerce_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -178,7 +178,7 @@
     "children": [
       {
         "id": "stk_pos_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -275,7 +275,7 @@
     "children": [
       {
         "id": "stk_erp_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -375,7 +375,7 @@
     "children": [
       {
         "id": "stk_warehouse_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -475,7 +475,7 @@
     "children": [
       {
         "id": "stk_carriers_name",
-        "name": "name",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
