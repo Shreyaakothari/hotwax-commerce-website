@@ -95,7 +95,7 @@
   "id" : "fcg_opening_lines",
   "name" : "opening_lines",
   "label" : "Opening heading",
-  "help_text" : "Optional. On laptops the section opens on a dimmed screen with these lines in large white type over the cards; they lift away as visitors scroll. Add one item per line (up to 3). Phones, tablets and reduced motion always show the plain card row. Leave empty for the plain card row everywhere.",
+  "help_text" : "Optional. On laptops the section opens on a dimmed screen with these lines in large white type over the cards; they lift away as visitors scroll. Add one item per line (up to 3), each under about 35 characters, using the same words as the section heading (screen readers read the heading, not these lines). Phones, tablets, short screens and reduced motion show the plain card row. Leave empty for the plain card row everywhere.",
   "required" : false,
   "locked" : false,
   "occurrence" : {

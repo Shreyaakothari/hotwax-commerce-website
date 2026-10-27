@@ -144,9 +144,22 @@
   var wide = window.matchMedia('(min-width: 992px)');
   var native = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
 
+  function headerHeight() {
+    var header = document.querySelector('header.header');
+    return header ? Math.ceil(header.getBoundingClientRect().height) : 81;
+  }
+
   function initOpening(root) {
+    var gallery = root.querySelector('.hw-fcg');
     var on = null;
     var frame = null;
+    if (!gallery) return;
+
+    function fits(head) {
+      var styles = getComputedStyle(gallery);
+      var content = gallery.offsetHeight - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom);
+      return content + head + 24 <= window.innerHeight;
+    }
 
     function onScroll() {
       if (frame !== null) return;
@@ -158,10 +171,14 @@
     }
 
     function mode() {
-      var want = wide.matches && !reduce.matches;
+      var head = headerHeight();
+      root.style.setProperty('--hw-fcg-head', head + 'px');
+      var want = wide.matches && !reduce.matches && fits(head);
       if (want === on) return;
       on = want;
       root.classList.toggle('hw-fcg-open--on', want);
+      root.classList.toggle('hw-fcg-open--native', want && native);
+      root.classList.toggle('hw-fcg-open--script', want && !native);
       if (native) return;
       if (want) {
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -172,15 +189,25 @@
       }
     }
 
+    root.addEventListener('focusin', function () {
+      if (!on) return;
+      var top = root.getBoundingClientRect().top + window.scrollY;
+      var end = top + window.innerHeight * 0.85;
+      if (window.scrollY < end - 1) window.scrollTo({ top: end, behavior: 'instant' });
+    });
+
     mode();
-    wide.addEventListener('change', mode);
-    reduce.addEventListener('change', mode);
+    window.addEventListener('resize', function () { window.requestAnimationFrame(mode); });
+    if (wide.addEventListener) {
+      wide.addEventListener('change', mode);
+      reduce.addEventListener('change', mode);
+    }
   }
 
   function init() {
     document.querySelectorAll('[data-hw-fcg-open]').forEach(function (root) {
-      if (root.hasAttribute('data-hw-open-ready')) return;
-      root.setAttribute('data-hw-open-ready', '');
+      if (root.hasAttribute('data-hw-fcg-open-ready')) return;
+      root.setAttribute('data-hw-fcg-open-ready', '');
       initOpening(root);
     });
   }
