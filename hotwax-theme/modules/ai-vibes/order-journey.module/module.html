@@ -1,1 +1,29 @@
-<!-- custom widget definition not found (portalId: 6357099, path: /hotwax-theme/modules/ai-vibes/order-journey, moduleId: 417403503293) -->
+{% from 'hotwax-theme/macros/section-heading.html' import section_heading %}
+{{ require_css(get_asset_url('/hotwax-theme/css/section-heading.css')) }}
+{{ require_js(get_asset_url('/hotwax-theme/js/page-settled.js')) }}
+{% set uid = 'hw-oj-' ~ name %}
+{% set steps = module.steps %}
+<section class="hw-oj"{% if module.heading %} aria-labelledby="{{ uid }}-title"{% endif %} data-hw-oj>
+  {% if module.heading %}
+    {{ section_heading(module.heading, 'h2', 'h2', '', '', false, uid ~ '-title') }}
+  {% endif %}
+  {% if module.intro %}<p class="hw-intro">{{ module.intro|escape }}</p>{% endif %}
+  {% if steps %}
+  <div class="hw-oj__line" style="--oj-n: {{ steps|length }};">
+    <div class="hw-oj__rail" aria-hidden="true">
+      <span class="hw-oj__fill"></span>
+      <svg class="hw-oj__token" viewBox="0 0 56 64" focusable="false"><polygon points="28,1 55,16.5 55,47.5 28,63 1,47.5 1,16.5"/></svg>
+    </div>
+    <ol class="hw-oj__steps">
+      {% for step in steps %}
+      <li class="hw-oj__step">
+        <svg class="hw-oj__hex" viewBox="0 0 56 64" aria-hidden="true" focusable="false"><polygon points="28,1 55,16.5 55,47.5 28,63 1,47.5 1,16.5"/></svg>
+        <span class="hw-oj__num" aria-hidden="true">{{ loop.index }}</span>
+        {% if step.title %}<h3 class="hw-oj__title">{{ step.title|escape }}</h3>{% endif %}
+        {% if step.text %}<p class="hw-oj__text">{{ step.text|escape }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+  {% endif %}
+</section>
