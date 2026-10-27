@@ -1,0 +1,90 @@
+[
+  {
+    "id": "oj_heading",
+    "name": "heading",
+    "label": "Heading",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "How every order moves through HotWax"
+  },
+  {
+    "id": "oj_intro",
+    "name": "intro",
+    "label": "Intro",
+    "help_text": "One or two sentences under the heading. Leave empty to hide it.",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "type": "text",
+    "display_width": null,
+    "default": "Your sales channels, warehouses, stores, and ERP, connected in one OMS, HotWax Commerce. Every order sells from real stock, routes to the right location, and stays tracked until it’s delivered, picked up, or returned."
+  },
+  {
+    "id": "oj_steps",
+    "name": "steps",
+    "label": "Steps",
+    "help_text": "Each step gets a numbered hex on the line, in this order. Keep titles short (about 20 characters) so they fit one or two lines.",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 3,
+      "max": 6,
+      "sorting_label_field": "steps.title",
+      "default": 5
+    },
+    "children": [
+      {
+        "id": "oj_step_title",
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      },
+      {
+        "id": "oj_step_text",
+        "name": "text",
+        "label": "Text",
+        "required": false,
+        "locked": false,
+        "allow_new_line": false,
+        "type": "text",
+        "display_width": null,
+        "default": ""
+      }
+    ],
+    "tab": "CONTENT",
+    "expanded": false,
+    "group_occurrence_meta": null,
+    "type": "group",
+    "display_width": null,
+    "default": [
+      {
+        "title": "Sellable",
+        "text": "One live count of stock across every location, minus what’s promised or held back."
+      },
+      {
+        "title": "Routed",
+        "text": "Your rules route each order to the location best placed to fill it."
+      },
+      {
+        "title": "Picked and packed",
+        "text": "The team at that location scans each item, then picks and packs the order."
+      },
+      {
+        "title": "Shipped or picked up",
+        "text": "Shipped with a label and tracking, or handed over at pickup."
+      },
+      {
+        "title": "Back on sale",
+        "text": "Returns and exchanges go back into sellable stock as soon as they’re received."
+      }
+    ]
+  }
+]
