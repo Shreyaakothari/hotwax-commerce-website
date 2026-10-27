@@ -494,10 +494,17 @@ html.hw-fcg-lock {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100vw;
   height: 100vh;
   height: 100svh;
+  margin-left: calc(50% - 50vw);
   padding-top: var(--hw-fcg-head);
   overflow: hidden;
+}
+
+:is(.span1,.span2,.span3,.span4,.span5,.span6,.span7,.span8,.span9,.span10,.span11) .hw-fcg-open--on .hw-fcg-open__stage {
+  width: auto;
+  margin-left: 0;
 }
 
 .hw-fcg-open--on .hw-fcg {
