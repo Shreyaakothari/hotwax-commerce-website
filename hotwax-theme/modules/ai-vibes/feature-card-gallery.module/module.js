@@ -138,3 +138,56 @@
     init();
   }
 })();
+
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var wide = window.matchMedia('(min-width: 992px)');
+  var native = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+
+  function initOpening(root) {
+    var on = null;
+    var frame = null;
+
+    function onScroll() {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(function () {
+        frame = null;
+        var s = -root.getBoundingClientRect().top / window.innerHeight;
+        root.style.setProperty('--hw-fcg-lift', Math.min(Math.max((s - 0.28) / 0.54, 0), 1).toFixed(3));
+      });
+    }
+
+    function mode() {
+      var want = wide.matches && !reduce.matches;
+      if (want === on) return;
+      on = want;
+      root.classList.toggle('hw-fcg-open--on', want);
+      if (native) return;
+      if (want) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      } else {
+        window.removeEventListener('scroll', onScroll);
+        root.style.removeProperty('--hw-fcg-lift');
+      }
+    }
+
+    mode();
+    wide.addEventListener('change', mode);
+    reduce.addEventListener('change', mode);
+  }
+
+  function init() {
+    document.querySelectorAll('[data-hw-fcg-open]').forEach(function (root) {
+      if (root.hasAttribute('data-hw-open-ready')) return;
+      root.setAttribute('data-hw-open-ready', '');
+      initOpening(root);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

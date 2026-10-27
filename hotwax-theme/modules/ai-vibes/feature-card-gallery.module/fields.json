@@ -92,6 +92,23 @@
   "type" : "group",
   "display_width" : null
 }, {
+  "id" : "fcg_opening_lines",
+  "name" : "opening_lines",
+  "label" : "Opening heading",
+  "help_text" : "Optional. On laptops the section opens on a dimmed screen with these lines in large white type over the cards; they lift away as visitors scroll. Add one item per line (up to 3). Phones, tablets and reduced motion always show the plain card row. Leave empty for the plain card row everywhere.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : 3,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : [ ]
+}, {
   "id" : "fcg_cards",
   "name" : "cards",
   "label" : "Cards",

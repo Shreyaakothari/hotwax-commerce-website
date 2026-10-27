@@ -8,6 +8,9 @@
 {% set title_tag = module.card_style.title_tag if module.card_style.title_tag in ['h3', 'h4', 'p'] else 'h3' %}
 {% set title_class = 'hw-style-' ~ module.card_style.title_style if module.card_style.title_style in ['h3', 'h4'] else 'hw-style-h3 hw-fcg__title--card' %}
 {% set card_color = module.style.background_color %}
+{% set opening = [] %}
+{% for line in module.opening_lines %}{% if line %}{% do opening.append(line) %}{% endif %}{% endfor %}
+{% if opening %}<div class="hw-fcg-open" data-hw-fcg-open><div class="hw-fcg-open__stage"><div class="hw-fcg-open__fold" aria-hidden="true"><p class="hw-fcg-open__big">{% for line in opening %}<span>{{ line|escape }}</span>{% endfor %}</p></div><div class="hw-fcg-open__wrap">{% endif %}
 <section class="hw-fcg"{% if card_color.color %} style="--fcg-card: rgba({{ card_color.color|convert_rgb }}, calc({{ card_color.opacity|int(100) }} / 100));"{% endif %}{% if head.anchor_id %} id="{{ head.anchor_id|escape_attr }}"{% endif %} {% if head.text %}aria-labelledby="{{ uid }}-title" {% endif %}data-hw-fcg>
   {% if head.text or (head.link_text and head_href) %}
   <div class="hw-fcg__shell{% if head.align in ['center', 'right'] %} hw-head--{{ head.align }}{% endif %}">
@@ -75,3 +78,4 @@
     {% endif %}
   {% endfor %}
 </section>
+{% if opening %}</div></div></div>{% endif %}
