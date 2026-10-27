@@ -22,8 +22,9 @@
           {% set card_href = card.link.url.href %}
           {% if card_href and card.link.url.type == 'EXTERNAL' and not (card_href is string_containing '//') and not (card_href is string_startingwith '/') and not (card_href is string_startingwith '#') %}{% set card_href = '//' ~ card_href %}{% endif %}
           {% set card_name = card.title if card.title else (card.eyebrow if card.eyebrow else 'Learn more') %}
+          {% set has_button = card.action == 'popup' or (card.action == 'link' and card_href) %}
           <li class="hw-fcg__item">
-            <article class="hw-fcg__card{% if not card.image.src %} hw-fcg__card--no-media{% endif %}">
+            <article class="hw-fcg__card{% if not card.image.src %} hw-fcg__card--no-media{% endif %}{% if not has_button %} hw-fcg__card--no-button{% endif %}">
               <div class="hw-fcg__copy">
                 {% if card.eyebrow %}<p class="hw-fcg__eyebrow">{{ card.eyebrow|escape }}</p>{% endif %}
                 {% if card.title %}<{{ title_tag }} class="hw-fcg__title {{ title_class }}">{{ card.title|escape }}</{{ title_tag }}>{% endif %}

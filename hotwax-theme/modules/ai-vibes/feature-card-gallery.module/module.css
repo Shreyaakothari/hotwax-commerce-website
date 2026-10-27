@@ -128,6 +128,14 @@
   padding: 0 28px;
 }
 
+.hw-fcg .hw-fcg__card:not(.hw-fcg__card--no-media) .hw-fcg__copy {
+  padding-bottom: 20px;
+}
+
+.hw-fcg .hw-fcg__card--no-button {
+  padding-bottom: var(--card-pad);
+}
+
 .hw-fcg .hw-fcg__img {
   position: static;
   display: block;
