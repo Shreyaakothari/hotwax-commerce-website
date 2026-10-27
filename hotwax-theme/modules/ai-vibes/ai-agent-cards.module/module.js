@@ -51,6 +51,17 @@
     var waiting = false;
     var watch;
 
+    function laterSeen() {
+      return items.slice(next + 1).some(function (item) { return item.seen; });
+    }
+
+    function finish(item) {
+      item.typed.textContent = item.text;
+      item.rest.textContent = '';
+      item.caret.remove();
+      item.card.classList.add('is-answered');
+    }
+
     function type() {
       if (next >= items.length) {
         watch.disconnect();
@@ -58,6 +69,12 @@
       }
       var item = items[next];
       if (!item.seen) {
+        if (laterSeen()) {
+          finish(item);
+          next += 1;
+          type();
+          return;
+        }
         waiting = true;
         return;
       }
@@ -87,7 +104,7 @@
             if (item.card === entry.target) item.seen = entry.isIntersecting;
           });
         });
-        if (waiting && next < items.length && items[next].seen) {
+        if (waiting && next < items.length && (items[next].seen || laterSeen())) {
           waiting = false;
           type();
         }
