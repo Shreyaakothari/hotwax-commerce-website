@@ -15,13 +15,19 @@
     return rect.top + rect.height / 2;
   }
 
+  function getStickyTop(state) {
+    var top = parseFloat(window.getComputedStyle(state.token).top);
+
+    return isNaN(top) ? window.innerHeight * 0.55 - 10 : top;
+  }
+
   function measureTimeline(state) {
     var listRect = state.list.getBoundingClientRect();
     var dotCenters = state.dots.map(getDotCenter);
     var firstCenter = dotCenters[0];
     var lastCenter = dotCenters[dotCenters.length - 1];
     var railHeight = Math.max(lastCenter - firstCenter, 0);
-    var activationPoint = state.railHeight ? state.token.getBoundingClientRect().bottom : window.innerHeight * 0.55;
+    var activationPoint = clamp(getStickyTop(state) + 20, firstCenter + 20, lastCenter);
     var activeIndex = dotCenters.reduce(function (reachedIndex, center, index) {
       return center <= activationPoint + 1 ? index : reachedIndex;
     }, 0);
@@ -43,7 +49,10 @@
       state.railTop = measurement.railTop;
       state.railHeight = measurement.railHeight;
     }
-    state.activateItem(state.items[clamp(measurement.activeIndex, 0, state.items.length - 1)]);
+    if (measurement.activeIndex !== state.activeIndex) {
+      state.activeIndex = measurement.activeIndex;
+      state.activateItem(state.items[clamp(measurement.activeIndex, 0, state.items.length - 1)]);
+    }
   }
 
   function updateAllTimelines() {
@@ -104,6 +113,7 @@
 
     var state = {
       activateItem: activateItem,
+      activeIndex: -1,
       dots: dots,
       items: items,
       list: list,
@@ -125,7 +135,7 @@
       trigger.addEventListener("click", function () {
         var dot = item.querySelector(".interactive-timeline__dot");
         var dotRect = dot.getBoundingClientRect();
-        var targetTop = window.scrollY + dotRect.top + dotRect.height / 2 - window.innerHeight * 0.55;
+        var targetTop = window.scrollY + dotRect.top + dotRect.height / 2 - (getStickyTop(state) + 10);
 
         window.scrollTo({
           behavior: reduceMotion.matches ? "auto" : "smooth",
