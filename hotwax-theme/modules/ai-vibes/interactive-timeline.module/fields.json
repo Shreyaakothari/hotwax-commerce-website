@@ -46,7 +46,19 @@
     "supported_types" : [ "EXTERNAL", "CONTENT" ],
     "show_advanced_rel_options" : false,
     "type" : "link",
-    "display_width" : null
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "content_id" : null,
+        "href" : "",
+        "href_with_scheme" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false,
+      "sponsored" : false,
+      "user_generated_content" : false
+    }
   } ],
   "tab" : "CONTENT",
   "expanded" : false,
