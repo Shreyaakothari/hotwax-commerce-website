@@ -15,6 +15,7 @@
 <section class="hw-ia"{% if box_color.color %} style="--ia-box: rgba({{ box_color.color|convert_rgb }}, calc({{ box_color.opacity|int(100) }} / 100));"{% endif %}{% if head.anchor_id %} id="{{ head.anchor_id|escape_attr }}"{% endif %} {% if head.text %}aria-labelledby="{{ uid }}-title" {% endif %}data-hw-ia>
   <div class="hw-ia__shell{% if head.align in ['center', 'right'] %} hw-head--{{ head.align }}{% endif %}">
     {{ section_heading(head.text, head_tag, head_tag if head_tag in ['h1', 'h2', 'h3'] else 'h3', head.link_text, head_href, head.link.open_in_new_tab, uid ~ '-title') }}
+    {% if head.description %}<p class="hw-intro">{{ head.description|escape }}</p>{% endif %}
 
     {% if rows %}
     <div class="hw-ia__box">
@@ -45,8 +46,19 @@
                     </div>
                   </figure>
                 {% elif item.image.src %}
-                  <figure class="hw-ia__figure">
+                  {% set phone = item.mobile_image %}
+                  <figure class="hw-ia__figure{% if phone.src %} hw-ia__figure--phone{% endif %}">
+                    {% if phone.src %}
+                    {% set phone_w = phone.width|int %}
+                    {% set phone_widths = [] %}
+                    {% for w in [480, 720, 960] %}{% if w < phone_w %}{% do phone_widths.append(w) %}{% endif %}{% endfor %}
+                    <picture>
+                      <source media="(max-width: 640px)" srcset="{% if phone_widths %}{% for w in phone_widths %}{{ resize_image_url(phone.src, w) }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ phone.src }}{% endif %}" sizes="min(calc(87.5vw - 40px), 380px)"{% if phone.width and phone.height %} width="{{ phone.width }}" height="{{ phone.height }}"{% endif %}>
+                    {% endif %}
                     {{ responsive_img(item.image.src, item.image.width, item.image.height, 800, '(max-width: 734px) 300px, (max-width: 1068px) 680px, (min-width: 1440px) 770px, calc(58vw - 72px)', item.image.alt, false, 'hw-ia__img', false) }}
+                    {% if phone.src %}
+                    </picture>
+                    {% endif %}
                   </figure>
                 {% endif %}
               </div>

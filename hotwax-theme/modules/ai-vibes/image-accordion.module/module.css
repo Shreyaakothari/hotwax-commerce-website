@@ -315,6 +315,18 @@
   }
 }
 
+.hw-ia .hw-ia__figure--phone picture {
+  display: block;
+  height: 100%;
+}
+
+@media (max-width: 640px) {
+  .hw-ia .hw-ia__figure--phone picture,
+  .hw-ia .hw-ia__figure--phone .hw-ia__img {
+    height: auto;
+  }
+}
+
 .layout-uniform .hw-ia {
   padding-block: 0;
 }

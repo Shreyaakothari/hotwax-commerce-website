@@ -15,6 +15,17 @@
     "display_width" : null,
     "default" : "One OMS for every store and channel."
   }, {
+    "id" : "ia_heading_description",
+    "name" : "description",
+    "label" : "Description",
+    "help_text" : "Optional. One or two sentences under the heading.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
     "id" : "ia_heading_tag",
     "name" : "tag",
     "label" : "Heading level",
@@ -156,6 +167,23 @@
     "name" : "image",
     "label" : "Image",
     "help_text" : "Use a WebP or PNG with a transparent background, about 1600 px wide. On desktop it shows on the right; on tablets and phones it shows under the text.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "",
+      "alt" : "",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "ia_item_mobile_image",
+    "name" : "mobile_image",
+    "label" : "Mobile image",
+    "help_text" : "Optional. Shown instead of Image on phones (640 px wide and narrower), at its own height. Use a picture laid out for a narrow screen, about 1150 px wide.",
     "required" : false,
     "locked" : false,
     "responsive" : true,
