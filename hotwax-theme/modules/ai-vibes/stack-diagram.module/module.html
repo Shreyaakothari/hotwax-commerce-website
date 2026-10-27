@@ -22,7 +22,7 @@
   <div class="hw-stk__node hw-stk__node--{{ slot }}">
     <span class="hw-stk__tile">{{ stk_icon(slot) }}</span>
     {% if sys.title %}<p class="hw-stk__name">{{ sys.title|escape }}</p>{% endif %}
-    {% if sys.role %}<p class="hw-stk__role">{{ sys.role|escape }}</p>{% endif %}
+    {% if sys.subtitle %}<p class="hw-stk__role">{{ sys.subtitle|escape }}</p>{% endif %}
     {% if sys.to_hotwax or sys.from_hotwax %}
     <dl class="hw-stk__io">
       {% if sys.to_hotwax %}<div><dt>To HotWax</dt><dd>{{ sys.to_hotwax|escape }}</dd></div>{% endif %}
@@ -34,13 +34,13 @@
 
 {% macro stk_flows(labels, dir) %}{% for text in labels %}{% if text %}<p class="hw-stk__flow hw-stk__flow--{{ dir }}"><i class="hw-stk__dash" aria-hidden="true"></i><span>{{ text|escape }}</span></p>{% endif %}{% endfor %}{% endmacro %}
 
-{% macro stk_said(sys) %}{% if sys.title %} {{ sys.title }}{% if sys.role %} ({{ sys.role }}){% endif %}.{% if sys.to_hotwax %} To HotWax: {{ sys.to_hotwax }}.{% endif %}{% if sys.from_hotwax %} From HotWax: {{ sys.from_hotwax }}.{% endif %}{% endif %}{% endmacro %}
+{% macro stk_said(sys) %}{% if sys.title %} {{ sys.title }}{% if sys.subtitle %} ({{ sys.subtitle }}){% endif %}.{% if sys.to_hotwax %} To HotWax: {{ sys.to_hotwax }}.{% endif %}{% if sys.from_hotwax %} From HotWax: {{ sys.from_hotwax }}.{% endif %}{% endif %}{% endmacro %}
 
 {% set map_label = (hub.title if hub.title else 'HotWax Commerce') ~ (' (' ~ hub.tags|join(', ') ~ ')' if hub.tags else '') ~ ' in the middle of your systems.' ~ stk_said(module.ecommerce) ~ stk_said(module.pos) ~ stk_said(module.erp) ~ stk_said(module.warehouse) ~ stk_said(module.carriers) %}
 
-<section class="hw-stk"{% if box_color.color %} style="--stk-box: rgba({{ box_color.color|convert_rgb }}, calc({{ box_color.opacity|int(100) }} / 100));"{% endif %}{% if module.heading %} aria-labelledby="{{ uid }}-title"{% endif %} data-hw-stk>
-  {% if module.heading %}{{ section_heading(module.heading, 'h2', 'h2', '', '', false, uid ~ '-title') }}{% endif %}
-  {% if module.intro %}<p class="hw-intro">{{ module.intro|escape }}</p>{% endif %}
+<section class="hw-stk"{% if box_color.color %} style="--stk-box: rgba({{ box_color.color|convert_rgb }}, calc({{ box_color.opacity|int(100) }} / 100));"{% endif %}{% if module.heading.anchor_id %} id="{{ module.heading.anchor_id|escape_attr }}"{% endif %}{% if module.heading.text %} aria-labelledby="{{ uid }}-title"{% endif %} data-hw-stk>
+  {% if module.heading.text %}{{ section_heading(module.heading.text, 'h2', 'h2', '', '', false, uid ~ '-title') }}{% endif %}
+  {% if module.heading.description %}<p class="hw-intro">{{ module.heading.description|escape }}</p>{% endif %}
 
   <div class="hw-stk__map" role="img" aria-label="{{ map_label|trim|escape_attr }}" data-hw-stk-map>
     {{ stk_node(module.ecommerce, 'ecommerce') }}
