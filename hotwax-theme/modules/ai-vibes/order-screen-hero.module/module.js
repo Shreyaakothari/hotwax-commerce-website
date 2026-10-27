@@ -38,7 +38,9 @@
         root.style.setProperty('--osh-scrim', (0.8 + 0.08 * p).toFixed(3));
       };
       frost();
-      window.addEventListener('scroll', frost, { passive: true });
+      window.addEventListener('scroll', function () {
+        if (!reduce.matches && !phone()) frost();
+      }, { passive: true });
       window.addEventListener('resize', frost);
     }
 
@@ -240,7 +242,7 @@
       if (!started) return;
       if (pending && y <= 10) { runIntro(); return; }
       if (!done && intro.length && (down || y > 10)) settle();
-      if (done && raf === null) raf = requestAnimationFrame(function () { raf = null; track(); });
+      if (done && !still && raf === null) raf = requestAnimationFrame(function () { raf = null; track(); });
     }, { passive: true });
 
     window.addEventListener('resize', function () {
