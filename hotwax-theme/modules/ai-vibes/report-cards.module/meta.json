@@ -2,6 +2,7 @@
   "global" : false,
   "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
   "host_template_types" : [ "PAGE" ],
+  "module_id" : 417404939972,
   "label" : "Report cards",
   "is_available_for_new_content" : true
 }
