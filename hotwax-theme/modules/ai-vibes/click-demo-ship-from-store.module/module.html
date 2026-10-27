@@ -2,9 +2,10 @@
 {% from 'hotwax-theme/macros/click-demo.html' import click_demo_assets, click_demo_colors, click_demo_tabs, click_demo_intro, click_demo_done, click_demo_link %}
 {{ click_demo_assets() }}
 {% set uid = 'hw-cd-' ~ name %}
-<section class="hw-cd hw-cd--ship" {{ click_demo_colors(module.style.background_color, '#ffffff') }}{% if module.title %} aria-labelledby="{{ uid }}-title"{% endif %}>
-  {% if module.title %}{{ section_heading(module.title, 'h2', 'h2', '', '', false, uid ~ '-title') }}{% endif %}
-  {% if module.description %}<p class="hw-intro">{{ module.description|escape }}</p>{% endif %}
+{% set head = module.heading %}
+<section class="hw-cd hw-cd--ship" {{ click_demo_colors(module.style.background_color, '#ffffff') }}{% if head.anchor_id %} id="{{ head.anchor_id|escape_attr }}"{% endif %}{% if head.text %} aria-labelledby="{{ uid }}-title"{% endif %}>
+  {% if head.text %}{{ section_heading(head.text, 'h2', 'h2', '', '', false, uid ~ '-title') }}{% endif %}
+  {% if head.description %}<p class="hw-intro">{{ head.description|escape }}</p>{% endif %}
   {% if module.points %}
   <ul class="hw-cd__points" role="list">
     {% for point in module.points %}
