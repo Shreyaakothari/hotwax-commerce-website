@@ -1,4 +1,8 @@
+{% from 'hotwax-theme/macros/section-heading.html' import section_heading %}
 {% set timeline_steps = module.steps|default([]) %}
+{% set head = module.heading %}
+{% set head_href = head.link.url.href %}
+{% if head_href and head.link.url.type == 'EXTERNAL' and not (head_href is string_containing '//') and not (head_href is string_startingwith '/') and not (head_href is string_startingwith '#') %}{% set head_href = '//' ~ head_href %}{% endif %}
 {% set timeline_alignment = module.frame_style.timeline.horizontal_alignment|default("auto", true) %}
 {% set mobile_breakpoint = theme.responsive_breakpoints|selectattr("name", "equalto", "mobile")|first %}
 {% set mobile_query = mobile_breakpoint.mediaQuery|default("@media (max-width: 991px)") %}
@@ -95,6 +99,12 @@
 </style>
 {% end_require_css %}
 
+{% if head.text or head.description %}
+<div class="interactive-timeline-head">
+  {% if head.text %}{{ section_heading(head.text, 'h2', 'h2', '', '', false, 'interactive-timeline-' ~ name ~ '-title') }}{% endif %}
+  {% if head.description %}<p class="hw-intro">{{ head.description|escape }}</p>{% endif %}
+</div>
+{% endif %}
 {% if timeline_steps|length %}
 <section
   class="interactive-timeline"
@@ -171,4 +181,7 @@
     {% endfor %}
   </ol>
 </section>
+{% endif %}
+{% if head.link_text and head_href %}
+<div class="interactive-timeline-more"><a class="hw-more" href="{{ head_href|escape_attr }}"{% if head.link.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ head.link_text|escape }}</a></div>
 {% endif %}

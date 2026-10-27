@@ -1,4 +1,59 @@
 [ {
+  "id" : "timeline_heading",
+  "name" : "heading",
+  "label" : "Section heading",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "timeline_heading_text",
+    "name" : "text",
+    "label" : "Heading",
+    "help_text" : "Optional. Shown above the timeline as the section's H2.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "timeline_heading_description",
+    "name" : "description",
+    "label" : "Description",
+    "help_text" : "Optional. One or two sentences under the heading.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "timeline_heading_link_text",
+    "name" : "link_text",
+    "label" : "Link text",
+    "help_text" : "Optional. Shown under the timeline. Leave empty to hide the link.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "timeline_heading_link",
+    "name" : "link",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
   "id" : "timeline_label",
   "name" : "timeline_label",
   "label" : "Timeline accessibility label",

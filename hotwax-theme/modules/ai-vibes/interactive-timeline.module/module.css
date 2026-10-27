@@ -273,3 +273,15 @@
     transition: none;
   }
 }
+
+.interactive-timeline-head {
+  margin-bottom: 40px;
+}
+
+.interactive-timeline-more {
+  margin-top: 48px;
+}
+
+.interactive-timeline-more .hw-more {
+  font-size: 16px;
+}
