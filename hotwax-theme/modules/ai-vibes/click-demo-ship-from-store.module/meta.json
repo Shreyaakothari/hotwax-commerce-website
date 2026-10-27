@@ -1,12 +1,8 @@
 {
   "global" : false,
-  "content_types" : [
-    "LANDING_PAGE",
-    "SITE_PAGE"
-  ],
-  "host_template_types" : [
-    "PAGE"
-  ],
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 417404951285,
   "label" : "Click demo: ship from store",
   "is_available_for_new_content" : true
 }
