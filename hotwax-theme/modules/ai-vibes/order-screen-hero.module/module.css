@@ -510,6 +510,17 @@
   color: #ec2227;
 }
 
+@media (max-width: 990px) {
+  .hw-osh__fold {
+    height: max(640px, calc(var(--osh-vh, 100svh) - var(--osh-top)));
+  }
+
+  .hw-osh__sheet {
+    min-height: max(var(--osh-fold, 0px), calc(var(--osh-vh, 100svh) - var(--osh-top)));
+    padding: calc(var(--osh-vh, 100svh) * 0.16) 24px calc(var(--osh-vh, 100svh) * 0.22);
+  }
+}
+
 @media (max-height: 1000px) and (min-width: 641px) {
   .hw-osh__fold {
     gap: 22px;
@@ -534,8 +545,7 @@
     justify-content: flex-start;
     gap: 24px;
     height: auto;
-    min-height: calc(100vh - var(--osh-top));
-    min-height: calc(100svh - var(--osh-top));
+    min-height: calc(var(--osh-vh, 100svh) - var(--osh-top));
     padding: 22px 20px 28px;
   }
 
@@ -637,8 +647,7 @@
   }
 
   .hw-osh__sheet {
-    padding: 12vh 20px 16vh;
-    padding: 12svh 20px 16svh;
+    padding: calc(var(--osh-vh, 100svh) * 0.12) 20px calc(var(--osh-vh, 100svh) * 0.16);
   }
 
   .hw-osh .hw-osh__words p {

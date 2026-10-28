@@ -30,6 +30,18 @@
     var sheet = root.querySelector('.hw-osh__sheet');
     if (!pin || !sec || !vis || !svg) return;
 
+    var sizedWidth = 0;
+    function size() {
+      if (window.innerWidth !== sizedWidth) {
+        sizedWidth = window.innerWidth;
+        root.style.setProperty('--osh-vh', window.innerHeight + 'px');
+      }
+      root.style.setProperty('--osh-fold', sec.offsetHeight + 'px');
+    }
+    size();
+    window.addEventListener('resize', size);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
+
     if (sheet) {
       var frost = function () {
         var r = sheet.getBoundingClientRect(), vh = window.innerHeight;
