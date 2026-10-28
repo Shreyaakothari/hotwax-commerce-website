@@ -40,7 +40,7 @@
     }
     size();
     window.addEventListener('resize', size);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(sec);
 
     if (sheet) {
       var frost = function () {
