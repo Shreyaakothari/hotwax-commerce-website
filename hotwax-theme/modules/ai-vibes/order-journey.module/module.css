@@ -234,20 +234,27 @@
 @supports (animation-timeline: view()) {
   @media (max-width: 991px) and (prefers-reduced-motion: no-preference) {
     .hw-oj__rail {
-      view-timeline: --hw-oj-rail block;
+      view-timeline-name: --hw-oj-rail;
+      view-timeline-axis: block;
       view-timeline-inset: 62svh calc(100% - 62svh);
     }
 
     .hw-oj__fill,
     .hw-oj__line.is-done .hw-oj__fill {
       height: 100%;
-      animation: hw-oj-fill linear both;
+      animation-name: hw-oj-fill;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --hw-oj-rail;
       animation-range: cover 0% cover 100%;
     }
 
     .hw-oj__ride {
-      animation: hw-oj-ride linear both;
+      animation-name: hw-oj-ride;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --hw-oj-rail;
       animation-range: cover 0% cover 100%;
     }
