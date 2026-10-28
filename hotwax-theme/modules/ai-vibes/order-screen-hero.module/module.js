@@ -32,15 +32,12 @@
 
     var sizedWidth = 0;
     function size() {
-      if (window.innerWidth !== sizedWidth) {
-        sizedWidth = window.innerWidth;
-        root.style.setProperty('--osh-vh', window.innerHeight + 'px');
-      }
-      root.style.setProperty('--osh-fold-h', Math.ceil(sec.getBoundingClientRect().height) + 'px');
+      if (window.innerWidth === sizedWidth) return;
+      sizedWidth = window.innerWidth;
+      root.style.setProperty('--osh-vh', window.innerHeight + 'px');
     }
     size();
     window.addEventListener('resize', size);
-    if ('ResizeObserver' in window) new ResizeObserver(size).observe(sec);
 
     if (sheet) {
       var frost = function () {

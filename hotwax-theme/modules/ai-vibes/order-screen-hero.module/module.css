@@ -14,6 +14,9 @@
 .hw-osh {
   --osh-top: var(--header-height, 79px);
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
 }
 
 @media (min-width: 991px) {
@@ -516,7 +519,7 @@
   }
 
   .hw-osh__sheet {
-    min-height: max(var(--osh-fold-h, 0px), calc(var(--osh-vh, 100svh) - var(--osh-top)));
+    min-height: calc(var(--osh-vh, 100svh) - var(--osh-top));
     padding: calc(var(--osh-vh, 100svh) * 0.16) 24px calc(var(--osh-vh, 100svh) * 0.22);
   }
 }
