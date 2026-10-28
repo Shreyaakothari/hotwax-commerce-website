@@ -30,6 +30,8 @@
 
     var vertical = window.matchMedia('(max-width: 991px)');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var native = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()'));
+    var lineAt = 0;
     var played = false;
     var observer = null;
     var frame = 0;
@@ -62,7 +64,16 @@
       token.style.willChange = '';
     }
 
+    function measureLine() {
+      var probe = document.createElement('div');
+      probe.style.cssText = 'position:absolute;visibility:hidden;height:62vh;height:62svh';
+      document.body.appendChild(probe);
+      lineAt = probe.offsetHeight;
+      document.body.removeChild(probe);
+    }
+
     function fitRail() {
+      measureLine();
       rail.style.top = rail.style.bottom = '';
       if (vertical.matches && hexes.length > 1) {
         var box = line.getBoundingClientRect();
@@ -80,9 +91,11 @@
       tick = 0;
       if (!vertical.matches || reduce.matches) return;
       var box = rail.getBoundingClientRect();
-      var p = Math.max(0, Math.min(1, (window.innerHeight * 0.62 - box.top) / box.height));
-      fill.style.transform = 'scaleY(' + p + ')';
-      token.style.transform = 'translateY(' + (p * box.height) + 'px)';
+      var p = Math.max(0, Math.min(1, (lineAt - box.top) / box.height));
+      if (!native) {
+        fill.style.transform = 'scaleY(' + p + ')';
+        token.style.transform = 'translateY(' + (p * box.height) + 'px)';
+      }
       token.style.opacity = p >= 1 ? '0' : '1';
       lightUpTo(litIndex(p));
       line.classList.toggle('is-done', p >= 1);
@@ -143,8 +156,10 @@
       if (reduce.matches || !('IntersectionObserver' in window)) {
         finish();
       } else if (vertical.matches) {
-        fill.style.height = '100%';
-        fill.style.transform = 'scaleY(0)';
+        if (!native) {
+          fill.style.height = '100%';
+          fill.style.transform = 'scaleY(0)';
+        }
         token.style.opacity = '1';
         follow();
       } else if (played) {

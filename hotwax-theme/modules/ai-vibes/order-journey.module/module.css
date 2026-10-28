@@ -100,6 +100,12 @@
   transform-origin: left;
 }
 
+.hw-oj__ride {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 .hw-oj__token {
   position: absolute;
   top: -9px;
@@ -212,6 +218,39 @@
 
   .hw-oj__token {
     left: -9px;
+  }
+}
+
+@keyframes hw-oj-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes hw-oj-ride {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (max-width: 991px) and (prefers-reduced-motion: no-preference) {
+    .hw-oj__rail {
+      view-timeline: --hw-oj-rail block;
+      view-timeline-inset: 62svh calc(100% - 62svh);
+    }
+
+    .hw-oj__fill,
+    .hw-oj__line.is-done .hw-oj__fill {
+      height: 100%;
+      animation: hw-oj-fill linear both;
+      animation-timeline: --hw-oj-rail;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .hw-oj__ride {
+      animation: hw-oj-ride linear both;
+      animation-timeline: --hw-oj-rail;
+      animation-range: cover 0% cover 100%;
+    }
   }
 }
 
