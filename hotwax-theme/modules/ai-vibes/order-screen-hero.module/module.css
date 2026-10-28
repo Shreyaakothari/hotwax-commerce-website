@@ -516,7 +516,7 @@
   }
 
   .hw-osh__sheet {
-    min-height: max(var(--osh-fold, 0px), calc(var(--osh-vh, 100svh) - var(--osh-top)));
+    min-height: max(var(--osh-fold-h, 0px), calc(var(--osh-vh, 100svh) - var(--osh-top)));
     padding: calc(var(--osh-vh, 100svh) * 0.16) 24px calc(var(--osh-vh, 100svh) * 0.22);
   }
 }

@@ -36,7 +36,7 @@
         sizedWidth = window.innerWidth;
         root.style.setProperty('--osh-vh', window.innerHeight + 'px');
       }
-      root.style.setProperty('--osh-fold', sec.offsetHeight + 'px');
+      root.style.setProperty('--osh-fold-h', Math.ceil(sec.getBoundingClientRect().height) + 'px');
     }
     size();
     window.addEventListener('resize', size);
