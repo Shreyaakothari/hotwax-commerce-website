@@ -64,6 +64,18 @@
             grid-column: span calc(12 - {{ module.frame_style.graphic.funny_stuff }})
         }
 
+        {% if module.frame_style.text.title_color.color %}
+        .frame-title {{ title_tag }} {
+            color: {{ module.frame_style.text.title_color.css }};
+        }
+        {% endif %}
+
+        {% if module.frame_style.text.subtitle_color.color %}
+        .frame-title .subtitle {
+            color: {{ module.frame_style.text.subtitle_color.css }};
+        }
+        {% endif %}
+
         .frame-title .description {
             margin-top: {{ module.frame_style.text.description_spacing_top }}px;
         }

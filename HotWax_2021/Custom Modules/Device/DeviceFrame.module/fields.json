@@ -200,6 +200,22 @@
         }
       }
     }, {
+      "id" : "deviceframe_title_color",
+      "name" : "title_color",
+      "label" : "Title Color",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null
+    }, {
+      "id" : "deviceframe_subtitle_color",
+      "name" : "subtitle_color",
+      "label" : "Subtitle Color",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null
+    }, {
       "id" : "0bbbdf7a-873e-b018-fb9d-9896086e8934",
       "name" : "description_spacing_top",
       "label" : "Description spacing top",

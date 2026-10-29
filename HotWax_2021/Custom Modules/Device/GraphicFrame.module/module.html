@@ -79,6 +79,18 @@
             {{ module.frame_style.text.title_spacing.css }}
         }
 
+        {% if module.frame_style.text.title_color.color %}
+        .frame-title {{ title_tag }} {
+            color: {{ module.frame_style.text.title_color.css }};
+        }
+        {% endif %}
+
+        {% if module.frame_style.text.subtitle_color.color %}
+        .frame-title .subtitle {
+            color: {{ module.frame_style.text.subtitle_color.css }};
+        }
+        {% endif %}
+
         .frame-description {
             {{ module.frame_style.text.description_spacing.css }};
         }
