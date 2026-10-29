@@ -40,6 +40,8 @@
   "display" : "select",
   "choices" : [ [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ] ],
   "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
   "type" : "choice",
   "display_width" : null,
   "default" : "h3"
@@ -316,7 +318,14 @@
     "required" : false,
     "locked" : false,
     "type" : "color",
-    "display_width" : null
+    "display_width" : null,
+    "default" : {
+      "color" : null,
+      "opacity" : null,
+      "rgba" : null,
+      "rgb" : null,
+      "hex" : null
+    }
   }, {
     "id" : "2fd64b71-249a-b81e-88a3-ae216a951192",
     "name" : "bg_color",
