@@ -124,7 +124,7 @@
     "preset" : null,
     "type" : "choice",
     "display_width" : null,
-    "default" : "h5"
+    "default" : "h3"
   }, {
     "id" : "fd89b6cf-6475-97ab-5477-da7aeb305cdb",
     "name" : "custom_text_color",
