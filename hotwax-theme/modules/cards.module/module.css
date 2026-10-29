@@ -14,7 +14,7 @@
 
 }
 
-.cards .row > [class*="col-"] {
+.cards .row > [class*="col-"]:has(> .cards__card) {
   display: flex;
 }
 
