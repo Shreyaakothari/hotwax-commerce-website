@@ -1,7 +1,7 @@
 <div class="frame graphic {% if module.frame_style.graphic.banner %}banner{% endif %}">
     <div class="frame-title">
         <!-- title and subtitle of the section -->
-        {% if module.text.subtitle|trim %}
+        {% if (module.text.subtitle or "")|trim %}
         <p class="subtitle"> {{ module.text.subtitle }} </p>
         {% endif %}
         {% set title_tag = module.text.title_tag|default("h2", true) %}
@@ -93,7 +93,7 @@
         }
         {% endif %}
 
-        {% if not module.text.subtitle|trim %}
+        {% if not (module.text.subtitle or "")|trim %}
         .frame-title > {{ title_tag }} {
             margin-top: 16px;
         }
