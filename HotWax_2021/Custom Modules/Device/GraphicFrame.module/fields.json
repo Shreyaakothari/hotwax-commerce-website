@@ -25,7 +25,7 @@
   }, {
     "id" : "graphicframe_title_tag",
     "name" : "title_tag",
-    "label" : "Title Tag",
+    "label" : "title tag",
     "help_text" : "H2 when this frame starts a section. H3 when it sits under a section heading. H1 only if the page has no other H1.",
     "required" : false,
     "locked" : false,
