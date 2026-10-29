@@ -1,5 +1,6 @@
 {% set tab_items = module.tab_items|default([], true) %}
 {% set tabs_label = module.accessibility_label|default("Interactive tabs", true) %}
+{% set title_tag = module.title_tag|default("h3", true) %}
 {% set image_position = module.layout.image_position|default("right", true) %}
 {% set scroll_activation = module.interaction.scroll_activation|default(true) %}
 {% set scroll_steps = tab_items|length - 1 %}
@@ -81,7 +82,7 @@
             {% if content_type != "image" %}
               <div class="interactive-tabs__copy">
                 {% if content_title %}
-                  <h2 class="interactive-tabs__title">{{ content_title|escape_html }}</h2>
+                  <{{ title_tag }} class="interactive-tabs__title">{{ content_title|escape_html }}</{{ title_tag }}>
                 {% endif %}
                 {% if item.text.description %}
                   <div class="interactive-tabs__description">

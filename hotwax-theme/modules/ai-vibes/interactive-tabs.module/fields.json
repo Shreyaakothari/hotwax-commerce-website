@@ -10,6 +10,19 @@
   "display_width" : null,
   "default" : "Interactive tabs"
 }, {
+  "id" : "tabs_title_tag",
+  "name" : "title_tag",
+  "label" : "Title Tag",
+  "help_text" : "H3 when a section heading sits above the tabs. H2 when there is no section heading.",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h2", "H2" ], [ "h3", "H3" ] ],
+  "multiple" : false,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h3"
+}, {
   "id" : "tab_items",
   "name" : "tab_items",
   "label" : "Tab items",
