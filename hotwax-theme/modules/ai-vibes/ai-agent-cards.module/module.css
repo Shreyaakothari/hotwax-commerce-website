@@ -145,7 +145,6 @@
   }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   .hw-oai .hw-oai__card--anim .hw-oai__does {
     opacity: 1;
