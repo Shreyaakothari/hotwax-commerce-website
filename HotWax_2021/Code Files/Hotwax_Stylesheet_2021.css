@@ -423,7 +423,7 @@ span.date-wrap span {
   .share-this-links ul {
       justify-content: center;
   }
-  .listen-now-heading h2:after, .share-this-heading h2:after {
+  .listen-now-heading h3:after, .share-this-heading h3:after {
       right: 0;
   }
   .listen-now-heading {
@@ -544,12 +544,9 @@ span.date-wrap span {
     padding: 0px !important;
 }
 .section.post-body h3 {
-    color: #000;
-    font-size: 20px;
     margin: 0px;
     position : relative;
     display: inline;
-    line-height: 1.5;
 }
 
 /* heading accent */
@@ -654,9 +651,6 @@ span.time-wrap span img {
 }
 
 .blog-post-sections .section.post-body h2 {
-    color: #000000;
-    font-size: 26px;
-    line-height: 1.5;
     position: relative;
     padding-bottom: var(--spacer-md);
 }
@@ -1592,8 +1586,6 @@ form.hs-form fieldset.form-columns-3 .hs-form-field { width: 33.33%; }
         text-align: center;
     }
     .post-name h1 {
-        font-size: 26px;
-        line-height: 39px;
     }
     .post-name h1:after {
         right: 0;
