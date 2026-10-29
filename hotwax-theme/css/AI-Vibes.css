@@ -11,20 +11,6 @@
   margin-inline: auto;
 }
 
-.ai-product-updates-page h2,
-.ai-product-update-detail h2 {
-  font-size: clamp(28px, 4vw, 46px);
-  line-height: 1.08;
-  letter-spacing: 0;
-}
-
-.ai-product-updates-page h3,
-.ai-product-update-detail h3 {
-  font-size: 22px;
-  line-height: 1.22;
-  letter-spacing: 0;
-}
-
 .ai-product-updates-page p,
 .ai-product-update-detail p {
   line-height: 1.55;
@@ -190,9 +176,7 @@
   padding-inline-start: 20px;
 }
 
-.ai-product-updates-stack h3,
-.ai-product-updates-release-strip h2,
-.ai-product-update-related-card h3 {
+.ai-product-updates-release-strip h2 {
   font-size: 20px;
   line-height: 1.25;
 }
