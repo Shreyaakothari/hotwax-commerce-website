@@ -6,7 +6,7 @@
     border-color: rgba(0,0,0,0.04);
     background: #fff;
 }
-.pod-subscribe-heading h3 {
+.pod-subscribe-heading h2 {
     margin: 0px 0px 20px 0px;
     padding-bottom: 20px;
     position: relative;
@@ -21,7 +21,7 @@
     float: none;
     margin: 0px auto;
 }
-.pod-subscribe-heading h3:after {
+.pod-subscribe-heading h2:after {
     content: '';
     background-color: #f79421;
     position: absolute;
