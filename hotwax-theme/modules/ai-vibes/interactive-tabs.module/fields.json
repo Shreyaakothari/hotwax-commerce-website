@@ -12,13 +12,15 @@
 }, {
   "id" : "tabs_title_tag",
   "name" : "title_tag",
-  "label" : "Title tag",
+  "label" : "Title Tag",
   "help_text" : "H3 when a section heading sits above the tabs. H2 when there is no section heading.",
   "required" : false,
   "locked" : false,
   "display" : "select",
   "choices" : [ [ "h2", "H2" ], [ "h3", "H3" ] ],
   "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
   "type" : "choice",
   "display_width" : null,
   "default" : "h3"
