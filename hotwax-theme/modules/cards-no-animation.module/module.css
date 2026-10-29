@@ -13,11 +13,3 @@
   align-items: center !important;
 
 }
-
-.cards .row > [class*="col-"]:has(> .cards__card) {
-  display: flex;
-}
-
-.cards .row > [class*="col-"] > .cards__card {
-  width: 100%;
-}
