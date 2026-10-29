@@ -561,6 +561,13 @@ span.date-wrap span {
     margin: 0 auto;
 }
 
+.section.post-body > .summary-heading {
+    margin: 0 0 20px 0;
+    padding-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
 .blog-post-wrapper .section.post-body {
     padding: var(--spacer-lg) 0px;
 }
