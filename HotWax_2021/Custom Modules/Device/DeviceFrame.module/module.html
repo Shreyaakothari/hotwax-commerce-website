@@ -78,12 +78,6 @@
         }
         {% endif %}
 
-        {% if not (module.subtitle or "")|trim %}
-        .frame-title > {{ title_tag }} {
-            margin-top: 16px;
-        }
-        {% endif %}
-
         .frame-title .description {
             margin-top: {{ module.frame_style.text.description_spacing_top }}px;
         }
