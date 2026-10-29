@@ -1,4 +1,5 @@
 {% from 'hotwax-theme/macros/button.html' import button %}
+{% set title_tag = module.title_tag if module.title_tag in ['h2', 'h3', 'h4'] else 'h3' %}
 {% require_css %}
 <style>
   {% scope_css %}
@@ -19,6 +20,12 @@
       }
   
     {% endif %}
+    {% if module.styles.title_color.color %}
+      .cards__title {
+        color: {{ module.styles.title_color.css }};
+      }
+    {% endif %}
+
   @media screen and (min-width:992px){
       .cards__card > img {
     margin-right:{{ module.styles.image_margin_right }}px !important;
@@ -64,10 +71,15 @@
                {% set loadingAttr = imageLoading != 'disabled' ? 'loading="{{ imageLoading }}"' : '' %}
               <img class="mb-3 {% if  module.image_position == 'aside'%}mr-4 {% endif %}" src="{{ item.image.src }}" alt="{{ item.image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
             {% endif %}
-            {% inline_rich_text field="text_content" value="{{ item.text_content }}" %}
-            {% if item.add_cta %}
-              {{ button(item.cta.link, item.cta.cta_label, item.cta.button_style) }}
-            {% endif %}
+            <div class="cards__content">
+              {% if item.title %}
+                <{{ title_tag }} class="cards__title">{{ item.title|escape_html }}</{{ title_tag }}>
+              {% endif %}
+              {% inline_rich_text field="text_content" value="{{ item.text_content }}" %}
+              {% if item.add_cta %}
+                {{ button(item.cta.link, item.cta.cta_label, item.cta.button_style) }}
+              {% endif %}
+            </div>
           </div>
         </div>
       {% endfor %}
