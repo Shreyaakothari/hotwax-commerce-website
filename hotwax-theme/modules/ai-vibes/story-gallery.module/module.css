@@ -112,11 +112,6 @@
 }
 
 .hw-sg .hw-sg__title--card {
-  font-family: Montserrat, "Montserrat Fallback", "Montserrat Fallback Roboto", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.167;
-  letter-spacing: -0.01em;
   text-transform: none;
 }
 
@@ -366,10 +361,6 @@
     padding: 28px 24px 32px;
   }
 
-  .hw-sg .hw-sg__title--card {
-    font-size: 21px;
-    line-height: 1.19;
-  }
 
   .hw-sg .hw-sg__quote {
     display: none;

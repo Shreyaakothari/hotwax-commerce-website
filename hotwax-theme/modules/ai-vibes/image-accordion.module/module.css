@@ -58,10 +58,6 @@
 }
 
 .hw-ia .hw-ia__title--accordion {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.167;
-  letter-spacing: -0.01em;
   text-transform: none;
 }
 
@@ -292,10 +288,6 @@
     padding-block: 21px;
   }
 
-  .hw-ia .hw-ia__title--accordion {
-    font-size: 21px;
-    line-height: 1.19;
-  }
 
   .hw-ia .hw-ia__text {
     max-width: none;

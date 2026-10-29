@@ -140,11 +140,6 @@
 .hw-iw .hw-iw__title {
   margin: 0 0 8px;
   color: var(--iw-title);
-  font-family: Montserrat, "Montserrat Fallback", "Montserrat Fallback Roboto", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.167;
-  letter-spacing: -0.01em;
   text-transform: none;
 }
 
@@ -236,10 +231,6 @@
     border-top: 1px solid var(--iw-line);
   }
 
-  .hw-iw .hw-iw__title {
-    font-size: 21px;
-    line-height: 1.19;
-  }
 }
 
 .layout-uniform .hw-iw {

@@ -50,8 +50,6 @@
 .hw-oai .hw-oai__name {
   margin: 0;
   color: var(--oai-title);
-  font: 700 24px/1.17 var(--oai-heading-font);
-  letter-spacing: normal;
   text-transform: none;
 }
 
@@ -147,12 +145,6 @@
   }
 }
 
-@media (max-width: 640px) {
-  .hw-oai .hw-oai__name {
-    font-size: 19px;
-    line-height: 1.25;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .hw-oai .hw-oai__card--anim .hw-oai__does {

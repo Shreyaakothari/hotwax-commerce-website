@@ -318,12 +318,6 @@
 }
 
 .interactive-card__detail h3 {
-  color: #202124;
-  font-family: var(--font-family-special, var(--font-family-body, sans-serif));
-  font-size: 1.28rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0;
-  line-height: 1.22;
   margin-block: 0 8px;
 }
 

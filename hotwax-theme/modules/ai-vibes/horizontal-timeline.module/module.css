@@ -63,11 +63,6 @@
 .hw-oj .hw-oj__title {
   margin: 18px 0 8px;
   color: var(--oj-ink);
-  font-family: Montserrat, "Montserrat Fallback", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.17;
-  letter-spacing: normal;
   text-transform: none;
   text-wrap: balance;
 }
@@ -299,8 +294,6 @@
 
   .hw-oj .hw-oj__title {
     margin-top: 10px;
-    font-size: 19px;
-    line-height: 1.25;
   }
 }
 
