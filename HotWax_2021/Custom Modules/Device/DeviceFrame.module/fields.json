@@ -17,6 +17,19 @@
   "type" : "text",
   "display_width" : null
 }, {
+  "id" : "deviceframe_title_tag",
+  "name" : "title_tag",
+  "label" : "Title Tag",
+  "help_text" : "H2 when this frame starts a section. H3 when it sits under a section heading.",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ] ],
+  "multiple" : false,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h2"
+}, {
   "id" : "94465162-9065-919e-5389-af22b888bec9",
   "name" : "description",
   "label" : "description",
