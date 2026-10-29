@@ -2,7 +2,9 @@
 <div class="frame device {% if module.frame_style.graphic.banner %}banner{% endif %}">
     <div class="frame-title">
         <!-- title and subtitle of the section -->
+        {% if module.subtitle|trim %}
         <p class="subtitle"> {{ module.subtitle }} </p>
+        {% endif %}
         {% set title_tag = module.title_tag|default("h2", true) %}
         <{{ title_tag }}> {{ module.title }} </{{ title_tag }}>
 
@@ -73,6 +75,12 @@
         {% if module.frame_style.text.subtitle_color.color %}
         .frame-title > .subtitle {
             color: {{ module.frame_style.text.subtitle_color.css }};
+        }
+        {% endif %}
+
+        {% if not module.subtitle|trim %}
+        .frame-title > {{ title_tag }} {
+            margin-top: 16px;
         }
         {% endif %}
 
