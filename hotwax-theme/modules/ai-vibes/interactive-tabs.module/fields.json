@@ -12,7 +12,7 @@
 }, {
   "id" : "tabs_title_tag",
   "name" : "title_tag",
-  "label" : "Title Tag",
+  "label" : "Title tag",
   "help_text" : "H3 when a section heading sits above the tabs. H2 when there is no section heading.",
   "required" : false,
   "locked" : false,
