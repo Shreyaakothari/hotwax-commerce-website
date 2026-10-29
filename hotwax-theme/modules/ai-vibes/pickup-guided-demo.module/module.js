@@ -20,9 +20,10 @@
       var SEG_NAME = { open: 'Open', packed: 'Packed', completed: 'Completed' };
       var SEG_I = { open: 0, packed: 1, completed: 2 };
       var SEL = { open: '[data-hero] [data-act="open"]', ready: '[data-act="ready"]', confirm: '[data-alert-ok]', back: '[data-view="detail"] [data-back]', handover: '[data-hero] [data-act="handover"]',
-        pod: '[data-hero] [data-act="pod"]', id: '[data-pod-id]', save: '[data-pod-save]' };
-      var NEED_SEG = { open: 'open', handover: 'packed', pod: 'completed' };
-      var ANCHOR = { open: '.bd-card', handover: '.bd-card', pod: '.bd-card', confirm: '.bd-alert' };
+        pod: '[data-hero] [data-act="pod"]', id: '[data-pod-id]', save: '[data-pod-save]', reopen: '[data-hero] [data-act="open"]' };
+      var NEED_SEG = { open: 'open', reopen: 'open', handover: 'packed', pod: 'completed' };
+      var ANCHOR = { open: '.bd-card', reopen: '.bd-card', handover: '.bd-card', pod: '.bd-card', confirm: '.bd-alert' };
+      D.callouts.reopen = [first(D.hero.name) + '\'s order', 'The next step is on this order. Open it again.'];
 
       function reset() {
         G.clearTimers();
@@ -123,7 +124,7 @@
         clearTimeout(S.toastT);
         S.toastT = setTimeout(function () { t.classList.remove('is-in'); setTimeout(function () { t.hidden = true; }, 300); }, G.T(ms || 2600));
       }
-      function visible(el) { return el && !el.closest('[hidden]') && el.offsetParent !== null; }
+      function visible(el) { return el && !el.closest('[hidden]') && !el.closest('.is-leaving') && el.offsetParent !== null; }
       function target(name) {
         qa('.is-target').forEach(function (el) { el.classList.remove('is-target'); });
         S.target = name;
@@ -189,7 +190,7 @@
 
       root.addEventListener('click', function (e) {
         var el = e.target.closest('button');
-        if (!el && S && S.target === 'open') { var hc = e.target.closest('[data-hero]'); if (hc) el = hc.querySelector('[data-act="open"]'); }
+        if (!el && S && (S.target === 'open' || S.target === 'reopen')) { var hc = e.target.closest('[data-hero]'); if (hc) el = hc.querySelector('[data-act="open"]'); }
         if (!el || !app.contains(el) || !S) return;
         G.press(el, e);
         if (el.hasAttribute('data-seg')) {
@@ -205,6 +206,7 @@
         var k = el.dataset.act;
         if (k === 'open') {
           if (S.target === 'open') { q('[data-bell]').hidden = true; G.hideTip(true); G.show('detail'); detail(); G.setStep(1); later(300, function () { target('ready'); }); }
+          else if (S.target === 'reopen') { S.target = S.resume || 'ready'; G.hideTip(true); G.show('detail'); detail(); }
           else if (S.target === 'ready' || S.target === 'confirm' || S.target === 'back') { G.show('detail'); detail(); }
           return;
         }
@@ -220,7 +222,7 @@
         if (el.hasAttribute('data-back')) {
           G.show('list');
           render();
-          if (S.target === 'ready') tip(q('[data-hero] [data-act="open"]') || el, 'The next step is on ' + first(D.hero.name) + '\'s order. Open it again.');
+          if (S.target === 'ready' || S.target === 'confirm' || S.target === 'back') { S.resume = S.target; target('reopen'); }
           return;
         }
         if (k === 'ready' && S.target === 'ready') {
