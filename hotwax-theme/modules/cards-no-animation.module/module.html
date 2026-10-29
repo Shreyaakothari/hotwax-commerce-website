@@ -20,6 +20,14 @@
       }
   
     {% endif %}
+    .row > [class*="col-"] {
+      display: flex;
+    }
+
+    .row > [class*="col-"] > .cards__card {
+      width: 100%;
+    }
+
     {% if module.styles.title_color.color %}
       .cards__title {
         color: {{ module.styles.title_color.css }};
