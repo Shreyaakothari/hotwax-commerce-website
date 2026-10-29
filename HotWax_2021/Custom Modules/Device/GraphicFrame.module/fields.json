@@ -361,7 +361,14 @@
       "required" : false,
       "locked" : false,
       "type" : "color",
-      "display_width" : null
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null,
+        "rgba" : null,
+        "rgb" : null,
+        "hex" : null
+      }
     }, {
       "id" : "graphicframe_subtitle_color",
       "name" : "subtitle_color",
@@ -369,7 +376,14 @@
       "required" : false,
       "locked" : false,
       "type" : "color",
-      "display_width" : null
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null,
+        "rgba" : null,
+        "rgb" : null,
+        "hex" : null
+      }
     }, {
       "id" : "ce851bd0-e125-83f3-32c1-aab9d2e7b575",
       "name" : "description_spacing",

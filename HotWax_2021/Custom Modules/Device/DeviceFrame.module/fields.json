@@ -206,7 +206,14 @@
       "required" : false,
       "locked" : false,
       "type" : "color",
-      "display_width" : null
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null,
+        "rgba" : null,
+        "rgb" : null,
+        "hex" : null
+      }
     }, {
       "id" : "deviceframe_subtitle_color",
       "name" : "subtitle_color",
@@ -214,7 +221,14 @@
       "required" : false,
       "locked" : false,
       "type" : "color",
-      "display_width" : null
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null,
+        "rgba" : null,
+        "rgb" : null,
+        "hex" : null
+      }
     }, {
       "id" : "0bbbdf7a-873e-b018-fb9d-9896086e8934",
       "name" : "description_spacing_top",
