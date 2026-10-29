@@ -65,13 +65,13 @@
         }
 
         {% if module.frame_style.text.title_color.color %}
-        .frame-title {{ title_tag }} {
+        .frame-title > {{ title_tag }} {
             color: {{ module.frame_style.text.title_color.css }};
         }
         {% endif %}
 
         {% if module.frame_style.text.subtitle_color.color %}
-        .frame-title .subtitle {
+        .frame-title > .subtitle {
             color: {{ module.frame_style.text.subtitle_color.css }};
         }
         {% endif %}
