@@ -102,6 +102,10 @@ strong {
   font-weight: 700;
 }
 
+:where(p, li) :where(strong, b):not(:where([style*="color"] *, a *, .section.post-body li *, .hw-osh__vis *)) {
+  color: var(--color-text-title);
+}
+
 code {
   vertical-align: bottom;
 }
