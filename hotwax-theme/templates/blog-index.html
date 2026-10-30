@@ -16,6 +16,7 @@
 
 {% block body %}
   <div class="blog-index">
+    <h1 class="sr-only">{{ group.public_title }}</h1>
     <div class="banner">
       <div class="post-listing{% if simple_list_page %}-simple{% endif %}">
         {% for content in contents %}
@@ -37,12 +38,12 @@
                     </p>
                   </div>
                   <div class="title-wrap">
-                    <h1><a href="{{ content.absolute_url }}">{{ content.name }}</a></h1>
+                    <h2><a href="{{ content.absolute_url }}">{{ content.name }}</a></h2>
                   </div>
                   <div class="title-sub-wrap">
-                    <h2>
+                    <p class="title-sub hw-style-h2">
                       {{ content.widgets.your_custom_modulefield.body.value }}
-                    </h2>
+                    </p>
                     <div id="hubspot-author_data" class="hubspot-editable sutor-wrap" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
                       by
                       {% if content.blog_post_author %}
