@@ -195,8 +195,6 @@
               <h2>View {{ month_names[prev_month - 1] }} {{ prev_year }} updates</h2>
               {% if prev_month_post %}
                 <p>{{ (prev_month_post.post_summary or prev_month_post.post_list_content)|safe|striptags|truncate(210, True, '...') }}</p>
-              {% else %}
-                <p>Keep prior monthly notes visible without letting them compete with the active month.</p>
               {% endif %}
             </div>
             <a href="{{ blog_post_archive_url(group.id, prev_year, prev_month) }}">View notes</a>
