@@ -1,3 +1,13 @@
+.layout-uniform .body-container .dnd-section.dnd-section:has(.hw-osh)[class] {
+  padding: 0 !important;
+}
+.layout-uniform .body-container .dnd-section.dnd-section:has(.hw-osh)[class] > .row-fluid {
+  max-width: none !important;
+}
+.layout-uniform .body-container .dnd-section:has(.hw-osh) .widget-type-cell:has(.hw-osh)[class] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .hw-osh {
   --osh-top: var(--header-height, 79px);
   position: relative;
