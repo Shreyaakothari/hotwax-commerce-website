@@ -491,3 +491,40 @@ a.blog-pagination__next-link {
 #hs_cos_wrapper_post_body :is(p, li, td, th, blockquote, h2, h3, h4, h5, h6) a:not(.accordion-title) {
   text-decoration: underline !important;
 }
+
+/* Pagination */
+
+.hs-pagination .hs-pagination__link {
+  color: var(--color-text-body);
+}
+
+.hs-pagination .hs-pagination__link:hover,
+.hs-pagination .hs-pagination__link:focus-visible {
+  color: var(--color-primary);
+}
+
+.hs-pagination .hs-pagination__link-text {
+  font-weight: 600;
+}
+
+.hs-pagination .hs-pagination__link-icon svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.hs-pagination .hs-pagination__link--number {
+  justify-content: center;
+  width: 36px;
+  height: 41px;
+  padding: 0;
+}
+
+.hs-pagination .hs-pagination__link--active,
+.hs-pagination .hs-pagination__link--active:hover,
+.hs-pagination .hs-pagination__link--active:focus-visible {
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
