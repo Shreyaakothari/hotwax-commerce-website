@@ -1,0 +1,297 @@
+[
+  {
+    "id": "wws_title",
+    "name": "title",
+    "label": "Title",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Designed to work with Shopify"
+  },
+  {
+    "id": "wws_description",
+    "name": "description",
+    "label": "Description",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "HotWax Commerce is on the Shopify App Store and follows Shopify’s releases. Shopify keeps running your storefront, checkout, and POS, and HotWax Commerce runs the orders and inventory behind them."
+  },
+  {
+    "id": "wws_left_logo",
+    "name": "left_logo",
+    "label": "Left logo",
+    "required": false,
+    "locked": false,
+    "type": "image",
+    "responsive": false,
+    "resizable": false,
+    "show_loading": false,
+    "default": {
+      "src": "https://www.hotwax.co/hubfs/oms-for-shopify-product-page/2026-revamp/sfy-shopify-logo.png",
+      "alt": "Shopify",
+      "width": 141,
+      "height": 70
+    }
+  },
+  {
+    "id": "wws_right_logo",
+    "name": "right_logo",
+    "label": "Right logo",
+    "required": false,
+    "locked": false,
+    "type": "image",
+    "responsive": false,
+    "resizable": false,
+    "show_loading": false,
+    "default": {
+      "src": "https://www.hotwax.co/hubfs/oms-for-shopify-product-page/2026-revamp/sfy-hotwax-logo.svg",
+      "alt": "HotWax Commerce",
+      "width": 164,
+      "height": 53
+    }
+  },
+  {
+    "id": "wws_left_label",
+    "name": "left_label",
+    "label": "Left label",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Shown above each left card on phones and tablets.",
+    "default": "Shopify"
+  },
+  {
+    "id": "wws_right_label",
+    "name": "right_label",
+    "label": "Right label",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Shown above each right card on phones and tablets.",
+    "default": "HotWax Commerce"
+  },
+  {
+    "id": "wws_rows",
+    "name": "rows",
+    "label": "Rows",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "wws_icon",
+        "name": "icon",
+        "label": "Icon",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          [
+            "cart-outline",
+            "Cart"
+          ],
+          [
+            "storefront-outline",
+            "Store"
+          ],
+          [
+            "people-outline",
+            "People"
+          ],
+          [
+            "layers-outline",
+            "Layers"
+          ],
+          [
+            "calendar-outline",
+            "Calendar"
+          ],
+          [
+            "cube-outline",
+            "Box"
+          ],
+          [
+            "arrow-redo-outline",
+            "Move"
+          ],
+          [
+            "checkmark-done-outline",
+            "Count"
+          ],
+          [
+            "git-branch-outline",
+            "Routing"
+          ],
+          [
+            "return-up-back-outline",
+            "Return"
+          ]
+        ],
+        "display": "select",
+        "default": "cart-outline"
+      },
+      {
+        "id": "wws_label",
+        "name": "label",
+        "label": "Label",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Shopify part"
+      },
+      {
+        "id": "wws_additions",
+        "name": "additions",
+        "label": "What HotWax Commerce adds",
+        "required": false,
+        "locked": false,
+        "type": "group",
+        "occurrence": {
+          "min": 1,
+          "max": 6,
+          "default": 2
+        },
+        "children": [
+          {
+            "id": "wws_icon",
+            "name": "icon",
+            "label": "Icon",
+            "required": false,
+            "locked": false,
+            "type": "choice",
+            "choices": [
+              [
+                "cart-outline",
+                "Cart"
+              ],
+              [
+                "storefront-outline",
+                "Store"
+              ],
+              [
+                "people-outline",
+                "People"
+              ],
+              [
+                "layers-outline",
+                "Layers"
+              ],
+              [
+                "calendar-outline",
+                "Calendar"
+              ],
+              [
+                "cube-outline",
+                "Box"
+              ],
+              [
+                "arrow-redo-outline",
+                "Move"
+              ],
+              [
+                "checkmark-done-outline",
+                "Count"
+              ],
+              [
+                "git-branch-outline",
+                "Routing"
+              ],
+              [
+                "return-up-back-outline",
+                "Return"
+              ]
+            ],
+            "display": "select",
+            "default": "cube-outline"
+          },
+          {
+            "id": "wws_text",
+            "name": "text",
+            "label": "Text",
+            "required": false,
+            "locked": false,
+            "type": "text",
+            "default": "What HotWax Commerce adds"
+          }
+        ],
+        "default": [
+          {
+            "icon": "cube-outline",
+            "text": "What HotWax Commerce adds"
+          }
+        ]
+      },
+      {
+        "id": "wws_note",
+        "name": "note",
+        "label": "Note",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "help_text": "Optional grey text at the end of the row.",
+        "default": ""
+      }
+    ],
+    "default": [
+      {
+        "icon": "cart-outline",
+        "label": "Storefront and checkout",
+        "additions": [
+          {
+            "icon": "layers-outline",
+            "text": "Sellable count for every location"
+          },
+          {
+            "icon": "calendar-outline",
+            "text": "Delivery dates and pre-orders on the PDP"
+          }
+        ],
+        "note": ""
+      },
+      {
+        "icon": "storefront-outline",
+        "label": "Shopify POS",
+        "additions": [
+          {
+            "icon": "storefront-outline",
+            "text": "Pickup in store"
+          },
+          {
+            "icon": "cube-outline",
+            "text": "Ship from store"
+          },
+          {
+            "icon": "arrow-redo-outline",
+            "text": "Store transfers"
+          },
+          {
+            "icon": "checkmark-done-outline",
+            "text": "Cycle counts"
+          }
+        ],
+        "note": "inside Shopify POS"
+      },
+      {
+        "icon": "people-outline",
+        "label": "Orders and customers",
+        "additions": [
+          {
+            "icon": "git-branch-outline",
+            "text": "Routing to the best store or warehouse"
+          },
+          {
+            "icon": "return-up-back-outline",
+            "text": "Returns and exchanges sent to your ERP"
+          }
+        ],
+        "note": ""
+      }
+    ]
+  }
+]

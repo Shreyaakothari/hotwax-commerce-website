@@ -1,0 +1,437 @@
+[
+  {
+    "id": "dps_title",
+    "name": "title",
+    "label": "Title",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Same-day buy online pick up in store"
+  },
+  {
+    "id": "dps_description",
+    "name": "description",
+    "label": "Description",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "allow_new_line": false,
+    "default": "From the Shopify product page to the store counter, the OMS shows shoppers where the item is and gets every pickup order to the right store the same day."
+  },
+  {
+    "id": "dps_image",
+    "name": "image",
+    "label": "Image",
+    "required": false,
+    "locked": false,
+    "type": "image",
+    "responsive": true,
+    "resizable": false,
+    "show_loading": false,
+    "help_text": "The device picture, exported from Figma on the section colour.",
+    "default": {
+      "src": "https://www.hotwax.co/hubfs/oms-for-shopify-product-page/2026-revamp/sfy-pickup-devices.webp",
+      "alt": "Buy online pick up in store with Shopify on a phone and a tablet",
+      "width": 2193,
+      "height": 1325
+    }
+  },
+  {
+    "id": "dps_steps",
+    "name": "steps",
+    "label": "Steps",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 0,
+      "max": 4,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "dps_icon",
+        "name": "icon",
+        "label": "Icon",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          [
+            "location-outline",
+            "Location"
+          ],
+          [
+            "cart-outline",
+            "Cart"
+          ],
+          [
+            "storefront-outline",
+            "Store"
+          ],
+          [
+            "calendar-outline",
+            "Calendar"
+          ],
+          [
+            "git-branch-outline",
+            "Routing"
+          ],
+          [
+            "cube-outline",
+            "Box"
+          ],
+          [
+            "shield-checkmark-outline",
+            "Shield"
+          ],
+          [
+            "download-outline",
+            "Receive"
+          ],
+          [
+            "checkmark-done-outline",
+            "Count"
+          ],
+          [
+            "arrow-redo-outline",
+            "Move"
+          ],
+          [
+            "time-outline",
+            "Time"
+          ],
+          [
+            "search-outline",
+            "Search"
+          ]
+        ],
+        "display": "select",
+        "default": "cube-outline"
+      },
+      {
+        "id": "dps_title",
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Step title"
+      },
+      {
+        "id": "dps_description",
+        "name": "description",
+        "label": "Description",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "One or two plain sentences."
+      }
+    ],
+    "default": [
+      {
+        "icon": "location-outline",
+        "title": "See which stores have it",
+        "description": "The Shopify product page shows nearby stores with stock, hours, and distance, so shoppers pick up where the item is."
+      },
+      {
+        "icon": "cart-outline",
+        "title": "Mixed carts",
+        "description": "Shoppers put items to pick up and items to ship in one cart and check out once, instead of placing two orders."
+      },
+      {
+        "icon": "storefront-outline",
+        "title": "Ready for pickup",
+        "description": "Store teams see new pickup orders, mark them ready, and let the shopper know, without leaving Shopify POS."
+      }
+    ]
+  },
+  {
+    "id": "dps_note",
+    "name": "note",
+    "label": "Note",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "help_text": "An optional line under the steps. Leave Text empty to hide it.",
+    "children": [
+      {
+        "id": "dps_icon",
+        "name": "icon",
+        "label": "Icon",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          [
+            "location-outline",
+            "Location"
+          ],
+          [
+            "cart-outline",
+            "Cart"
+          ],
+          [
+            "storefront-outline",
+            "Store"
+          ],
+          [
+            "calendar-outline",
+            "Calendar"
+          ],
+          [
+            "git-branch-outline",
+            "Routing"
+          ],
+          [
+            "cube-outline",
+            "Box"
+          ],
+          [
+            "shield-checkmark-outline",
+            "Shield"
+          ],
+          [
+            "download-outline",
+            "Receive"
+          ],
+          [
+            "checkmark-done-outline",
+            "Count"
+          ],
+          [
+            "arrow-redo-outline",
+            "Move"
+          ],
+          [
+            "time-outline",
+            "Time"
+          ],
+          [
+            "search-outline",
+            "Search"
+          ]
+        ],
+        "display": "select",
+        "default": "arrow-redo-outline"
+      },
+      {
+        "id": "dps_lead",
+        "name": "lead",
+        "label": "Lead",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": ""
+      },
+      {
+        "id": "dps_text",
+        "name": "text",
+        "label": "Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": ""
+      }
+    ],
+    "default": {
+      "icon": "arrow-redo-outline",
+      "lead": "",
+      "text": ""
+    }
+  },
+  {
+    "id": "dps_link",
+    "name": "link",
+    "label": "Link",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "help_text": "An optional text link at the end. Leave Link text empty to hide it.",
+    "children": [
+      {
+        "id": "dps_link_text",
+        "name": "link_text",
+        "label": "Link text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": ""
+      },
+      {
+        "id": "dps_link",
+        "name": "link",
+        "label": "Link",
+        "required": false,
+        "locked": false,
+        "type": "link",
+        "supported_types": [
+          "EXTERNAL",
+          "CONTENT"
+        ],
+        "show_advanced_rel_options": false,
+        "default": {
+          "url": {
+            "type": "EXTERNAL",
+            "href": "",
+            "content_id": null
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        }
+      }
+    ],
+    "default": {
+      "link_text": "",
+      "link": {
+        "url": {
+          "type": "EXTERNAL",
+          "href": "",
+          "content_id": null
+        },
+        "open_in_new_tab": false,
+        "no_follow": false
+      }
+    }
+  },
+  {
+    "id": "dps_try_it",
+    "name": "try_it",
+    "label": "Pre-order try-it",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "help_text": "A small interactive pre-order example. Turn on Show to use it.",
+    "children": [
+      {
+        "id": "dps_show",
+        "name": "show",
+        "label": "Show",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "display": "toggle",
+        "default": false
+      },
+      {
+        "id": "dps_product",
+        "name": "product",
+        "label": "Product",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Jade Yoga Jacket"
+      },
+      {
+        "id": "dps_price",
+        "name": "price",
+        "label": "Price",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "$58.00 · Size S"
+      },
+      {
+        "id": "dps_image",
+        "name": "image",
+        "label": "Image",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "responsive": false,
+        "resizable": false,
+        "show_loading": false,
+        "default": {
+          "src": "https://www.hotwax.co/hubfs/oms-for-shopify-product-page/2026-revamp/sfy-jade-yoga-jacket-thumb.webp",
+          "alt": "",
+          "width": 128,
+          "height": 172
+        }
+      },
+      {
+        "id": "dps_date",
+        "name": "date",
+        "label": "Delivery date",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "help_text": "The estimated delivery date the product page shows.",
+        "default": "Wed 18 Nov"
+      },
+      {
+        "id": "dps_arrival_date",
+        "name": "arrival_date",
+        "label": "Purchase order arrival",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Wed 11 Nov"
+      },
+      {
+        "id": "dps_units",
+        "name": "units",
+        "label": "Units on the purchase order",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 1,
+        "max": 999,
+        "step": 1,
+        "display": "text",
+        "default": 12
+      },
+      {
+        "id": "dps_safety_stock",
+        "name": "safety_stock",
+        "label": "Safety stock",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "step": 1,
+        "display": "text",
+        "default": 2
+      },
+      {
+        "id": "dps_pre_ordered",
+        "name": "pre_ordered",
+        "label": "Already pre-ordered",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 0,
+        "max": 999,
+        "step": 1,
+        "display": "text",
+        "default": 8
+      }
+    ],
+    "default": {
+      "show": false,
+      "product": "Jade Yoga Jacket",
+      "price": "$58.00 · Size S",
+      "image": {
+        "src": "https://www.hotwax.co/hubfs/oms-for-shopify-product-page/2026-revamp/sfy-jade-yoga-jacket-thumb.webp",
+        "alt": "",
+        "width": 128,
+        "height": 172
+      },
+      "date": "Wed 18 Nov",
+      "arrival_date": "Wed 11 Nov",
+      "units": 12,
+      "safety_stock": 2,
+      "pre_ordered": 8
+    }
+  },
+  {
+    "id": "dps_section_id",
+    "name": "section_id",
+    "label": "Section ID",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Optional anchor id for the section, for example shopify-pickup.",
+    "default": ""
+  }
+]

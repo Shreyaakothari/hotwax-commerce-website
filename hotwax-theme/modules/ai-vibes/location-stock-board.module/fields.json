@@ -1,0 +1,176 @@
+[
+  {
+    "id": "lsb_title",
+    "name": "title",
+    "label": "Title",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "One sellable number for every Shopify location"
+  },
+  {
+    "id": "lsb_description",
+    "name": "description",
+    "label": "Description",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "The OMS counts the stock at every store and warehouse, holds back what each one needs, and sends each Shopify location the number it can really sell."
+  },
+  {
+    "id": "lsb_locations",
+    "name": "locations",
+    "label": "Locations",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 6,
+      "default": 4
+    },
+    "help_text": "Each unit is one square. Keep On hand at 16 or fewer so a row fits on phones.",
+    "children": [
+      {
+        "id": "lsb_type",
+        "name": "type",
+        "label": "Type",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          [
+            "store",
+            "Store"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ]
+        ],
+        "display": "select",
+        "default": "store"
+      },
+      {
+        "id": "lsb_name",
+        "name": "name",
+        "label": "Name",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Store"
+      },
+      {
+        "id": "lsb_on_hand",
+        "name": "on_hand",
+        "label": "On hand",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "display": "text",
+        "default": 8
+      },
+      {
+        "id": "lsb_held_for_orders",
+        "name": "held_for_orders",
+        "label": "Held for orders",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "display": "text",
+        "default": 1
+      },
+      {
+        "id": "lsb_safety_stock",
+        "name": "safety_stock",
+        "label": "Safety stock",
+        "required": false,
+        "locked": false,
+        "type": "number",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "display": "text",
+        "default": 2
+      }
+    ],
+    "default": [
+      {
+        "type": "store",
+        "name": "Broadway",
+        "on_hand": 14,
+        "held_for_orders": 2,
+        "safety_stock": 4
+      },
+      {
+        "type": "store",
+        "name": "Brooklyn",
+        "on_hand": 9,
+        "held_for_orders": 0,
+        "safety_stock": 2
+      },
+      {
+        "type": "store",
+        "name": "Garden City",
+        "on_hand": 6,
+        "held_for_orders": 1,
+        "safety_stock": 2
+      },
+      {
+        "type": "warehouse",
+        "name": "Central Warehouse",
+        "on_hand": 14,
+        "held_for_orders": 2,
+        "safety_stock": 0
+      }
+    ]
+  },
+  {
+    "id": "lsb_legend",
+    "name": "legend",
+    "label": "Legend",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "children": [
+      {
+        "id": "lsb_sellable",
+        "name": "sellable",
+        "label": "Sellable",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Sellable, sent to Shopify"
+      },
+      {
+        "id": "lsb_held_for_orders",
+        "name": "held_for_orders",
+        "label": "Held for orders",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Held for orders"
+      },
+      {
+        "id": "lsb_safety_stock",
+        "name": "safety_stock",
+        "label": "Safety stock",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Safety stock"
+      }
+    ],
+    "default": {
+      "sellable": "Sellable, sent to Shopify",
+      "held_for_orders": "Held for orders",
+      "safety_stock": "Safety stock"
+    }
+  }
+]
