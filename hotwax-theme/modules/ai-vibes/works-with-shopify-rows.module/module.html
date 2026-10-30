@@ -12,20 +12,21 @@
 } -%}
 {%- macro icon(n) -%}<svg class="hw-ws__ic" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false">{{ icons[n] or icons['cube-outline'] }}</svg>{%- endmacro -%}
 {%- set uid = 'hw-ws-' ~ name -%}
-<section class="hw-ws" aria-labelledby="{{ uid }}-title">
-  <h2 class="hw-ws__title" id="{{ uid }}-title">{{ module.title }}</h2>
-  {%- if module.description %}<p class="hw-ws__intro">{{ module.description }}</p>{% endif %}
+{%- set cell = module.style.background_color -%}
+<section class="hw-ws"{% if module.section_id %} id="{{ module.section_id|escape_attr }}"{% endif %}{% if module.title %} aria-labelledby="{{ uid }}-title"{% endif %}{% if cell.color %} style="--hw-ws-cell: rgba({{ cell.color|convert_rgb }}, calc({{ cell.opacity|int(100) }} / 100));"{% endif %}>
+  {%- if module.title %}<h2 class="hw-ws__title" id="{{ uid }}-title">{{ module.title|escape }}</h2>{% endif %}
+  {%- if module.description %}<p class="hw-ws__intro">{{ module.description|escape }}</p>{% endif %}
   <div class="hw-ws__heads" aria-hidden="true">
-    <div>{% if module.left_logo.src %}<img class="hw-ws__logo-l" src="{{ module.left_logo.src|escape_attr }}" alt="" width="{{ module.left_logo.width }}" height="{{ module.left_logo.height }}">{% endif %}</div><span></span>
-    <div>{% if module.right_logo.src %}<img class="hw-ws__logo-r" src="{{ module.right_logo.src|escape_attr }}" alt="" width="{{ module.right_logo.width }}" height="{{ module.right_logo.height }}">{% endif %}</div>
+    <div>{% if module.left_logo.src %}<img class="hw-ws__logo-l" src="{{ module.left_logo.src|escape_attr }}" alt="" width="{{ module.left_logo.width }}" height="{{ module.left_logo.height }}" loading="lazy" decoding="async">{% endif %}</div><span></span>
+    <div>{% if module.right_logo.src %}<img class="hw-ws__logo-r" src="{{ module.right_logo.src|escape_attr }}" alt="" width="{{ module.right_logo.width }}" height="{{ module.right_logo.height }}" loading="lazy" decoding="async">{% endif %}</div>
   </div>
   <div class="hw-ws__rows">
     {%- for r in module.rows %}
     <div class="hw-ws__row">
-      <div class="hw-ws__cell hw-ws__cell--l"><p class="hw-ws__eb">{{ module.left_label }}</p><p class="hw-ws__st">{{ icon(r.icon) }}<span>{{ r.label }}</span></p></div>
+      <div class="hw-ws__cell hw-ws__cell--l"><p class="hw-ws__eb">{{ module.left_label|escape }}</p><p class="hw-ws__st">{{ icon(r.icon) }}<span>{{ r.title|escape }}</span></p></div>
       <div class="hw-ws__link" aria-hidden="true"><i></i></div>
-      <div class="hw-ws__cell hw-ws__cell--r"><p class="hw-ws__eb">{{ module.right_label }}</p>
-        <ul class="hw-ws__items">{% for it in r.additions %}<li>{{ icon(it.icon) }}<span>{{ it.text }}</span></li>{% endfor %}{% if r.note %}<li class="hw-ws__note"><span>{{ r.note }}</span></li>{% endif %}</ul>
+      <div class="hw-ws__cell hw-ws__cell--r"><p class="hw-ws__eb">{{ module.right_label|escape }}</p>
+        <ul class="hw-ws__items">{% for it in r.additions %}<li>{{ icon(it.icon) }}<span>{{ it.text|escape }}</span></li>{% endfor %}{% if r.note %}<li class="hw-ws__note"><span>{{ r.note|escape }}</span></li>{% endif %}</ul>
       </div>
     </div>
     {%- endfor %}

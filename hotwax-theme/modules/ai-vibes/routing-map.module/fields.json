@@ -37,7 +37,7 @@
     "help_text": "Positions use the map’s own units: about 0 to 975 left to right and 0 to 610 top to bottom.",
     "children": [
       {
-        "id": "rtm_x",
+        "id": "rtm_home_x",
         "name": "x",
         "label": "Left",
         "required": false,
@@ -50,7 +50,7 @@
         "default": 527.4
       },
       {
-        "id": "rtm_y",
+        "id": "rtm_home_y",
         "name": "y",
         "label": "Top",
         "required": false,
@@ -63,7 +63,7 @@
         "default": 380.6
       },
       {
-        "id": "rtm_reach",
+        "id": "rtm_home_reach",
         "name": "reach",
         "label": "Delivery circle size",
         "required": false,
@@ -96,7 +96,7 @@
     },
     "children": [
       {
-        "id": "rtm_type",
+        "id": "rtm_location_type",
         "name": "type",
         "label": "Type",
         "required": false,
@@ -116,7 +116,7 @@
         "default": "store"
       },
       {
-        "id": "rtm_cost",
+        "id": "rtm_location_cost",
         "name": "cost",
         "label": "Cost",
         "required": false,
@@ -125,7 +125,7 @@
         "default": "$$"
       },
       {
-        "id": "rtm_x",
+        "id": "rtm_location_x",
         "name": "x",
         "label": "Left",
         "required": false,
@@ -138,7 +138,7 @@
         "default": 500
       },
       {
-        "id": "rtm_y",
+        "id": "rtm_location_y",
         "name": "y",
         "label": "Top",
         "required": false,
@@ -151,7 +151,7 @@
         "default": 300
       },
       {
-        "id": "rtm_picked",
+        "id": "rtm_location_picked",
         "name": "picked",
         "label": "Picked",
         "required": false,
@@ -207,7 +207,7 @@
     },
     "children": [
       {
-        "id": "rtm_icon",
+        "id": "rtm_step_icon",
         "name": "icon",
         "label": "Icon",
         "required": false,
@@ -243,7 +243,7 @@
         "default": "git-branch-outline"
       },
       {
-        "id": "rtm_title",
+        "id": "rtm_step_title",
         "name": "title",
         "label": "Title",
         "required": false,
@@ -252,7 +252,7 @@
         "default": "Step title"
       },
       {
-        "id": "rtm_description",
+        "id": "rtm_step_description",
         "name": "description",
         "label": "Description",
         "required": false,
@@ -276,6 +276,41 @@
         "icon": "search-outline",
         "title": "See why it went there",
         "description": "Test Drive runs one order through your rules and shows why each location was picked or skipped, with the stock at each."
+      }
+    ]
+  },
+  {
+    "id": "rtm_section_id",
+    "name": "section_id",
+    "label": "Section ID",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Optional anchor id for the section, for example shopify-routing.",
+    "default": ""
+  },
+  {
+    "id": "rtm_style",
+    "name": "style",
+    "label": "Map",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "tab": "STYLE",
+    "expanded": false,
+    "children": [
+      {
+        "id": "rtm_style_background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": false,
+        "locked": false,
+        "type": "color",
+        "help_text": "Match the section's Background setting, so the top of the map fades into it.",
+        "default": {
+          "color": "#FFFFFF",
+          "opacity": 100
+        }
       }
     ]
   }

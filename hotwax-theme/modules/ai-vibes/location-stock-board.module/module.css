@@ -1,7 +1,7 @@
 .hw-lsb { max-width:1180px; margin:0 auto; }
 .hw-lsb__title { margin:0; }
 .hw-lsb__intro { margin:20px 0 0; color:#666; font:300 16px/1.8 "Open Sans", sans-serif; }
-.hw-lsb__board { margin-top:48px; padding:40px 48px 32px; background:#fff; border-radius:16px; }
+.hw-lsb__board { margin-top:48px; padding:40px 48px 32px; background:var(--hw-lsb-board, #fff); border-radius:16px; }
 .hw-lsb__rows { margin:0; padding:0; list-style:none; }
 .hw-lsb__rows .hw-lsb__row:first-child { border-top:0; padding-top:0; }
 .hw-lsb__row { display:grid; grid-template-columns:260px minmax(0,1fr); align-items:center; column-gap:16px; padding:18px 0; border-top:1px solid #e8e8ed; }
@@ -23,3 +23,4 @@
   .hw-lsb__u { width:16px; height:16px; border-radius:3px; }
   .hw-lsb__units { gap:5px; }
 }
+.hw-lsb__sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }

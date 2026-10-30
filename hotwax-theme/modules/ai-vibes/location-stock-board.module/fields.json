@@ -32,7 +32,7 @@
     "help_text": "Each unit is one square. Keep On hand at 16 or fewer so a row fits on phones.",
     "children": [
       {
-        "id": "lsb_type",
+        "id": "lsb_location_type",
         "name": "type",
         "label": "Type",
         "required": false,
@@ -52,8 +52,8 @@
         "default": "store"
       },
       {
-        "id": "lsb_name",
-        "name": "name",
+        "id": "lsb_location_title",
+        "name": "title",
         "label": "Name",
         "required": false,
         "locked": false,
@@ -61,7 +61,7 @@
         "default": "Store"
       },
       {
-        "id": "lsb_on_hand",
+        "id": "lsb_location_on_hand",
         "name": "on_hand",
         "label": "On hand",
         "required": false,
@@ -74,7 +74,7 @@
         "default": 8
       },
       {
-        "id": "lsb_held_for_orders",
+        "id": "lsb_location_held_for_orders",
         "name": "held_for_orders",
         "label": "Held for orders",
         "required": false,
@@ -87,7 +87,7 @@
         "default": 1
       },
       {
-        "id": "lsb_safety_stock",
+        "id": "lsb_location_safety_stock",
         "name": "safety_stock",
         "label": "Safety stock",
         "required": false,
@@ -103,28 +103,28 @@
     "default": [
       {
         "type": "store",
-        "name": "Broadway",
+        "title": "Broadway",
         "on_hand": 14,
         "held_for_orders": 2,
         "safety_stock": 4
       },
       {
         "type": "store",
-        "name": "Brooklyn",
+        "title": "Brooklyn",
         "on_hand": 9,
         "held_for_orders": 0,
         "safety_stock": 2
       },
       {
         "type": "store",
-        "name": "Garden City",
+        "title": "Garden City",
         "on_hand": 6,
         "held_for_orders": 1,
         "safety_stock": 2
       },
       {
         "type": "warehouse",
-        "name": "Central Warehouse",
+        "title": "Central Warehouse",
         "on_hand": 14,
         "held_for_orders": 2,
         "safety_stock": 0
@@ -140,7 +140,7 @@
     "type": "group",
     "children": [
       {
-        "id": "lsb_sellable",
+        "id": "lsb_legend_sellable",
         "name": "sellable",
         "label": "Sellable",
         "required": false,
@@ -149,7 +149,7 @@
         "default": "Sellable, sent to Shopify"
       },
       {
-        "id": "lsb_held_for_orders",
+        "id": "lsb_legend_held_for_orders",
         "name": "held_for_orders",
         "label": "Held for orders",
         "required": false,
@@ -158,7 +158,7 @@
         "default": "Held for orders"
       },
       {
-        "id": "lsb_safety_stock",
+        "id": "lsb_legend_safety_stock",
         "name": "safety_stock",
         "label": "Safety stock",
         "required": false,
@@ -172,5 +172,40 @@
       "held_for_orders": "Held for orders",
       "safety_stock": "Safety stock"
     }
+  },
+  {
+    "id": "lsb_section_id",
+    "name": "section_id",
+    "label": "Section ID",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Optional anchor id for the section, for example shopify-inventory.",
+    "default": ""
+  },
+  {
+    "id": "lsb_style",
+    "name": "style",
+    "label": "Board",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "tab": "STYLE",
+    "expanded": false,
+    "children": [
+      {
+        "id": "lsb_style_background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": false,
+        "locked": false,
+        "type": "color",
+        "help_text": "Color of the board. The section color comes from the section's own Background setting.",
+        "default": {
+          "color": "#FFFFFF",
+          "opacity": 100
+        }
+      }
+    ]
   }
 ]

@@ -85,7 +85,7 @@
     },
     "children": [
       {
-        "id": "wws_icon",
+        "id": "wws_row_icon",
         "name": "icon",
         "label": "Icon",
         "required": false,
@@ -137,9 +137,9 @@
         "default": "cart-outline"
       },
       {
-        "id": "wws_label",
-        "name": "label",
-        "label": "Label",
+        "id": "wws_row_title",
+        "name": "title",
+        "label": "Shopify part",
         "required": false,
         "locked": false,
         "type": "text",
@@ -159,7 +159,7 @@
         },
         "children": [
           {
-            "id": "wws_icon",
+            "id": "wws_addition_icon",
             "name": "icon",
             "label": "Icon",
             "required": false,
@@ -211,7 +211,7 @@
             "default": "cube-outline"
           },
           {
-            "id": "wws_text",
+            "id": "wws_addition_text",
             "name": "text",
             "label": "Text",
             "required": false,
@@ -228,7 +228,7 @@
         ]
       },
       {
-        "id": "wws_note",
+        "id": "wws_row_note",
         "name": "note",
         "label": "Note",
         "required": false,
@@ -241,7 +241,7 @@
     "default": [
       {
         "icon": "cart-outline",
-        "label": "Storefront and checkout",
+        "title": "Storefront and checkout",
         "additions": [
           {
             "icon": "layers-outline",
@@ -256,7 +256,7 @@
       },
       {
         "icon": "storefront-outline",
-        "label": "Shopify POS",
+        "title": "Shopify POS",
         "additions": [
           {
             "icon": "storefront-outline",
@@ -279,7 +279,7 @@
       },
       {
         "icon": "people-outline",
-        "label": "Orders and customers",
+        "title": "Orders and customers",
         "additions": [
           {
             "icon": "git-branch-outline",
@@ -291,6 +291,41 @@
           }
         ],
         "note": ""
+      }
+    ]
+  },
+  {
+    "id": "wws_section_id",
+    "name": "section_id",
+    "label": "Section ID",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "help_text": "Optional anchor id for the section.",
+    "default": ""
+  },
+  {
+    "id": "wws_style",
+    "name": "style",
+    "label": "Cards",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "tab": "STYLE",
+    "expanded": false,
+    "children": [
+      {
+        "id": "wws_style_background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": false,
+        "locked": false,
+        "type": "color",
+        "help_text": "Color of the cards. The section color comes from the section's own Background setting.",
+        "default": {
+          "color": "#F5F5F7",
+          "opacity": 100
+        }
       }
     ]
   }

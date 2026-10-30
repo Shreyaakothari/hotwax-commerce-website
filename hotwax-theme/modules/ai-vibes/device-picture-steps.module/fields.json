@@ -50,7 +50,7 @@
     },
     "children": [
       {
-        "id": "dps_icon",
+        "id": "dps_step_icon",
         "name": "icon",
         "label": "Icon",
         "required": false,
@@ -110,7 +110,7 @@
         "default": "cube-outline"
       },
       {
-        "id": "dps_title",
+        "id": "dps_step_title",
         "name": "title",
         "label": "Title",
         "required": false,
@@ -119,7 +119,7 @@
         "default": "Step title"
       },
       {
-        "id": "dps_description",
+        "id": "dps_step_description",
         "name": "description",
         "label": "Description",
         "required": false,
@@ -156,7 +156,7 @@
     "help_text": "An optional line under the steps. Leave Text empty to hide it.",
     "children": [
       {
-        "id": "dps_icon",
+        "id": "dps_note_icon",
         "name": "icon",
         "label": "Icon",
         "required": false,
@@ -216,7 +216,7 @@
         "default": "arrow-redo-outline"
       },
       {
-        "id": "dps_lead",
+        "id": "dps_note_lead",
         "name": "lead",
         "label": "Lead",
         "required": false,
@@ -225,7 +225,7 @@
         "default": ""
       },
       {
-        "id": "dps_text",
+        "id": "dps_note_text",
         "name": "text",
         "label": "Text",
         "required": false,
@@ -259,7 +259,7 @@
         "default": ""
       },
       {
-        "id": "dps_link",
+        "id": "dps_link_url",
         "name": "link",
         "label": "Link",
         "required": false,
@@ -304,7 +304,7 @@
     "help_text": "A small interactive pre-order example. Turn on Show to use it.",
     "children": [
       {
-        "id": "dps_show",
+        "id": "dps_try_show",
         "name": "show",
         "label": "Show",
         "required": false,
@@ -314,7 +314,7 @@
         "default": false
       },
       {
-        "id": "dps_product",
+        "id": "dps_try_product",
         "name": "product",
         "label": "Product",
         "required": false,
@@ -323,7 +323,7 @@
         "default": "Jade Yoga Jacket"
       },
       {
-        "id": "dps_price",
+        "id": "dps_try_price",
         "name": "price",
         "label": "Price",
         "required": false,
@@ -332,7 +332,7 @@
         "default": "$58.00 · Size S"
       },
       {
-        "id": "dps_image",
+        "id": "dps_try_image",
         "name": "image",
         "label": "Image",
         "required": false,
@@ -349,7 +349,7 @@
         }
       },
       {
-        "id": "dps_date",
+        "id": "dps_try_date",
         "name": "date",
         "label": "Delivery date",
         "required": false,
@@ -359,7 +359,7 @@
         "default": "Wed 18 Nov"
       },
       {
-        "id": "dps_arrival_date",
+        "id": "dps_try_arrival_date",
         "name": "arrival_date",
         "label": "Purchase order arrival",
         "required": false,
@@ -368,7 +368,7 @@
         "default": "Wed 11 Nov"
       },
       {
-        "id": "dps_units",
+        "id": "dps_try_units",
         "name": "units",
         "label": "Units on the purchase order",
         "required": false,
@@ -381,7 +381,7 @@
         "default": 12
       },
       {
-        "id": "dps_safety_stock",
+        "id": "dps_try_safety_stock",
         "name": "safety_stock",
         "label": "Safety stock",
         "required": false,
@@ -394,7 +394,7 @@
         "default": 2
       },
       {
-        "id": "dps_pre_ordered",
+        "id": "dps_try_pre_ordered",
         "name": "pre_ordered",
         "label": "Already pre-ordered",
         "required": false,
@@ -433,5 +433,30 @@
     "type": "text",
     "help_text": "Optional anchor id for the section, for example shopify-pickup.",
     "default": ""
+  },
+  {
+    "id": "dps_style",
+    "name": "style",
+    "label": "Try-it box",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "tab": "STYLE",
+    "expanded": false,
+    "children": [
+      {
+        "id": "dps_style_background_color",
+        "name": "background_color",
+        "label": "Background color",
+        "required": false,
+        "locked": false,
+        "type": "color",
+        "help_text": "Color of the pre-order try-it box. The section color comes from the section's own Background setting.",
+        "default": {
+          "color": "#FFFFFF",
+          "opacity": 100
+        }
+      }
+    ]
   }
 ]
