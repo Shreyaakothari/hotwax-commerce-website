@@ -5,7 +5,11 @@
         <p class="subtitle"> {{ module.text.subtitle }} </p>
         {% endif %}
         {% set title_tag = module.text.title_tag|default("h2", true) %}
+        {% if (module.text.title or "")|trim %}
         <{{ title_tag }}> {{ module.text.title }} </{{ title_tag }}>
+        {% else %}
+        <div class="frame-title__gap hw-style-{{ title_tag }}" aria-hidden="true"></div>
+        {% endif %}
     </div>
 
     <!-- main description of the section -->
