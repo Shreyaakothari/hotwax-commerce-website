@@ -520,6 +520,15 @@ a.blog-pagination__next-link {
   padding: 0;
 }
 
+.hs-pagination .hs-pagination__link--first,
+.hs-pagination .hs-pagination__link--prev,
+.hs-pagination .hs-pagination__link--next,
+.hs-pagination .hs-pagination__link--last {
+  justify-content: center;
+  min-width: 36px;
+  min-height: 41px;
+}
+
 .hs-pagination .hs-pagination__link--active,
 .hs-pagination .hs-pagination__link--active:hover,
 .hs-pagination .hs-pagination__link--active:focus-visible {
@@ -527,4 +536,28 @@ a.blog-pagination__next-link {
   color: #fff;
   font-weight: 600;
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.hs-pagination .hs-pagination__link--active:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .hs-pagination .hs-pagination__link {
+    margin-right: 4px;
+  }
+
+  .hs-pagination .hs-pagination__link--number {
+    width: 32px;
+    height: 37px;
+  }
+
+  .hs-pagination .hs-pagination__link--first,
+  .hs-pagination .hs-pagination__link--prev,
+  .hs-pagination .hs-pagination__link--next,
+  .hs-pagination .hs-pagination__link--last {
+    min-width: 32px;
+    min-height: 37px;
+  }
 }
