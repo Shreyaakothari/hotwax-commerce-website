@@ -16,7 +16,7 @@
 
 {% block body %}
   <div class="blog-index">
-    <h1 class="sr-only">{{ group.public_title }}</h1>
+    {% if group.public_title %}<h1 class="sr-only">{{ group.public_title }}</h1>{% endif %}
     <div class="banner">
       <div class="post-listing{% if simple_list_page %}-simple{% endif %}">
         {% for content in contents %}
