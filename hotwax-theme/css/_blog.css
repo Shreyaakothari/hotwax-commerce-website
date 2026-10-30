@@ -541,6 +541,12 @@ a.blog-pagination__next-link {
   min-height: 41px;
 }
 
+.hs-pagination .hs-pagination__link--number:hover,
+.hs-pagination .hs-pagination__link--number:focus-visible {
+  background-color: #f5f5f5;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
 .hs-pagination .hs-pagination__link--active,
 .hs-pagination .hs-pagination__link--active:hover,
 .hs-pagination .hs-pagination__link--active:focus-visible {
